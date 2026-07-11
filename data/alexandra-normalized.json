@@ -1,0 +1,627 @@
+{
+    "id": "alexandra",
+    "legacyId": 5,
+    "title": "Alexandra",
+    "category": "led",
+    "shape": "rect",
+    "description": "Oglinda LED realizata la comanda, cu dimensiuni flexibile si optiuni suplimentare pentru confort, iluminare si montaj.",
+    "tags": [
+        "LED",
+        "Oglinzi",
+        "Dreptunghiulară",
+        "La comanda"
+    ],
+    "image": "assets/products/alexandra.png",
+    "sourceImage": "https://res.cloudinary.com/dbh1vgas3/image/upload/v1661351477/large_IMG_4209_87619da41c.png",
+    "priceMdl": 4470,
+    "priceRon": 1118,
+    "m2PriceMdl": 1878.02,
+    "defaultSize": {
+        "id": 1,
+        "width": 800,
+        "height": 800,
+        "published_at": "2021-06-07T21:09:57.571Z",
+        "created_at": "2021-06-07T21:09:52.256Z",
+        "updated_at": "2021-06-18T16:58:17.068Z",
+        "name": "800x800"
+    },
+    "smallestSize": {
+        "id": 8,
+        "width": 400,
+        "height": 400,
+        "published_at": "2021-06-18T17:04:40.529Z",
+        "created_at": "2021-06-18T17:04:27.906Z",
+        "updated_at": "2022-08-27T11:34:03.994Z",
+        "name": "400x400"
+    },
+    "biggestSize": {
+        "id": 11,
+        "width": 3000,
+        "height": 3000,
+        "published_at": "2021-06-18T17:05:40.042Z",
+        "created_at": "2021-06-18T17:05:37.652Z",
+        "updated_at": "2022-08-27T11:34:18.031Z",
+        "name": "3000x3000"
+    },
+    "recommendedSizes": [
+        {
+            "id": 1,
+            "name": "800x800",
+            "width": 800,
+            "height": 800,
+            "priceMdl": 4470,
+            "priceRon": 1118
+        },
+        {
+            "id": 2,
+            "name": "1000x800",
+            "width": 800,
+            "height": 1000,
+            "priceMdl": 1803,
+            "priceRon": 451
+        },
+        {
+            "id": 3,
+            "name": "1200x800",
+            "width": 800,
+            "height": 1200,
+            "priceMdl": 2163,
+            "priceRon": 541
+        },
+        {
+            "id": 4,
+            "name": "1000x1000",
+            "width": 1000,
+            "height": 1000,
+            "priceMdl": 2254,
+            "priceRon": 564
+        },
+        {
+            "id": 5,
+            "name": "1300x800",
+            "width": 800,
+            "height": 1300,
+            "priceMdl": 2734,
+            "priceRon": 684
+        },
+        {
+            "id": 6,
+            "name": "1500x800",
+            "width": 800,
+            "height": 1500,
+            "priceMdl": 3155,
+            "priceRon": 789
+        },
+        {
+            "id": 7,
+            "name": "1800x800",
+            "width": 800,
+            "height": 1800,
+            "priceMdl": 4327,
+            "priceRon": 1082
+        }
+    ],
+    "filters": [
+        {
+            "name": "Forma oglinzii",
+            "value": "Dreptunghiulară"
+        },
+        {
+            "name": "Tip de Iluminare",
+            "value": "LED"
+        }
+    ],
+    "materials": [
+        {
+            "id": 1,
+            "name": "LED",
+            "priceMdl": 35,
+            "priceRon": 9,
+            "type": "ml"
+        },
+        {
+            "id": 2,
+            "name": "Transformator",
+            "priceMdl": 265,
+            "priceRon": 66,
+            "type": "buc"
+        },
+        {
+            "id": 3,
+            "name": "Oglinda panza cu prelucrare",
+            "priceMdl": 500,
+            "priceRon": 125,
+            "type": "m2"
+        },
+        {
+            "id": 4,
+            "name": "Clei",
+            "priceMdl": 10,
+            "priceRon": 3,
+            "type": "buc"
+        },
+        {
+            "id": 5,
+            "name": "Capace",
+            "priceMdl": 70,
+            "priceRon": 18,
+            "type": "m2"
+        },
+        {
+            "id": 6,
+            "name": "Fixare",
+            "priceMdl": 10,
+            "priceRon": 3,
+            "type": "buc"
+        },
+        {
+            "id": 7,
+            "name": "Cadru din plastic 18/10",
+            "priceMdl": 24,
+            "priceRon": 6,
+            "type": "ml"
+        },
+        {
+            "id": 8,
+            "name": "Cadru din plastic 21/10",
+            "priceMdl": 30,
+            "priceRon": 8,
+            "type": "ml"
+        },
+        {
+            "id": 9,
+            "name": "Sablare",
+            "priceMdl": 150,
+            "priceRon": 38,
+            "type": "m2"
+        },
+        {
+            "id": 10,
+            "name": "Aracal",
+            "priceMdl": 13,
+            "priceRon": 3,
+            "type": "m2"
+        },
+        {
+            "id": 11,
+            "name": "Cablu",
+            "priceMdl": 25,
+            "priceRon": 6,
+            "type": "buc"
+        },
+        {
+            "id": 12,
+            "name": "Batist",
+            "priceMdl": 2,
+            "priceRon": 1,
+            "type": "buc"
+        },
+        {
+            "id": 13,
+            "name": "Silicon",
+            "priceMdl": 40,
+            "priceRon": 10,
+            "type": "buc"
+        },
+        {
+            "id": 14,
+            "name": "Scotch",
+            "priceMdl": 2,
+            "priceRon": 1,
+            "type": "buc"
+        },
+        {
+            "id": 15,
+            "name": "Stretch",
+            "priceMdl": 15,
+            "priceRon": 4,
+            "type": "buc"
+        },
+        {
+            "id": 16,
+            "name": "Diblu",
+            "priceMdl": 4,
+            "priceRon": 1,
+            "type": "buc"
+        },
+        {
+            "id": 18,
+            "name": "Scotch dublu",
+            "priceMdl": 10,
+            "priceRon": 3,
+            "type": "buc"
+        },
+        {
+            "id": 19,
+            "name": "Unghiuri",
+            "priceMdl": 12,
+            "priceRon": 3,
+            "type": "buc"
+        },
+        {
+            "id": 20,
+            "name": "Lucru",
+            "priceMdl": 100,
+            "priceRon": 25,
+            "type": "buc"
+        },
+        {
+            "id": 21,
+            "name": "Montare",
+            "priceMdl": 175,
+            "priceRon": 44,
+            "type": "buc"
+        },
+        {
+            "id": 22,
+            "name": "Livrare",
+            "priceMdl": 80,
+            "priceRon": 20,
+            "type": "buc"
+        },
+        {
+            "id": 23,
+            "name": "Arenda",
+            "priceMdl": 100,
+            "priceRon": 25,
+            "type": "buc"
+        },
+        {
+            "id": 24,
+            "name": "Electricitate",
+            "priceMdl": 50,
+            "priceRon": 13,
+            "type": "buc"
+        },
+        {
+            "id": 25,
+            "name": "Reclama",
+            "priceMdl": 100,
+            "priceRon": 25,
+            "type": "buc"
+        },
+        {
+            "id": 26,
+            "name": "Clips",
+            "priceMdl": 10,
+            "priceRon": 3,
+            "type": "buc"
+        },
+        {
+            "id": 69,
+            "name": "Led 50",
+            "priceMdl": 50,
+            "priceRon": 13,
+            "type": "ml"
+        }
+    ],
+    "optionGroups": [
+        {
+            "name": "Sensor",
+            "items": [
+                {
+                    "id": 1,
+                    "name": "Sensor",
+                    "fullName": "Sensor",
+                    "priceMdl": 650,
+                    "priceRon": 163,
+                    "type": "buc",
+                    "description": "Lumina de fundal se aprinde / se oprește atunci când mâna este adusa la o distanță de aproximativ 5 cm de senzorul montat pe carcasa oglinzii. Pentru a evita conectările false, nu este recomandat să amplasați senzorul aproape de"
+                }
+            ]
+        },
+        {
+            "name": "Buton",
+            "items": [
+                {
+                    "id": 2,
+                    "name": "Touch",
+                    "fullName": "Buton Touch",
+                    "priceMdl": 650,
+                    "priceRon": 163,
+                    "type": "buc",
+                    "description": "Buton touch sub forma unui buton luminos este situat pe suprafața frontală a oglinzii. Lumina de fundal se aprinde și se oprește când atingeți butonul cu mâna."
+                },
+                {
+                    "id": 3,
+                    "name": "Touch 2",
+                    "fullName": "Buton Touch 2",
+                    "priceMdl": 1300,
+                    "priceRon": 325,
+                    "type": "buc",
+                    "description": "Panou tactil cu 2 butoane pe suprafața frontală a oglinzii. Panoul vă permite să porniți în mod independent diferitele funcții electrice ale oglinzii: lumina de fundal principală, ambilight, încălzirea etc. Indicați în comentariu"
+                },
+                {
+                    "id": 4,
+                    "name": "Touch 3",
+                    "fullName": "Buton Touch 3",
+                    "priceMdl": 1950,
+                    "priceRon": 488,
+                    "type": "buc",
+                    "description": "Panou tactil cu 3 butoane pe suprafața frontală a oglinzii. Panoul vă permite să porniți în mod independent diferitele funcții electrice ale oglinzii: lumina de fundal principală, ambilight, încălzirea etc. Indicați în comentariu."
+                },
+                {
+                    "id": 44,
+                    "name": "Simplu",
+                    "fullName": "Buton Simplu",
+                    "priceMdl": 20,
+                    "priceRon": 5,
+                    "type": "buc",
+                    "description": "Buton mechanic simplu, se plaseaza pe carcasa oglinzii."
+                }
+            ]
+        },
+        {
+            "name": "Dezaburirea Oglinzii",
+            "items": [
+                {
+                    "id": 5,
+                    "name": "Dimensiunea 500x250",
+                    "fullName": "Dezaburirea Oglinzii Dimensiunea 500x250",
+                    "priceMdl": 650,
+                    "priceRon": 163,
+                    "type": "buc",
+                    "description": "Se încălzește zona cu o suprafață de 500x250mm. Previne condensul în zona de încălzire. Consumul de putere 12W."
+                },
+                {
+                    "id": 37,
+                    "name": "Dimensiunea 1000x250",
+                    "fullName": "Dezaburirea Oglinzii Dimensiunea 1000x250",
+                    "priceMdl": 1200,
+                    "priceRon": 300,
+                    "type": "buc",
+                    "description": "Se încălzește zona cu o suprafață de 1000x250 mm. Previne condensul în zona de încălzire. Consumul de energie 12W."
+                }
+            ]
+        },
+        {
+            "name": "Ecran multifuncțional",
+            "items": [
+                {
+                    "id": 8,
+                    "name": "Muzica, Bluetooth, Data, Ora, Buton touch, Temperatura",
+                    "fullName": "Ecran multifuncțional Muzica, Bluetooth, Data, Ora, Buton touch, Temperatura",
+                    "priceMdl": 3100,
+                    "priceRon": 775,
+                    "type": "buc",
+                    "description": "Ecran LCD cu 6 butoane tactile. Ceas, calendar, temperatura camerei. Radio FM și player Bluetooth. Difuzoare încorporate. Porniți lumina de fundal și încălzirea (când este selectată această opțiune)."
+                }
+            ]
+        },
+        {
+            "name": "Ramă",
+            "items": [
+                {
+                    "id": 21,
+                    "name": "MDF (vopsire)",
+                    "fullName": "Ramă MDF (vopsire)",
+                    "priceMdl": 750,
+                    "priceRon": 188,
+                    "type": "ml",
+                    "description": "În acest model nu este înclusă rama din MDF.În același timp, ca opțiune, puteți comanda una din mai multe poziții pentru rama din MDF."
+                },
+                {
+                    "id": 26,
+                    "name": "din metal",
+                    "fullName": "Ramă din metal",
+                    "priceMdl": 600,
+                    "priceRon": 150,
+                    "type": "ml",
+                    "description": "În acest model nu este înclusă rama din metal.În același timp, ca opțiune, puteți comanda una din mai multe poziții pentru rama din metal vopsita in culoarea solicitata"
+                },
+                {
+                    "id": 51,
+                    "name": "din aluminiu cu iluminarea conturului",
+                    "fullName": "Ramă din aluminiu cu iluminarea conturului",
+                    "priceMdl": 480,
+                    "priceRon": 120,
+                    "type": "ml",
+                    "description": "În acest model nu este înclusă rama din aluminiu.În același timp, ca opțiune, puteți comanda una din mai multe poziții pentru rama din aluminiu"
+                },
+                {
+                    "id": 86,
+                    "name": "din aluminiu",
+                    "fullName": "Ramă din aluminiu",
+                    "priceMdl": 150,
+                    "priceRon": 38,
+                    "type": "ml",
+                    "description": "În acest model nu este înclusă rama din aluminiu.În același timp, ca opțiune, puteți comanda una din mai multe poziții pentru rama din aluminiu"
+                },
+                {
+                    "id": 93,
+                    "name": "front vopsit RAL",
+                    "fullName": "Ramă front vopsit RAL",
+                    "priceMdl": 375,
+                    "priceRon": 94,
+                    "type": "ml",
+                    "description": ""
+                },
+                {
+                    "id": 94,
+                    "name": "carcasa culoare RAL",
+                    "fullName": "Ramă carcasa culoare RAL",
+                    "priceMdl": 100,
+                    "priceRon": 25,
+                    "type": "ml",
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "name": "Fațetă",
+            "items": [
+                {
+                    "id": 38,
+                    "name": "10mm",
+                    "fullName": "Fațetă 10mm",
+                    "priceMdl": 90,
+                    "priceRon": 23,
+                    "type": "ml",
+                    "description": "Marginea teșită a foii de oglindă de 10mm. Decor minunat. Jocul de lumină creează o strălucire „diamantă” de-a lungul marginii oglinzii"
+                },
+                {
+                    "id": 39,
+                    "name": "15mm",
+                    "fullName": "Fațetă 15mm",
+                    "priceMdl": 150,
+                    "priceRon": 38,
+                    "type": "ml",
+                    "description": "Marginea teșită a foii de oglindă de 15 mm. Decor minunat. Jocul de lumină creează o strălucire „diamantă” de-a lungul marginii oglinzii."
+                },
+                {
+                    "id": 40,
+                    "name": "20mm",
+                    "fullName": "Fațetă 20mm",
+                    "priceMdl": 190,
+                    "priceRon": 48,
+                    "type": "ml",
+                    "description": "Marginea teșită a foii de oglindă de 20 mm. Decor minunat. Jocul de lumină creează o strălucire „diamantă” de-a lungul marginii oglinzii."
+                }
+            ]
+        },
+        {
+            "name": "Foaie de oglindă",
+            "items": [
+                {
+                    "id": 41,
+                    "name": "Oglindă Cristal",
+                    "fullName": "Foaie de oglindă Oglindă Cristal",
+                    "priceMdl": 1000,
+                    "priceRon": 250,
+                    "type": "m2",
+                    "description": "Foaia de oglindă Cristal de 4mm. Fabricat din sticlă ultra clară, cu aproape nici o nuanță verzuie la capete."
+                },
+                {
+                    "id": 97,
+                    "name": "Oglindă Bronz",
+                    "fullName": "Foaie de oglindă Oglindă Bronz",
+                    "priceMdl": 1000,
+                    "priceRon": 250,
+                    "type": "m2",
+                    "description": ""
+                },
+                {
+                    "id": 98,
+                    "name": "Oglindă Grafit",
+                    "fullName": "Foaie de oglindă Oglindă Grafit",
+                    "priceMdl": 1000,
+                    "priceRon": 250,
+                    "type": "m2",
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "name": "Logo personalizat",
+            "items": [
+                {
+                    "id": 42,
+                    "name": "fără lumina LED",
+                    "fullName": "Logo personalizat fără lumina LED",
+                    "priceMdl": 299,
+                    "priceRon": 75,
+                    "type": "buc",
+                    "description": "Logo-ul personalizat fara iluminare! Puteți personaliza oglinda cu un logo in formă liberă. Este suficient să ne expediati fișierul dvs. grafic în orice format vectorial"
+                },
+                {
+                    "id": 43,
+                    "name": "cu iluminare LED",
+                    "fullName": "Logo personalizat cu iluminare LED",
+                    "priceMdl": 650,
+                    "priceRon": 163,
+                    "type": "buc",
+                    "description": "Logo-ul personalizat cu iluminare! Puteți personaliza oglinda cu un logo strălucitor in formă liberă. Este suficient să ne expediati fișierul dvs. grafic în orice format vectorial"
+                }
+            ]
+        },
+        {
+            "name": "Iluminare suplimentară",
+            "items": [
+                {
+                    "id": 45,
+                    "name": "a conturului",
+                    "fullName": "Iluminare suplimentară a conturului",
+                    "priceMdl": 120,
+                    "priceRon": 30,
+                    "type": "ml",
+                    "description": "O strălucire decorativă suplimentară de culoare albă (ambilight). Lumina blândă provine din spatele produsului și creează un frumos halou în jurul oglinzii."
+                },
+                {
+                    "id": 46,
+                    "name": "dreapta/stânga",
+                    "fullName": "Iluminare suplimentară dreapta/stânga",
+                    "priceMdl": 60,
+                    "priceRon": 15,
+                    "type": "ml",
+                    "description": "O strălucire albă suplimentară pe laturile oglinzii. O lumină blândă emană din spatele produsului în părțile din dreapta și din stânga."
+                },
+                {
+                    "id": 47,
+                    "name": "sus/jos",
+                    "fullName": "Iluminare suplimentară sus/jos",
+                    "priceMdl": 60,
+                    "priceRon": 15,
+                    "type": "ml",
+                    "description": "O strălucire albă în partea inferioară și superioară a oglinzii (ambilight). Lumina blândă provine din spatele produsului, luminând obiecte sub și deasupra oglinzii."
+                },
+                {
+                    "id": 50,
+                    "name": "inferioară",
+                    "fullName": "Iluminare suplimentară inferioară",
+                    "priceMdl": 30,
+                    "priceRon": 8,
+                    "type": "ml",
+                    "description": "O strălucire albă suplimentară în partea de jos a oglinzii (ambilight). Lumina blândă provine din spatele produsului, luminând obiecte sub oglindă."
+                }
+            ]
+        },
+        {
+            "name": "Lentilă de mărire",
+            "items": [
+                {
+                    "id": 95,
+                    "name": "3X",
+                    "fullName": "Lentilă de mărire 3X",
+                    "priceMdl": 1500,
+                    "priceRon": 375,
+                    "type": "buc",
+                    "description": "Oglindă încorporată cu mărire de 3x fără iluminare."
+                },
+                {
+                    "id": 96,
+                    "name": "3X cu iluminare",
+                    "fullName": "Lentilă de mărire 3X cu iluminare",
+                    "priceMdl": 1800,
+                    "priceRon": 450,
+                    "type": "buc",
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "name": "Baterie",
+            "items": [
+                {
+                    "id": 99,
+                    "name": "5000mAh",
+                    "fullName": "Baterie 5000mAh",
+                    "priceMdl": 250,
+                    "priceRon": 63,
+                    "type": "ml",
+                    "description": ""
+                },
+                {
+                    "id": 100,
+                    "name": "15000 mAh",
+                    "fullName": "Baterie 15000 mAh",
+                    "priceMdl": 450,
+                    "priceRon": 113,
+                    "type": "ml",
+                    "description": ""
+                }
+            ]
+        }
+    ],
+    "inStock": false,
+    "sourceUrl": "https://mirrors-md-website-or4fi4bst-alegzandru.vercel.app/produse/comanda/alexandra"
+}
