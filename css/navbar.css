@@ -80,6 +80,23 @@ header.nav-open .nav-links {
     font-size: .94rem;
 }
 
+.language-switch {
+    min-width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    color: var(--primary);
+    background: var(--white);
+    font-size: .78rem;
+    font-weight: 900;
+    box-shadow: 0 14px 30px rgba(17, 17, 17, .12);
+}
+
+header.scrolled .language-switch,
+header.nav-open .language-switch {
+    color: var(--white);
+    background: var(--primary);
+}
+
 .nav-links a:not(.cta-button)::after {
     content: "";
     position: absolute;
@@ -305,7 +322,8 @@ header.nav-open .menu {
 
     .nav-links > a:not(.mobile-menu-item):not(.mobile-menu-sale):not(.cta-button),
     .nav-links .cart-nav-button,
-    .nav-links .cta-button {
+    .nav-links .cta-button,
+    .nav-links .language-switch {
         display: none;
     }
 

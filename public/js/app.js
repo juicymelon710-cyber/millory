@@ -6,6 +6,7 @@
     const featuredPrev = document.querySelector("[data-featured-prev]");
     const featuredNext = document.querySelector("[data-featured-next]");
     const filters = document.querySelectorAll(".filter");
+    const menuFilterLinks = document.querySelectorAll("[data-catalog-filter]");
     const revealItems = document.querySelectorAll(".reveal");
     const shapeSelect = document.getElementById("shapeSelect");
     const lightSelect = document.getElementById("lightSelect");
@@ -61,6 +62,16 @@
         const visibleProducts = activeFilter === "all"
             ? products
             : products.filter((product) => product.category === activeFilter);
+
+        if (!visibleProducts.length) {
+            productGrid.innerHTML = `
+                <div class="catalog-empty reveal visible">
+                    <strong>0 produse disponibile momentan</strong>
+                    <p>Compartimentul este pastrat in meniu, dar produsele pentru aceasta categorie vor fi adaugate ulterior.</p>
+                </div>
+            `;
+            return;
+        }
 
         productGrid.innerHTML = sortPricedProducts(visibleProducts).map((product) => `
             <article class="product-card reveal visible" data-category="${product.category}" data-product-id="${product.id}" tabindex="0" role="button" aria-label="Deschide detaliile pentru ${product.title}">
@@ -501,6 +512,15 @@
             filters.forEach((item) => item.classList.remove("active"));
             button.classList.add("active");
             renderProducts(button.dataset.filter);
+        });
+    });
+
+    menuFilterLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+            const filter = link.dataset.catalogFilter;
+            filters.forEach((item) => item.classList.toggle("active", item.dataset.filter === filter));
+            renderProducts(filter);
+            document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" });
         });
     });
 

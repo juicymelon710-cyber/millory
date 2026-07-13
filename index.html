@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
@@ -19,9 +19,9 @@
 <body>
     <header id="navbar">
         <div class="mobile-location" aria-label="Locatie showroom">
-            <span aria-hidden="true">⌖</span>
+            <span aria-hidden="true">&#9906;</span>
             <strong>Strada Ismail, Chisinau</strong>
-            <button type="button">RU</button>
+            <button type="button" data-lang-toggle>RU</button>
         </div>
         <nav class="navbar" aria-label="Navigare principala">
             <a class="logo" href="#home" aria-label="Millory home">
@@ -36,8 +36,8 @@
             </button>
 
             <div class="mobile-actions" aria-label="Actiuni rapide">
-                <a href="#catalog" aria-label="Favorite">♡</a>
-                <button type="button" data-cart-open aria-label="Deschide cosul">▢</button>
+                <a href="#catalog" aria-label="Favorite">&#9825;</a>
+                <button type="button" data-cart-open aria-label="Deschide cosul">&#128722;</button>
             </div>
 
             <div class="nav-links">
@@ -54,13 +54,13 @@
                 <a href="#process">Proces</a>
                 <a href="#projects">Lucrari</a>
                 <a href="#configurator">Configurator</a>
-                <a class="mobile-menu-item" href="#catalog">Oglinzi cu iluminare LED</a>
-                <a class="mobile-menu-item" href="#catalog">Oglinzi in rame</a>
-                <a class="mobile-menu-item" href="#catalog">Oglinzi simple</a>
-                <a class="mobile-menu-item" href="#catalog">Oglinzi cu becuri</a>
-                <a class="mobile-menu-item" href="#catalog">Oglinzi in stoc</a>
-                <a class="mobile-menu-item" href="#catalog">Cabine de dus</a>
-                <a class="mobile-menu-item mobile-menu-plus" href="#catalog">Accesorii</a>
+                <a class="mobile-menu-item" href="#catalog" data-catalog-filter="led">Oglinzi cu iluminare LED</a>
+                <a class="mobile-menu-item" href="#catalog" data-catalog-filter="decor">Oglinzi in rame</a>
+                <a class="mobile-menu-item" href="#catalog" data-catalog-filter="baie">Oglinzi simple</a>
+                <a class="mobile-menu-item" href="#catalog" data-catalog-filter="decor">Oglinzi cu becuri</a>
+                <a class="mobile-menu-item" href="#catalog" data-catalog-filter="all">Oglinzi in stoc</a>
+                <a class="mobile-menu-item" href="#catalog" data-catalog-filter="dus">Cabine de dus</a>
+                <a class="mobile-menu-item mobile-menu-plus" href="#catalog" data-catalog-filter="accesorii">Accesorii</a>
                 <a class="mobile-menu-sale" href="#catalog"># Reducere</a>
                 <a class="mobile-menu-item" href="#projects">Lucrarile noastre</a>
                 <a class="mobile-menu-item" href="#process">Despre noi</a>
@@ -68,10 +68,11 @@
                 <a class="mobile-menu-item" href="#contact">Contacte</a>
                 <a class="mobile-menu-item mobile-menu-plus" href="#faq">Informatie</a>
                 <button class="cart-nav-button" type="button" data-cart-open aria-label="Deschide cosul">
-                    <span aria-hidden="true">🛒</span>
+                    <span aria-hidden="true">&#128722;</span>
                     <em data-cart-count>0</em>
                 </button>
                 <a href="#contact" class="cta-button">Cere oferta</a>
+                <button class="language-switch" type="button" data-lang-toggle>RU</button>
             </div>
         </nav>
     </header>
@@ -152,6 +153,8 @@
                     <button class="filter" type="button" data-filter="baie">Baie</button>
                     <button class="filter" type="button" data-filter="decor">Decor</button>
                     <button class="filter" type="button" data-filter="panouri">Panouri</button>
+                    <button class="filter" type="button" data-filter="dus">Cabine de dus</button>
+                    <button class="filter" type="button" data-filter="accesorii">Accesorii</button>
                 </div>
 
                 <div class="product-grid" id="productGrid"></div>
@@ -461,7 +464,7 @@
                 <span>Cos Millory</span>
                 <strong data-cart-title>0 produse</strong>
             </div>
-            <button type="button" data-cart-close aria-label="Inchide cosul">×</button>
+            <button type="button" data-cart-close aria-label="Inchide cosul">Г—</button>
         </div>
         <div class="cart-drawer-body" data-cart-items></div>
         <div class="cart-drawer-foot">
@@ -476,7 +479,7 @@
     <div class="checkout-modal" id="checkoutModal" aria-hidden="true">
         <div class="checkout-backdrop" data-checkout-close></div>
         <section class="checkout-dialog" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
-            <button class="checkout-close" type="button" data-checkout-close aria-label="Inchide finalizarea">×</button>
+            <button class="checkout-close" type="button" data-checkout-close aria-label="Inchide finalizarea">Г—</button>
             <div>
                 <p class="eyebrow">Finalizare comanda</p>
                 <h2 id="checkoutTitle">Date pentru comanda</h2>
@@ -508,3 +511,5 @@
     <script src="js/cart.js"></script>
 </body>
 </html>
+
+
