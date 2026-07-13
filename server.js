@@ -11,6 +11,7 @@ const adminUser = process.env.ADMIN_USER || "admin";
 const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
 const sessionSecret = process.env.SESSION_SECRET || "millory-change-this-secret";
 const sessions = new Map();
+const publicRoot = path.join(root, "public");
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
@@ -112,12 +113,17 @@ function requireAdmin(req, res) {
 function serveStatic(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const pathname = decodeURIComponent(url.pathname);
+  if (req.method !== "GET" && req.method !== "HEAD") {
+    send(res, 405, "Metoda nu este permisa.");
+    return;
+  }
   if (pathname.includes("/server/") || pathname.endsWith(".sqlite") || pathname.endsWith(".db")) {
     send(res, 404, "Pagina nu a fost gasita.");
     return;
   }
-  let filePath = path.normalize(path.join(root, pathname === "/" ? "index.html" : pathname));
-  if (!filePath.startsWith(root)) {
+
+  let filePath = path.normalize(path.join(publicRoot, pathname === "/" ? "index.html" : pathname));
+  if (!filePath.startsWith(publicRoot)) {
     send(res, 403, "Acces refuzat.");
     return;
   }
@@ -130,7 +136,7 @@ function serveStatic(req, res) {
         && !path.extname(pathname)
         && String(req.headers.accept || "").includes("text/html");
       if (isPageRequest) {
-        fs.readFile(path.join(root, "index.html"), (indexError, indexContent) => {
+        fs.readFile(path.join(publicRoot, "index.html"), (indexError, indexContent) => {
           if (indexError) {
             send(res, 404, "Pagina nu a fost gasita.");
             return;
