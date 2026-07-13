@@ -30,14 +30,16 @@ header.nav-open {
 .logo {
     display: flex;
     align-items: center;
-    width: 188px;
-    min-width: 188px;
+    width: 118px;
+    min-width: 118px;
     transition: var(--transition);
 }
 
 .logo-image {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 74px;
+    max-width: 100%;
+    object-fit: contain;
     display: block;
     filter: brightness(0) invert(1);
     opacity: .94;
@@ -127,8 +129,12 @@ header.nav-open .menu {
     }
 
     .logo {
-        width: 156px;
-        min-width: 156px;
+        width: 96px;
+        min-width: 96px;
+    }
+
+    .logo-image {
+        height: 62px;
     }
 
     .menu {

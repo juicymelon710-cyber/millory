@@ -1,18 +1,10 @@
-<svg width="520" height="120" viewBox="0 0 520 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+<svg width="320" height="132" viewBox="0 0 320 132" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
     <title id="title">Millory</title>
-    <desc id="desc">Millory custom mirrors logo</desc>
-    <g>
-        <rect x="28" y="24" width="72" height="72" rx="2" stroke="#4d4744" stroke-width="4"/>
-        <path d="M88 24C54.8 31.8 34 53.3 34 75.1C34 89.6 44.8 96 62 96H100V58.1H88V84H63.8C52.2 84 46.3 80.4 46.3 72.6C46.3 57.5 62.7 41.2 88 34.6V24Z" fill="#4d4744"/>
-        <path d="M88 24C54.8 31.8 34 53.3 34 75.1" stroke="#b9965b" stroke-width="2.4" stroke-linecap="round"/>
+    <desc id="desc">Millory logo with square mirror mark and crescent line</desc>
+    <g fill="#050505" stroke="#050505">
+        <rect x="118" y="8" width="84" height="84" fill="none" stroke-width="5"/>
+        <path d="M177.5 2.5C153.1 20.8 136.7 47.7 139.4 67.3C141.8 85.4 158.9 96.9 184.2 97.5C197.2 97.8 210.7 95.9 226.7 90.8C209.2 101.6 191.3 106.4 173.8 105.3C143.2 103.4 123.1 88.4 120.5 66.9C117.9 44.7 139.6 18.7 177.5 2.5Z" stroke-width="1"/>
+        <path d="M186.7 97.5C216 92.4 239.2 83.5 263.2 69.4" fill="none" stroke-width="3" stroke-linecap="round"/>
     </g>
-    <g fill="#4d4744">
-        <path d="M146 43H158.6L174.2 69.9L189.8 43H202.4V88H192.1V59.5L177.6 84.3H170.8L156.3 59.6V88H146V43Z"/>
-        <path d="M221 43H231.8V88H221V43Z"/>
-        <path d="M251 43H261.8V78.7H286.2V88H251V43Z"/>
-        <path d="M301.1 43H311.9V78.7H336.3V88H301.1V43Z"/>
-        <path d="M372.7 88.8C359 88.8 348.8 79 348.8 65.5C348.8 52 359 42.2 372.7 42.2C386.5 42.2 396.7 52 396.7 65.5C396.7 79 386.5 88.8 372.7 88.8ZM372.7 79.1C380 79.1 385.7 73.3 385.7 65.5C385.7 57.7 380 51.9 372.7 51.9C365.5 51.9 359.8 57.7 359.8 65.5C359.8 73.3 365.5 79.1 372.7 79.1Z"/>
-        <path d="M413.2 43H433.1C443.9 43 451.2 49.2 451.2 58.8C451.2 65.2 447.9 70.1 442.6 72.7L453.4 88H441L431.7 74.5H424V88H413.2V43ZM432.1 65.4C437.2 65.4 440.2 63 440.2 58.9C440.2 54.9 437.2 52.5 432.1 52.5H424V65.4H432.1Z"/>
-        <path d="M480.9 70.7L462.8 43H475.4L486.5 61.2L497.7 43H510L491.8 70.8V88H480.9V70.7Z"/>
-    </g>
+    <text x="160" y="126" text-anchor="middle" fill="#050505" font-family="Montserrat, Arial, Helvetica, sans-serif" font-size="34" font-weight="900" letter-spacing="8">MILLORY</text>
 </svg>

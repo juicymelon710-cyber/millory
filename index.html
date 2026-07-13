@@ -6,7 +6,7 @@
     <title>Millory | Oglinzi premium la comanda</title>
     <meta name="description" content="Millory creeaza oglinzi premium la comanda: oglinzi LED, oglinzi decorative, panouri oglinda si solutii pentru baie, dormitor, hol sau proiecte comerciale.">
     <meta name="theme-color" content="#111111">
-    <link rel="icon" href="assets/logos/millory-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/logos/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
     <header id="navbar">
         <nav class="navbar" aria-label="Navigare principala">
             <a class="logo" href="#home" aria-label="Millory home">
-                <img class="logo-image" src="assets/logos/millory-logo.svg" alt="Millory">
+                <img class="logo-image" src="assets/logos/millory-logo-premium.png" alt="Millory">
             </a>
 
             <button class="menu" type="button" aria-label="Deschide meniul" aria-expanded="false">
@@ -137,7 +137,7 @@
                     <h2 id="modalTitle">Oglinda</h2>
                     <div class="price-card">
                         <span>Total estimativ</span>
-                        <strong id="modalTotal">0 RON</strong>
+                        <strong id="modalTotal">0 LEI</strong>
                         <small id="modalBasePrice"></small>
                     </div>
 
@@ -238,44 +238,69 @@
             </div>
         </section>
 
-        <section class="configurator" id="configurator">
-            <div class="container configurator-grid">
-                <div class="config-copy reveal">
-                    <p class="eyebrow">Configurator rapid</p>
-                    <h2 class="section-title">Construieste prima versiune a oglinzii.</h2>
-                    <p class="section-subtitle">Clientul alege forma, lumina si dimensiunea, apoi trimite cererea. Este simplu, vizual si potrivit pentru un site fara backend.</p>
-                    <div class="config-controls" aria-label="Optiuni configurator">
-                        <label>
-                            Forma
-                            <select id="shapeSelect">
-                                <option value="rect">Dreptunghiulara</option>
-                                <option value="round">Rotunda</option>
-                                <option value="arch">Arcuita</option>
-                            </select>
-                        </label>
-                        <label>
-                            Lumina
-                            <select id="lightSelect">
-                                <option value="warm">Calda</option>
-                                <option value="neutral">Neutra</option>
-                                <option value="cool">Rece</option>
-                            </select>
-                        </label>
-                        <label>
-                            Latime: <strong id="widthValue">80 cm</strong>
-                            <input id="widthRange" type="range" min="50" max="180" value="80">
-                        </label>
+        <section class="configurator price-calculator" id="configurator" data-price-calculator>
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <p class="eyebrow">Calculator pret</p>
+                        <h2 class="section-title">Configureaza oglinda si vezi estimarea instant.</h2>
                     </div>
+                    <p class="section-subtitle">Introdu dimensiunile in milimetri, alege suplimentele dorite si vezi pretul final in LEI. Detaliile tehnice de productie raman interne.</p>
                 </div>
-                <div class="mirror-preview reveal" aria-label="Previzualizare oglinda">
-                    <div class="preview-wall">
-                        <div class="preview-mirror rect warm" id="previewMirror"></div>
-                    </div>
-                    <div class="preview-summary">
-                        <span id="summaryShape">Dreptunghiulara</span>
-                        <span id="summaryLight">LED cald</span>
-                        <span id="summaryWidth">80 cm</span>
-                    </div>
+
+                <div class="calculator-shell reveal">
+                    <form class="calculator-panel" data-calculator-form>
+                        <fieldset class="calculator-group product-picker-group">
+                            <legend>Model oglinda</legend>
+                            <label class="calculator-select-label">
+                                Alege modelul
+                                <select name="product" data-calculator-product></select>
+                            </label>
+                        </fieldset>
+
+                        <fieldset class="calculator-group dimensions-group">
+                            <legend>Dimensiuni</legend>
+                            <div class="calculator-dimensions">
+                                <label>
+                                    Inaltime
+                                    <input type="number" name="height" value="800" min="400" max="3000" step="10" inputmode="numeric" data-calculator-height>
+                                    <span>mm</span>
+                                </label>
+                                <label>
+                                    Latime
+                                    <input type="number" name="width" value="800" min="400" max="3000" step="10" inputmode="numeric" data-calculator-width>
+                                    <span>mm</span>
+                                </label>
+                            </div>
+                            <p class="calculator-warning" data-calculator-warning aria-live="polite"></p>
+                        </fieldset>
+
+                        <div class="calculator-options" data-calculator-options></div>
+                    </form>
+
+                    <aside class="calculator-summary" aria-live="polite">
+                        <div class="summary-product">
+                            <img src="assets/images/millory-showroom-hero.png" alt="" data-summary-image>
+                            <div>
+                                <small>Model</small>
+                                <b data-summary-product>Alexandra</b>
+                            </div>
+                        </div>
+                        <span>Estimare configuratie</span>
+                        <strong data-calculator-total>0 LEI</strong>
+                        <div class="summary-dimensions">
+                            <div>
+                                <small>Dimensiune</small>
+                                <b data-summary-size>800 x 800 mm</b>
+                            </div>
+                            <div>
+                                <small>Suprafata</small>
+                                <b data-summary-area>0.64 m2</b>
+                            </div>
+                        </div>
+                        <div class="selected-options" data-selected-options></div>
+                        <a class="btn btn-primary" href="#contact">Cere oferta pentru configuratie</a>
+                    </aside>
                 </div>
             </div>
         </section>
@@ -351,7 +376,7 @@
     <footer class="site-footer">
         <div class="container footer-grid">
             <div class="footer-brand">
-                <img class="footer-logo" src="assets/logos/millory-logo.svg" alt="Millory">
+                <img class="footer-logo" src="assets/logos/millory-logo-premium.png" alt="Millory">
                 <p>Oglinzi premium la comanda pentru interioare moderne.</p>
             </div>
             <div class="footer-column">
@@ -392,6 +417,7 @@
         <div class="container footer-bottom">
             <span>Millory</span>
             <span>Oglinzi create pentru lumina, proportie si detaliu.</span>
+            <a class="footer-credit" href="https://elevateweb.md" target="_blank" rel="noopener">Creat de Elevate Web</a>
         </div>
     </footer>
 
@@ -442,8 +468,10 @@
     </div>
 
     <script src="data/products.js"></script>
+    <script src="data/calculator-products.js"></script>
     <script src="assets/videos/js/navbar.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/price-calculator.js"></script>
     <script src="js/cart.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 (function () {
     const products = window.MILLORY_PRODUCTS || [];
+    const calculatorProducts = window.MILLORY_CALCULATOR_PRODUCTS || [];
     const productGrid = document.getElementById("productGrid");
     const featuredTrack = document.getElementById("featuredTrack");
     const featuredPrev = document.querySelector("[data-featured-prev]");
@@ -46,6 +47,14 @@
         cool: "LED rece"
     };
 
+    function cleanDescription(value) {
+        return String(value || "")
+            .replace(/\s*\{\{\{https?:\/\/\S+?}}}/gi, "")
+            .replace(/\s*\{\{\{https?:\/\/\S+/gi, "")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
     function renderProducts(activeFilter) {
         if (!productGrid) return;
 
@@ -53,14 +62,14 @@
             ? products
             : products.filter((product) => product.category === activeFilter);
 
-        productGrid.innerHTML = visibleProducts.map((product) => `
+        productGrid.innerHTML = sortPricedProducts(visibleProducts).map((product) => `
             <article class="product-card reveal visible" data-category="${product.category}" data-product-id="${product.id}" tabindex="0" role="button" aria-label="Deschide detaliile pentru ${product.title}">
                 <div class="product-visual">
                     ${product.image ? `<img src="${product.image}" alt="${product.title}">` : `<div class="product-mirror ${product.shape}" aria-hidden="true"></div>`}
                 </div>
                 <div class="product-body">
                     <h3>${product.title}</h3>
-                    <strong class="product-price">${product.priceRon ? `de la ${formatRon(product.priceRon)}` : "pret la cerere"}</strong>
+                    <strong class="product-price">${displayProductPrice(product)}</strong>
                     <div class="product-quick">
                         <span>Dimensiune</span>
                         <strong>${primarySize(product)}</strong>
@@ -100,7 +109,7 @@
                 <div class="featured-body">
                     <h3>${product.title}</h3>
                     <p>${primarySize(product)}</p>
-                    <strong>${product.priceRon ? `de la ${formatRon(product.priceRon)}` : "pret la cerere"}</strong>
+                    <strong>${displayProductPrice(product)}</strong>
                     <button type="button" class="featured-select">Alege dimensiunea</button>
                 </div>
             </article>
@@ -161,7 +170,7 @@
 
     function cardDescription(product) {
         const fallback = "Oglinda premium la comanda, configurabila dupa dimensiune, lumina si finisaj.";
-        const text = String(product.description || fallback).replace(/\s+/g, " ").trim();
+        const text = cleanDescription(product.description || fallback);
         if (text.length <= 112) return text;
 
         const shortText = text.slice(0, 112);
@@ -192,7 +201,94 @@
 
     function formatRon(value) {
         if (!Number(value || 0)) return "pret la cerere";
-        return `${Math.round(Number(value || 0)).toLocaleString("ro-RO")} RON`;
+        return `${Math.round(Number(value || 0)).toLocaleString("ro-RO")} LEI`;
+    }
+
+    function hasDisplayPrice(product) {
+        const calcProduct = calculatorProductFor(product);
+        if (calcProduct) {
+            const size = calcProduct.smallestSize || calcProduct.defaultSize || calcProduct.recommendedSizes[0];
+            return legacyBasePrice(calcProduct, size) > 0;
+        }
+        return Number(product.priceMdl || 0) > 0;
+    }
+
+    function sortPricedProducts(productList) {
+        return [...productList].sort((a, b) => {
+            const aMissing = hasDisplayPrice(a) ? 0 : 1;
+            const bMissing = hasDisplayPrice(b) ? 0 : 1;
+            return aMissing - bMissing;
+        });
+    }
+
+    function displayProductPrice(product) {
+        const calcProduct = calculatorProductFor(product);
+        if (!calcProduct) return product.priceMdl ? `de la ${formatRon(product.priceMdl)}` : "pret la cerere";
+        const size = calcProduct.smallestSize || calcProduct.defaultSize || calcProduct.recommendedSizes[0];
+        return `de la ${formatRon(legacyBasePrice(calcProduct, size))}`;
+    }
+
+    function calculatorProductFor(product) {
+        return calculatorProducts.find((item) => {
+            return item.id === product.id || item.slug === product.id || item.name === product.title;
+        });
+    }
+
+    function metricsFromSize(size) {
+        const height = Number(size?.height || 0);
+        const width = Number(size?.width || 0);
+        return {
+            height,
+            width,
+            area: (height * width) / 1000000,
+            perimeter: ((height + width) * 2) / 1000
+        };
+    }
+
+    function quantityByType(type, metrics) {
+        if (type === "ml") return metrics.perimeter;
+        if (type === "mm") return metrics.width / 1000;
+        if (type === "m2") return metrics.area;
+        return 1;
+    }
+
+    function legacyCoefficient(product, metrics) {
+        const largestSide = Math.max(metrics.height, metrics.width);
+        if (product.bigSize && largestSide > product.bigSize) return Number(product.bigCoefficient || 0);
+        if (product.mediumSize && largestSide > product.mediumSize) return Number(product.mediumCoefficient || 0);
+        return Number(product.smallCoefficient || 0);
+    }
+
+    function legacyBasePrice(product, size) {
+        if (!product || !size) return 0;
+        const metrics = metricsFromSize(size);
+        const cost = product.materials.reduce((total, material) => {
+            return total + Number(material.priceMdl || 0) * quantityByType(material.type, metrics);
+        }, 0);
+        return Math.round(cost * (1 + legacyCoefficient(product, metrics)));
+    }
+
+    function productSizePrice(product, size) {
+        const calcProduct = calculatorProductFor(product);
+        if (calcProduct) return legacyBasePrice(calcProduct, size);
+        return Number(size?.priceMdl || product.priceMdl || 0);
+    }
+
+    function modalProductData(product) {
+        return calculatorProductFor(product) || product;
+    }
+
+    function modalSizesFor(product) {
+        const source = modalProductData(product);
+        return [...(source.recommendedSizes || product.recommendedSizes || [])]
+            .filter(Boolean)
+            .sort((a, b) => Number(a.id || 0) - Number(b.id || 0));
+    }
+
+    function modalOptionPrice(item) {
+        if (!activeSize) return Number(item.priceMdl || item.priceRon || 0);
+        const metrics = metricsFromSize(activeSize);
+        return Math.round(Number(item.priceMdl || item.priceRon || 0) * quantityByType(item.type, metrics));
     }
 
     function getSelectedOptionsTotal() {
@@ -203,15 +299,18 @@
 
     function updateModalTotal() {
         if (!activeProduct || !activeSize) return;
-        const total = Number(activeSize.priceRon || activeProduct.priceRon || 0) + getSelectedOptionsTotal();
+        updateModalOptionPrices();
+        const total = productSizePrice(activeProduct, activeSize) + getSelectedOptionsTotal();
         modalTotal.textContent = formatRon(total);
-        modalBasePrice.textContent = `Baza: ${formatRon(activeSize.priceRon || activeProduct.priceRon)} | optiuni incluse separat`;
+        modalBasePrice.textContent = `Baza: ${formatRon(productSizePrice(activeProduct, activeSize))} | optiuni incluse separat`;
         activeSizeLabel.textContent = formatSizeName(activeSize);
     }
 
     function selectSize(sizeId) {
         if (!activeProduct) return;
-        activeSize = activeProduct.recommendedSizes.find((size) => String(size.id) === String(sizeId)) || activeProduct.recommendedSizes[0];
+        const sizes = modalSizesFor(activeProduct);
+        activeSize = sizes.find((size) => String(size.id) === String(sizeId)) || sizes[0] || activeSize;
+        if (!activeSize) return;
         modalHeight.value = activeSize.height;
         modalWidth.value = activeSize.width;
 
@@ -223,14 +322,18 @@
     }
 
     function estimateCustomPrice(product, width, height) {
-        if (!product.m2PriceMdl) return product.priceRon;
+        const calcProduct = calculatorProductFor(product);
+        if (calcProduct) return legacyBasePrice(calcProduct, { width: Number(width), height: Number(height) });
+        if (!product.m2PriceMdl) return product.priceMdl;
         const area = (Number(width || 0) * Number(height || 0)) / 1000000;
-        const priceMdl = Math.max(product.priceMdl || 0, area * product.m2PriceMdl);
-        return Math.round(priceMdl / 4);
+        return Math.max(product.priceMdl || 0, Math.round(area * product.m2PriceMdl));
     }
 
     function renderOptions(product) {
-        if (!product.optionGroups || !product.optionGroups.length) {
+        const source = modalProductData(product);
+        const optionGroups = source.optionGroups || [];
+
+        if (!optionGroups.length) {
             modalOptions.innerHTML = `
                 <div class="option-empty">
                     <strong>Configurare la comanda</strong>
@@ -240,18 +343,18 @@
             return;
         }
 
-        modalOptions.innerHTML = product.optionGroups.map((group, groupIndex) => `
+        modalOptions.innerHTML = optionGroups.map((group, groupIndex) => `
             <details class="option-group" ${groupIndex < 4 ? "open" : ""}>
                 <summary>${group.name}</summary>
                 <div class="option-list">
                     ${group.items.map((item) => `
                         <label class="option-row">
-                            <input type="checkbox" data-price="${item.priceRon}" value="${item.id}">
+                            <input type="checkbox" data-option-id="${item.id}" data-price="${modalOptionPrice(item)}" value="${item.id}">
                             <span>
                                 <strong>${item.name}</strong>
-                                ${item.description ? `<small>${item.description}</small>` : ""}
+                                ${cleanDescription(item.description) ? `<small>${cleanDescription(item.description)}</small>` : ""}
                             </span>
-                            <em>${formatRon(item.priceRon)}</em>
+                            <em data-modal-option-price="${item.id}">${formatRon(modalOptionPrice(item))}</em>
                         </label>
                     `).join("")}
                 </div>
@@ -263,28 +366,48 @@
         });
     }
 
+    function updateModalOptionPrices() {
+        if (!modalOptions || !activeProduct || !activeSize) return;
+        const source = modalProductData(activeProduct);
+        (source.optionGroups || []).forEach((group) => {
+            group.items.forEach((item) => {
+                const price = modalOptionPrice(item);
+                modalOptions.querySelectorAll(`[data-option-id="${item.id}"]`).forEach((input) => {
+                    input.dataset.price = String(price);
+                });
+                modalOptions.querySelectorAll(`[data-modal-option-price="${item.id}"]`).forEach((target) => {
+                    target.textContent = formatRon(price);
+                });
+            });
+        });
+    }
+
     function openProductModal(productId) {
         activeProduct = products.find((product) => String(product.id) === String(productId));
         if (!activeProduct || !productModal) return;
+        const source = modalProductData(activeProduct);
+        const sizes = modalSizesFor(activeProduct);
+        const defaultSize = source.defaultSize || activeProduct.defaultSize;
+        const smallestSize = source.smallestSize || activeProduct.smallestSize;
+        const biggestSize = source.biggestSize || activeProduct.biggestSize;
 
-        activeSize = activeProduct.recommendedSizes[0] || {
+        activeSize = sizes[0] || {
             id: "default",
-            name: activeProduct.defaultSize ? activeProduct.defaultSize.name : "La comanda",
-            width: activeProduct.defaultSize ? activeProduct.defaultSize.width : 800,
-            height: activeProduct.defaultSize ? activeProduct.defaultSize.height : 800,
-            priceRon: activeProduct.priceRon
+            name: defaultSize ? defaultSize.name : "La comanda",
+            width: defaultSize ? defaultSize.width : 800,
+            height: defaultSize ? defaultSize.height : 800,
+            priceMdl: activeProduct.priceMdl
         };
 
         modalImage.src = activeProduct.image || "assets/images/millory-showroom-hero.png";
         modalImage.alt = activeProduct.title;
         modalTitle.textContent = activeProduct.title;
-        modalDescription.textContent = activeProduct.description;
+        modalDescription.textContent = cleanDescription(activeProduct.description);
         modalTags.innerHTML = activeProduct.tags.map((tag) => `<span>${tag}</span>`).join("");
         modalFacts.innerHTML = [
-            activeProduct.defaultSize ? ["Dimensiune standard", activeProduct.defaultSize.name] : null,
-            activeProduct.smallestSize ? ["Minim", activeProduct.smallestSize.name] : null,
-            activeProduct.biggestSize ? ["Maxim", activeProduct.biggestSize.name] : null,
-            activeProduct.m2PriceMdl ? ["Pret m2 sursa", `${Math.round(activeProduct.m2PriceMdl).toLocaleString("ro-RO")} MDL`] : null,
+            defaultSize ? ["Dimensiune standard", defaultSize.name] : null,
+            smallestSize ? ["Minim", smallestSize.name] : null,
+            biggestSize ? ["Maxim", biggestSize.name] : null,
             activeProduct.filters && activeProduct.filters[0] ? [activeProduct.filters[0].name, activeProduct.filters[0].value] : null,
             activeProduct.filters && activeProduct.filters[1] ? [activeProduct.filters[1].name, activeProduct.filters[1].value] : null
         ].filter(Boolean).map(([label, value]) => `
@@ -293,15 +416,15 @@
                 <strong>${value}</strong>
             </div>
         `).join("");
-        modalHeight.min = activeProduct.smallestSize ? activeProduct.smallestSize.height : 400;
-        modalHeight.max = activeProduct.biggestSize ? activeProduct.biggestSize.height : 3000;
-        modalWidth.min = activeProduct.smallestSize ? activeProduct.smallestSize.width : 400;
-        modalWidth.max = activeProduct.biggestSize ? activeProduct.biggestSize.width : 3000;
+        modalHeight.min = smallestSize ? smallestSize.height : 400;
+        modalHeight.max = biggestSize ? biggestSize.height : 3000;
+        modalWidth.min = smallestSize ? smallestSize.width : 400;
+        modalWidth.max = biggestSize ? biggestSize.width : 3000;
 
-        modalSizes.innerHTML = activeProduct.recommendedSizes.map((size) => `
+        modalSizes.innerHTML = sizes.map((size) => `
             <button class="size-option" type="button" data-size-id="${size.id}">
                 <span>${formatSizeName(size)}</span>
-                <strong>${formatRon(size.priceRon)}</strong>
+                <strong>${formatRon(productSizePrice(activeProduct, size))}</strong>
             </button>
         `).join("");
 
@@ -332,7 +455,7 @@
                 name: `${modalWidth.value}x${modalHeight.value}`,
                 width: Number(modalWidth.value),
                 height: Number(modalHeight.value),
-                priceRon: estimateCustomPrice(activeProduct, modalWidth.value, modalHeight.value)
+                priceMdl: estimateCustomPrice(activeProduct, modalWidth.value, modalHeight.value)
             };
             modalSizes.querySelectorAll(".size-option").forEach((item) => item.classList.remove("active"));
             updateModalTotal();
