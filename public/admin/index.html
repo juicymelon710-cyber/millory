@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Millory Admin | Calculator</title>
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <main class="admin-shell">
+    <section class="login-panel" data-login-panel>
+      <p class="eyebrow">Millory Admin</p>
+      <h1>Administrare calculator</h1>
+      <form data-login-form>
+        <label>
+          Utilizator
+          <input name="username" autocomplete="username" required>
+        </label>
+        <label>
+          Parola
+          <input name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit">Autentificare</button>
+      </form>
+      <p class="message" data-login-message></p>
+    </section>
+
+    <section class="admin-panel" data-admin-panel hidden>
+      <header class="admin-head">
+        <div>
+          <p class="eyebrow">Calculator Millory</p>
+          <h1>Setari, materiale si suplimente</h1>
+        </div>
+        <div class="admin-actions">
+          <button type="button" class="secondary" data-add-product>Produs nou</button>
+          <button type="button" class="secondary" data-logout>Iesire</button>
+          <button type="button" data-save>Salveaza</button>
+        </div>
+      </header>
+
+      <p class="message" data-admin-message></p>
+
+      <section class="settings-grid" data-settings></section>
+      <section class="products-admin" data-products></section>
+    </section>
+  </main>
+
+  <template id="numberFieldTemplate">
+    <label>
+      <span></span>
+      <input type="number" step="0.01">
+    </label>
+  </template>
+
+  <script src="/admin/admin.js"></script>
+</body>
+</html>

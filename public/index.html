@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millory | Oglinzi premium la comanda</title>
+    <meta name="description" content="Millory creeaza oglinzi premium la comanda: oglinzi LED, oglinzi decorative, panouri oglinda si solutii pentru baie, dormitor, hol sau proiecte comerciale.">
+    <meta name="theme-color" content="#111111">
+    <link rel="icon" href="assets/logos/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/css/hero.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+    <header id="navbar">
+        <nav class="navbar" aria-label="Navigare principala">
+            <a class="logo" href="#home" aria-label="Millory home">
+                <img class="logo-image" src="assets/logos/millory-logo-premium.png" alt="Millory">
+            </a>
+
+            <button class="menu" type="button" aria-label="Deschide meniul" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-links">
+                <a href="#catalog">Catalog</a>
+                <a href="#process">Proces</a>
+                <a href="#projects">Lucrari</a>
+                <a href="#configurator">Configurator</a>
+                <button class="cart-nav-button" type="button" data-cart-open aria-label="Deschide cosul">
+                    <span aria-hidden="true">🛒</span>
+                    <em data-cart-count>0</em>
+                </button>
+                <a href="#contact" class="cta-button">Cere oferta</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <img src="assets/images/millory-showroom-hero.png" alt="Showroom premium cu oglinzi LED Millory">
+            <div class="hero-shade"></div>
+            <div class="container hero-grid">
+                <div class="hero-content reveal">
+                    <span>Oglinzi premium realizate la comanda</span>
+                    <h1>Oglinzi care schimba atmosfera unei incaperi</h1>
+                    <p>Millory proiecteaza oglinzi LED, decorative si solutii personalizate pentru interioare moderne, cu finisaje curate si consultanta de la idee pana la montaj.</p>
+                    <div class="hero-buttons">
+                        <a href="#catalog" class="btn btn-primary">Vezi catalogul</a>
+                        <a href="#configurator" class="btn btn-outline light">Configureaza oglinda</a>
+                    </div>
+                </div>
+                <aside class="hero-panel reveal" aria-label="Avantaje Millory">
+                    <div>
+                        <strong>15+</strong>
+                        <span>tipuri de finisaje si lumini</span>
+                    </div>
+                    <div>
+                        <strong>3D</strong>
+                        <span>consultanta pentru forma si dimensiuni</span>
+                    </div>
+                    <div>
+                        <strong>LED</strong>
+                        <span>lumina calda, neutra sau rece</span>
+                    </div>
+                </aside>
+            </div>
+            <a class="scroll-down" href="#catalog">catalog</a>
+        </section>
+
+        <section class="brand-strip" aria-label="Categorii rapide">
+            <div class="container strip-grid">
+                <span>Oglinzi LED</span>
+                <span>Oglinzi baie</span>
+                <span>Oglinzi decorative</span>
+                <span>Panouri oglinda</span>
+                <span>Forme la comanda</span>
+            </div>
+        </section>
+
+        <section class="featured-products" aria-labelledby="featuredTitle">
+            <div class="container">
+                <div class="featured-head reveal">
+                    <div>
+                        <p class="eyebrow">Noutati</p>
+                        <h2 class="section-title" id="featuredTitle">Modele cautate acum</h2>
+                    </div>
+                    <div class="featured-controls" aria-label="Controleaza caruselul">
+                        <button type="button" class="featured-arrow" data-featured-prev aria-label="Produse anterioare">&#8249;</button>
+                        <button type="button" class="featured-arrow" data-featured-next aria-label="Produse urmatoare">&#8250;</button>
+                    </div>
+                </div>
+
+                <div class="featured-carousel reveal">
+                    <div class="featured-track" id="featuredTrack" aria-label="Produse recomandate"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="catalog-section" id="catalog">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <p class="eyebrow">Catalog Millory</p>
+                        <h2 class="section-title">Produse principale</h2>
+                    </div>
+                </div>
+
+                <div class="filters reveal" role="tablist" aria-label="Filtre catalog">
+                    <button class="filter active" type="button" data-filter="all">Toate</button>
+                    <button class="filter" type="button" data-filter="led">LED</button>
+                    <button class="filter" type="button" data-filter="baie">Baie</button>
+                    <button class="filter" type="button" data-filter="decor">Decor</button>
+                    <button class="filter" type="button" data-filter="panouri">Panouri</button>
+                </div>
+
+                <div class="product-grid" id="productGrid"></div>
+            </div>
+        </section>
+
+        <div class="product-modal" id="productModal" aria-hidden="true">
+            <div class="product-modal-backdrop" data-close-modal></div>
+            <section class="product-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+                <button class="modal-close" type="button" aria-label="Inchide detaliile produsului" data-close-modal>&times;</button>
+                <div class="modal-media">
+                    <img id="modalImage" src="" alt="">
+                </div>
+                <div class="modal-config">
+                    <p class="eyebrow">Configurator produs</p>
+                    <h2 id="modalTitle">Oglinda</h2>
+                    <div class="price-card">
+                        <span>Total estimativ</span>
+                        <strong id="modalTotal">0 LEI</strong>
+                        <small id="modalBasePrice"></small>
+                    </div>
+
+                    <div class="dimension-box">
+                        <h3>Alege dimensiunile</h3>
+                        <div class="dimension-inputs">
+                            <label>
+                                Inaltime
+                                <input id="modalHeight" type="number" min="400" max="3000" step="10">
+                                <span>mm</span>
+                            </label>
+                            <label>
+                                Latime
+                                <input id="modalWidth" type="number" min="400" max="3000" step="10">
+                                <span>mm</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="recommended-box">
+                        <div class="modal-subhead">
+                            <h3>Dimensiuni recomandate</h3>
+                            <span id="activeSizeLabel"></span>
+                        </div>
+                        <div class="size-list" id="modalSizes"></div>
+                    </div>
+
+                    <div class="modal-product-info">
+                        <p id="modalDescription"></p>
+                        <div class="modal-tags" id="modalTags"></div>
+                        <div class="modal-facts" id="modalFacts"></div>
+                    </div>
+                </div>
+                <aside class="modal-options">
+                    <h3>Optiuni suplimentare</h3>
+                    <div class="option-groups" id="modalOptions"></div>
+                    <a class="btn btn-primary modal-order" id="modalOrder" href="#contact">Cere oferta pentru configuratie</a>
+                </aside>
+            </section>
+        </div>
+
+        <section class="process" id="process">
+            <div class="container process-grid">
+                <div class="process-copy reveal">
+                    <p class="eyebrow">Proces</p>
+                    <h2 class="section-title">De la idee la oglinda montata.</h2>
+                    <p class="section-subtitle">Un flux simplu pentru clienti care vor rezultat elegant, masuratori corecte si detalii tehnice explicate clar.</p>
+                </div>
+                <div class="steps">
+                    <article class="step reveal">
+                        <span>01</span>
+                        <h3>Alegi forma si locul</h3>
+                        <p>Baie, hol, dormitor, dressing, salon sau proiect HoReCa.</p>
+                    </article>
+                    <article class="step reveal">
+                        <span>02</span>
+                        <h3>Stabilim lumina si finisajul</h3>
+                        <p>LED cald, neutru, rece, rama metalica, muchii polish sau sandblasting.</p>
+                    </article>
+                    <article class="step reveal">
+                        <span>03</span>
+                        <h3>Pregatim oferta</h3>
+                        <p>Primeste recomandarea tehnica, termenul si pretul pentru configuratia ta.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="projects" id="projects">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <p class="eyebrow">Lookbook</p>
+                        <h2 class="section-title">Inspiratie pentru spatii reale</h2>
+                    </div>
+                    <p class="section-subtitle">Modele alese pentru bai, dressinguri si zone decorative, cu lumina controlata si forme care dau profunzime spatiului.</p>
+                </div>
+                <div class="project-grid">
+                    <article class="project-card large reveal">
+                        <img src="assets/products/sarah.jpg" alt="Oglinda Sarah arcuita cu LED frontal intr-o baie moderna">
+                        <span class="project-label">Sarah</span>
+                        <h3>Baie moderna cu LED frontal</h3>
+                        <p>Forma arcuita, contur luminos si prezenta verticala pentru zona lavoarului.</p>
+                    </article>
+                    <article class="project-card reveal">
+                        <img src="assets/products/las-vegas.jpg" alt="Oglinda Las Vegas rotunda cu becuri decorative">
+                        <span class="project-label">Las Vegas</span>
+                        <h3>Dressing elegant</h3>
+                        <p>Becuri decorative si rama rotunda pentru o zona de pregatire luminoasa.</p>
+                    </article>
+                    <article class="project-card reveal">
+                        <img src="assets/products/keir.jpg" alt="Oglinda Keir geometrica aurie pentru perete decorativ">
+                        <span class="project-label">Keir</span>
+                        <h3>Perete statement</h3>
+                        <p>Geometrie aurie pentru un accent decorativ cu efect premium.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="configurator price-calculator" id="configurator" data-price-calculator>
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <p class="eyebrow">Calculator pret</p>
+                        <h2 class="section-title">Configureaza oglinda si vezi estimarea instant.</h2>
+                    </div>
+                    <p class="section-subtitle">Introdu dimensiunile in milimetri, alege suplimentele dorite si vezi pretul final in LEI. Detaliile tehnice de productie raman interne.</p>
+                </div>
+
+                <div class="calculator-shell reveal">
+                    <form class="calculator-panel" data-calculator-form>
+                        <fieldset class="calculator-group product-picker-group">
+                            <legend>Model oglinda</legend>
+                            <label class="calculator-select-label">
+                                Alege modelul
+                                <select name="product" data-calculator-product></select>
+                            </label>
+                        </fieldset>
+
+                        <fieldset class="calculator-group dimensions-group">
+                            <legend>Dimensiuni</legend>
+                            <div class="calculator-dimensions">
+                                <label>
+                                    Inaltime
+                                    <input type="number" name="height" value="800" min="400" max="3000" step="10" inputmode="numeric" data-calculator-height>
+                                    <span>mm</span>
+                                </label>
+                                <label>
+                                    Latime
+                                    <input type="number" name="width" value="800" min="400" max="3000" step="10" inputmode="numeric" data-calculator-width>
+                                    <span>mm</span>
+                                </label>
+                            </div>
+                            <p class="calculator-warning" data-calculator-warning aria-live="polite"></p>
+                        </fieldset>
+
+                        <div class="calculator-options" data-calculator-options></div>
+                    </form>
+
+                    <aside class="calculator-summary" aria-live="polite">
+                        <div class="summary-product">
+                            <img src="assets/images/millory-showroom-hero.png" alt="" data-summary-image>
+                            <div>
+                                <small>Model</small>
+                                <b data-summary-product>Alexandra</b>
+                            </div>
+                        </div>
+                        <span>Estimare configuratie</span>
+                        <strong data-calculator-total>0 LEI</strong>
+                        <div class="summary-dimensions">
+                            <div>
+                                <small>Dimensiune</small>
+                                <b data-summary-size>800 x 800 mm</b>
+                            </div>
+                            <div>
+                                <small>Suprafata</small>
+                                <b data-summary-area>0.64 m2</b>
+                            </div>
+                        </div>
+                        <div class="selected-options" data-selected-options></div>
+                        <a class="btn btn-primary" href="#contact">Cere oferta pentru configuratie</a>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section" id="faq">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <p class="eyebrow">Intrebari frecvente</p>
+                        <h2 class="section-title">Detalii utile inainte de comanda</h2>
+                    </div>
+                </div>
+                <div class="faq-grid">
+                    <details class="faq-item reveal">
+                        <summary>Cand voi primi produsul comandat?</summary>
+                        <p>Produsul se livreaza in aproximativ 10-20 zile lucratoare de la confirmarea comenzii. In acest timp oglinda este confectionata si pregatita pentru livrare.</p>
+                    </details>
+                    <details class="faq-item reveal">
+                        <summary>Pot comanda oglinzi de dimensiuni mari sau atipice?</summary>
+                        <p>Da. Se pot comanda oglinzi intr-o gama larga de dimensiuni, inclusiv dimensiuni atipice, daca acestea nu depasesc limita tehnica de productie.</p>
+                    </details>
+                    <details class="faq-item reveal">
+                        <summary>Oferiti garantie?</summary>
+                        <p>Da. Sistemul de iluminare, senzorii si transformatoarele sunt acoperite de garantie. Daca iluminarea nu functioneaza corect, produsul se verifica si componenta se inlocuieste.</p>
+                    </details>
+                    <details class="faq-item reveal">
+                        <summary>Cat costa livrarea?</summary>
+                        <p>Livrarea este gratuita in Chisinau. Pentru alte localitati sau tari, costul se stabileste in functie de greutatea si dimensiunea oglinzii.</p>
+                    </details>
+                    <details class="faq-item reveal">
+                        <summary>Care sunt modalitatile de plata?</summary>
+                        <p>Comanda poate fi achitata prin card bancar, transfer bancar sau ramburs, acolo unde tipul produsului si livrarea permit aceasta optiune.</p>
+                    </details>
+                    <details class="faq-item reveal">
+                        <summary>Cum se aprinde lumina oglinzii?</summary>
+                        <p>Oglinzile LED pot avea intrerupator mecanic, buton touch, senzor de miscare sau buton touch dublu, in functie de model si de configuratia aleasa.</p>
+                    </details>
+                    <details class="faq-item reveal">
+                        <summary>Ce temperatura de culoare are lumina?</summary>
+                        <p>LED-urile pot fi configurate cu lumina rece sau cu o nuanta mai calda, in functie de preferinta si de atmosfera dorita in incapere.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container contact-grid">
+                <div class="contact-copy reveal">
+                    <p class="eyebrow">Oferta personalizata</p>
+                    <h2 class="section-title">Trimite dimensiunile si iti pregatim recomandarea.</h2>
+                    <p class="section-subtitle">Am lasat formularul pregatit pentru front-end. Cand confirmi datele de contact reale, conectez butoanele spre telefon, WhatsApp sau email.</p>
+                </div>
+                <form class="contact-form reveal">
+                    <label>
+                        Nume
+                        <input type="text" name="name" placeholder="Numele tau">
+                    </label>
+                    <label>
+                        Telefon sau email
+                        <input type="text" name="contact" placeholder="+40 ... / email">
+                    </label>
+                    <label>
+                        Detalii oglinda
+                        <textarea name="message" rows="4" placeholder="Dimensiuni, forma, tip lumina, camera..."></textarea>
+                    </label>
+                    <button class="btn btn-primary" type="submit">Pregateste mesajul</button>
+                    <p class="form-note" id="formNote" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <img class="footer-logo" src="assets/logos/millory-logo-premium.png" alt="Millory">
+                <p>Oglinzi premium la comanda pentru interioare moderne.</p>
+            </div>
+            <div class="footer-column">
+                <span>Catalog</span>
+                <a href="#catalog">Oglinzi LED</a>
+                <a href="#catalog">Oglinzi baie</a>
+                <a href="#catalog">Oglinzi decorative</a>
+                <a href="#catalog">Mese pentru make-up</a>
+            </div>
+            <div class="footer-column">
+                <span>Meniu</span>
+                <a href="#home">Principala</a>
+                <a href="#catalog">Catalog</a>
+                <a href="#projects">Lookbook</a>
+                <a href="#configurator">Configurator</a>
+            </div>
+            <div class="footer-column footer-contact">
+                <span>Contacte</span>
+                <a href="tel:+40754599101">+40 754 599 101</a>
+                <a href="mailto:millory.ro@gmail.com">millory.ro@gmail.com</a>
+                <p>Iasi</p>
+            </div>
+            <div class="footer-social footer-column" aria-label="Retele sociale Millory">
+                <span>Social</span>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/millory.ro?igsh=MWN2Yzdyb3pjcGxreQ==" target="_blank" rel="noopener noreferrer" aria-label="Instagram Millory">
+                        IG
+                    </a>
+                    <a href="https://www.facebook.com/share/199KQBAmx9/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook Millory">
+                        FB
+                    </a>
+                    <a href="https://www.tiktok.com/@millory.ro?_r=1&_t=ZS-97uRvRLkqfN" target="_blank" rel="noopener noreferrer" aria-label="TikTok Millory">
+                        TT
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <span>Millory</span>
+            <span>Oglinzi create pentru lumina, proportie si detaliu.</span>
+            <a class="footer-credit" href="https://elevateweb.md" target="_blank" rel="noopener">Creat de Elevate Web</a>
+        </div>
+    </footer>
+
+    <div class="cart-overlay" data-cart-close hidden></div>
+    <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Cos de cumparaturi">
+        <div class="cart-drawer-head">
+            <div>
+                <span>Cos Millory</span>
+                <strong data-cart-title>0 produse</strong>
+            </div>
+            <button type="button" data-cart-close aria-label="Inchide cosul">×</button>
+        </div>
+        <div class="cart-drawer-body" data-cart-items></div>
+        <div class="cart-drawer-foot">
+            <div class="cart-total-row">
+                <span>Total</span>
+                <strong data-cart-total>0 MDL</strong>
+            </div>
+            <button class="btn btn-primary cart-checkout-button" type="button" data-checkout-open>Finalizeaza comanda</button>
+        </div>
+    </aside>
+
+    <div class="checkout-modal" id="checkoutModal" aria-hidden="true">
+        <div class="checkout-backdrop" data-checkout-close></div>
+        <section class="checkout-dialog" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+            <button class="checkout-close" type="button" data-checkout-close aria-label="Inchide finalizarea">×</button>
+            <div>
+                <p class="eyebrow">Finalizare comanda</p>
+                <h2 id="checkoutTitle">Date pentru comanda</h2>
+            </div>
+            <form class="checkout-form" data-checkout-form>
+                <div class="checkout-fields">
+                    <label>Prenume<input name="firstName" type="text" required></label>
+                    <label>Nume<input name="lastName" type="text" required></label>
+                    <label>Telefon<input name="phone" type="tel" required></label>
+                    <label>Email<input name="email" type="email"></label>
+                    <label>Oras<input name="city" type="text" required></label>
+                    <label>Adresa<input name="address" type="text" required></label>
+                    <label class="checkout-wide">Observatii<textarea name="notes" rows="3"></textarea></label>
+                </div>
+                <div class="checkout-summary" data-checkout-summary></div>
+                <div class="checkout-actions">
+                    <button class="btn btn-primary" type="submit" data-checkout-channel="whatsapp">Trimite prin WhatsApp</button>
+                    <button class="btn btn-outline" type="submit" data-checkout-channel="viber">Trimite prin Viber</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script src="data/products.js"></script>
+    <script src="data/calculator-products.js"></script>
+    <script src="assets/videos/js/navbar.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/price-calculator.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>
