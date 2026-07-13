@@ -81,23 +81,6 @@ header.nav-open .nav-links {
     font-size: .94rem;
 }
 
-.language-switch {
-    min-width: 42px;
-    height: 42px;
-    border-radius: 999px;
-    color: var(--primary);
-    background: var(--white);
-    font-size: .78rem;
-    font-weight: 900;
-    box-shadow: 0 14px 30px rgba(17, 17, 17, .12);
-}
-
-header.scrolled .language-switch,
-header.nav-open .language-switch {
-    color: var(--white);
-    background: var(--primary);
-}
-
 .nav-links a:not(.cta-button)::after {
     content: "";
     position: absolute;
@@ -167,7 +150,7 @@ header.nav-open .menu {
         height: 38px;
         margin: 0 auto 7px;
         display: grid;
-        grid-template-columns: auto minmax(0, 1fr) auto;
+        grid-template-columns: auto minmax(0, 1fr);
         gap: 8px;
         align-items: center;
         color: var(--white);
@@ -191,16 +174,6 @@ header.nav-open .menu {
         text-overflow: ellipsis;
         white-space: nowrap;
         font-weight: 600;
-    }
-
-    .mobile-location button {
-        width: 38px;
-        height: 30px;
-        border-radius: 11px;
-        color: var(--white);
-        background: #050505;
-        font-size: .72rem;
-        font-weight: 800;
     }
 
     .navbar {
@@ -348,8 +321,7 @@ header.nav-open .menu {
     .nav-links > a:not(.mobile-menu-item):not(.mobile-menu-sale):not(.cta-button),
     .nav-links .favorite-nav-button,
     .nav-links .cart-nav-button,
-    .nav-links .cta-button,
-    .nav-links .language-switch {
+    .nav-links .cta-button {
         display: none;
     }
 
