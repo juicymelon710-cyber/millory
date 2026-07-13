@@ -2,3 +2,6 @@
 *.png filter=lfs diff=lfs merge=lfs -text
 public/assets/images/*.png -filter -diff -merge -text
 public/assets/logos/*.png -filter -diff -merge -text
+public/assets/products/sarah.jpg -filter -diff -merge -text
+public/assets/products/las-vegas.jpg -filter -diff -merge -text
+public/assets/products/keir.jpg -filter -diff -merge -text
