@@ -112,7 +112,7 @@ function requireAdmin(req, res) {
 function serveStatic(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const pathname = decodeURIComponent(url.pathname);
-  if (pathname.includes("/server/") || pathname === "/data/calculator-products.js" || pathname.endsWith(".sqlite") || pathname.endsWith(".db")) {
+  if (pathname.includes("/server/") || pathname.endsWith(".sqlite") || pathname.endsWith(".db")) {
     send(res, 404, "Pagina nu a fost gasita.");
     return;
   }
@@ -126,6 +126,20 @@ function serveStatic(req, res) {
   }
   fs.readFile(filePath, (error, content) => {
     if (error) {
+      const isPageRequest = req.method === "GET"
+        && !path.extname(pathname)
+        && String(req.headers.accept || "").includes("text/html");
+      if (isPageRequest) {
+        fs.readFile(path.join(root, "index.html"), (indexError, indexContent) => {
+          if (indexError) {
+            send(res, 404, "Pagina nu a fost gasita.");
+            return;
+          }
+          res.writeHead(200, { "Content-Type": mimeTypes[".html"] });
+          res.end(indexContent);
+        });
+        return;
+      }
       send(res, 404, "Pagina nu a fost gasita.");
       return;
     }
@@ -189,6 +203,12 @@ async function route(req, res) {
   } catch (error) {
     sendJson(res, 400, { ok: false, message: error.message });
   }
+}
+
+if (require.main === module || process.env.VERCEL) {
+  http.createServer(route).listen(port, () => {
+    console.log(`Millory server running on port ${port}`);
+  });
 }
 
 module.exports = route;
