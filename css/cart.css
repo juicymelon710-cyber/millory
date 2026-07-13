@@ -1,4 +1,10 @@
-.cart-nav-button {
+.product-card,
+.featured-card {
+    position: relative;
+}
+
+.cart-nav-button,
+.favorite-nav-button {
     position: relative;
     min-width: 44px;
     min-height: 44px;
@@ -54,6 +60,35 @@ header.nav-open .cart-nav-button {
     transition: var(--transition);
 }
 
+.favorite-nav-button {
+    font-size: 1.35rem;
+}
+
+.favorite-card-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: var(--primary);
+    background: rgba(255, 255, 255, .92);
+    border: 1px solid rgba(17, 17, 17, .08);
+    box-shadow: 0 12px 26px rgba(17, 17, 17, .12);
+    font-size: 1.6rem;
+    line-height: 1;
+    transition: var(--transition);
+}
+
+.favorite-card-button:hover,
+.favorite-card-button.is-favorite {
+    color: #f0442f;
+    transform: translateY(-2px) scale(1.04);
+}
+
 .cart-card-button:hover,
 .cart-card-button.is-added {
     background: var(--accent);
@@ -61,6 +96,14 @@ header.nav-open .cart-nav-button {
 }
 
 .cart-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1400;
+    background: rgba(8, 8, 8, .48);
+    backdrop-filter: blur(8px);
+}
+
+.favorites-overlay {
     position: fixed;
     inset: 0;
     z-index: 1400;
@@ -76,7 +119,8 @@ header.nav-open .cart-nav-button {
     backdrop-filter: blur(8px);
 }
 
-.cart-drawer {
+.cart-drawer,
+.favorites-drawer {
     position: fixed;
     inset: 0 0 0 auto;
     z-index: 1450;
@@ -89,7 +133,8 @@ header.nav-open .cart-nav-button {
     transition: transform .32s ease;
 }
 
-.cart-drawer.open {
+.cart-drawer.open,
+.favorites-drawer.open {
     transform: translateX(0);
 }
 
@@ -156,6 +201,28 @@ header.nav-open .cart-nav-button {
     border: 1px solid var(--line);
     border-radius: var(--radius-medium);
     line-height: 1.6;
+}
+
+.favorite-actions {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.favorite-actions button {
+    min-height: 34px;
+    padding: 0 12px;
+    border-radius: 999px;
+    color: var(--white);
+    background: var(--primary);
+    font-size: .8rem;
+    font-weight: 900;
+}
+
+.favorite-actions button:last-child {
+    color: var(--accent);
+    background: var(--soft);
 }
 
 .cart-item {
@@ -351,6 +418,14 @@ header.nav-open .cart-nav-button {
         gap: 5px;
         padding: 0 8px;
         font-size: .78rem;
+    }
+
+    .favorite-card-button {
+        top: 8px;
+        right: 8px;
+        width: 36px;
+        height: 36px;
+        font-size: 1.35rem;
     }
 
     .checkout-fields,

@@ -346,6 +346,7 @@ header.nav-open .menu {
     }
 
     .nav-links > a:not(.mobile-menu-item):not(.mobile-menu-sale):not(.cta-button),
+    .nav-links .favorite-nav-button,
     .nav-links .cart-nav-button,
     .nav-links .cta-button,
     .nav-links .language-switch {

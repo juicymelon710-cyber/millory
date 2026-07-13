@@ -36,7 +36,7 @@
             </button>
 
             <div class="mobile-actions" aria-label="Actiuni rapide">
-                <a href="#catalog" aria-label="Favorite">&#9825;</a>
+                <button type="button" data-favorites-open aria-label="Deschide favoritele">&#9825;</button>
                 <button type="button" data-cart-open aria-label="Deschide cosul">&#128722;</button>
             </div>
 
@@ -55,6 +55,7 @@
                 <a href="#process">Proces</a>
                 <a href="#projects">Lucrari</a>
                 <a href="#configurator">Configurator</a>
+                <button class="favorite-nav-button" type="button" data-favorites-open aria-label="Deschide favoritele">&#9825;</button>
                 <a class="mobile-menu-item" href="#catalog" data-catalog-filter="led">Oglinzi cu iluminare LED</a>
                 <a class="mobile-menu-item" href="#catalog" data-catalog-filter="decor">Oglinzi in rame</a>
                 <a class="mobile-menu-item" href="#catalog" data-catalog-filter="baie">Oglinzi simple</a>
@@ -465,7 +466,7 @@
                 <span>Cos Millory</span>
                 <strong data-cart-title>0 produse</strong>
             </div>
-            <button type="button" data-cart-close aria-label="Inchide cosul">Г—</button>
+            <button type="button" data-cart-close aria-label="Inchide cosul">&times;</button>
         </div>
         <div class="cart-drawer-body" data-cart-items></div>
         <div class="cart-drawer-foot">
@@ -477,10 +478,26 @@
         </div>
     </aside>
 
+    <div class="favorites-overlay" data-favorites-close hidden></div>
+    <aside class="favorites-drawer" id="favoritesDrawer" aria-hidden="true" aria-label="Produse favorite">
+        <div class="cart-drawer-head">
+            <div>
+                <span>Favorite Millory</span>
+                <strong data-favorites-title>0 produse</strong>
+            </div>
+            <button type="button" data-favorites-close aria-label="Inchide favoritele">&times;</button>
+        </div>
+        <div class="cart-drawer-body" data-favorites-items></div>
+        <div class="cart-drawer-foot">
+            <button class="btn btn-primary" type="button" data-favorites-to-cart>Adauga favoritele in cos</button>
+            <a class="btn btn-outline" href="#catalog" data-favorites-close>Continua cumparaturile</a>
+        </div>
+    </aside>
+
     <div class="checkout-modal" id="checkoutModal" aria-hidden="true">
         <div class="checkout-backdrop" data-checkout-close></div>
         <section class="checkout-dialog" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
-            <button class="checkout-close" type="button" data-checkout-close aria-label="Inchide finalizarea">Г—</button>
+            <button class="checkout-close" type="button" data-checkout-close aria-label="Inchide finalizarea">&times;</button>
             <div>
                 <p class="eyebrow">Finalizare comanda</p>
                 <h2 id="checkoutTitle">Date pentru comanda</h2>
