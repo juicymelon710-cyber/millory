@@ -156,6 +156,7 @@ header.nav-open .menu {
         color: var(--white);
         font-size: .83rem;
         letter-spacing: .06em;
+        text-decoration: none;
     }
 
     .mobile-location span {
@@ -359,16 +360,16 @@ header.nav-open .menu {
         height: 46px;
         border-radius: 50%;
         color: var(--white);
-        background: #278fff;
+        background: #7f37c6;
         font-weight: 900;
     }
 
     .mobile-menu-contact div a:nth-child(2) {
-        background: #7f37c6;
+        background: #21bf4b;
     }
 
     .mobile-menu-contact div a:nth-child(3) {
-        background: #21bf4b;
+        background: #278fff;
     }
 
     .nav-links a {
