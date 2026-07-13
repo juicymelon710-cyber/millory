@@ -191,7 +191,4 @@ async function route(req, res) {
   }
 }
 
-http.createServer(route).listen(port, () => {
-  console.log(`Millory ruleaza pe http://localhost:${port}`);
-  console.log(`Admin: http://localhost:${port}/admin/`);
-});
+module.exports = route;
