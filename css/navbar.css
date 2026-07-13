@@ -11,6 +11,7 @@ header {
 }
 
 .mobile-location,
+.desktop-contact-strip,
 .mobile-actions,
 .mobile-menu-close,
 .mobile-menu-contact,
@@ -28,13 +29,13 @@ header.nav-open {
 }
 
 .navbar {
-    width: min(90%, var(--container));
+    width: min(96%, 1720px);
     height: 86px;
     margin: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 28px;
+    gap: 22px;
 }
 
 .logo {
@@ -65,7 +66,7 @@ header.nav-open .logo-image {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: clamp(14px, 1.45vw, 26px);
     color: var(--white);
     transition: var(--transition);
 }
@@ -78,7 +79,126 @@ header.nav-open .nav-links {
 .nav-links a {
     position: relative;
     font-weight: 800;
-    font-size: .94rem;
+    font-size: clamp(.78rem, .82vw, .94rem);
+}
+
+.desktop-contact-strip {
+    flex: 1 1 640px;
+    min-width: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(14px, 2vw, 34px);
+    color: var(--white);
+}
+
+.desktop-location,
+.desktop-phone {
+    display: grid;
+    grid-template-columns: auto minmax(0, auto);
+    align-items: center;
+    column-gap: 12px;
+    color: var(--white);
+}
+
+.desktop-location span,
+.desktop-phone span {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    color: var(--white);
+    background: #20a870;
+    font-size: 1.25rem;
+}
+
+.desktop-phone span {
+    background: transparent;
+    border: 2px solid currentColor;
+}
+
+.desktop-phone svg {
+    width: 25px;
+    height: 25px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.desktop-location strong,
+.desktop-phone strong {
+    color: currentColor;
+    font-family: var(--title-font);
+    font-size: clamp(1rem, 1.15vw, 1.38rem);
+    line-height: 1;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+}
+
+.desktop-location em,
+.desktop-phone em {
+    color: #1ed27d;
+    font-size: .62rem;
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.desktop-phone em {
+    color: #ff6c55;
+}
+
+.desktop-social-call {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.desktop-social-call a {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: var(--white);
+    font-weight: 900;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .22);
+}
+
+header.scrolled .desktop-contact-strip,
+header.nav-open .desktop-contact-strip {
+    color: var(--primary);
+}
+
+header.scrolled .desktop-phone span,
+header.nav-open .desktop-phone span {
+    color: var(--primary);
+}
+
+@media (max-width: 1280px) {
+    .desktop-contact-strip {
+        min-width: 430px;
+        gap: 16px;
+    }
+
+    .desktop-social-call {
+        display: none;
+    }
+
+    .desktop-location span,
+    .desktop-phone span {
+        width: 40px;
+        height: 40px;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
 }
 
 .nav-links a:not(.cta-button)::after {
@@ -157,6 +277,10 @@ header.nav-open .menu {
         font-size: .83rem;
         letter-spacing: .06em;
         text-decoration: none;
+    }
+
+    .desktop-contact-strip {
+        display: none;
     }
 
     .mobile-location span {
