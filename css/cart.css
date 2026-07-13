@@ -61,7 +61,17 @@ header.nav-open .cart-nav-button {
 }
 
 .favorite-nav-button {
-    font-size: 1.35rem;
+    color: currentColor;
+}
+
+.favorite-nav-button svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .favorite-card-button {
@@ -78,15 +88,28 @@ header.nav-open .cart-nav-button {
     background: rgba(255, 255, 255, .92);
     border: 1px solid rgba(17, 17, 17, .08);
     box-shadow: 0 12px 26px rgba(17, 17, 17, .12);
-    font-size: 1.6rem;
     line-height: 1;
     transition: var(--transition);
+}
+
+.favorite-card-button svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .favorite-card-button:hover,
 .favorite-card-button.is-favorite {
     color: #f0442f;
     transform: translateY(-2px) scale(1.04);
+}
+
+.favorite-card-button.is-favorite svg {
+    fill: currentColor;
 }
 
 .cart-card-button:hover,
@@ -231,6 +254,108 @@ header.nav-open .cart-nav-button {
     background: var(--primary);
     font-size: .8rem;
     font-weight: 900;
+}
+
+.mobile-contact-bar {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    body {
+        padding-bottom: 94px;
+    }
+
+    .mobile-contact-bar {
+        position: fixed;
+        left: 14px;
+        right: 14px;
+        bottom: calc(14px + env(safe-area-inset-bottom));
+        z-index: 1350;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 12px;
+        min-height: 82px;
+        padding: 13px 16px;
+        color: var(--white);
+        background: rgba(24, 24, 24, .96);
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: 14px;
+        box-shadow: 0 20px 48px rgba(0, 0, 0, .36);
+        backdrop-filter: blur(14px);
+    }
+
+    .mobile-contact-phone {
+        display: grid;
+        gap: 4px;
+        min-width: 0;
+        color: var(--white);
+    }
+
+    .mobile-contact-phone strong {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: clamp(1.3rem, 5vw, 1.75rem);
+        font-weight: 500;
+        letter-spacing: .06em;
+    }
+
+    .mobile-contact-phone span {
+        color: #ff6c55;
+        font-size: .66rem;
+        font-weight: 800;
+        letter-spacing: .07em;
+        text-transform: uppercase;
+    }
+
+    .mobile-contact-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .mobile-contact-actions a {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        color: var(--white);
+        font-weight: 900;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, .22);
+    }
+
+    .contact-viber {
+        background: #7f37c6;
+    }
+
+    .contact-whatsapp {
+        background: #21bf4b;
+    }
+
+    .contact-messenger {
+        background: #278fff;
+    }
+}
+
+@media (max-width: 420px) {
+    .mobile-contact-bar {
+        left: 10px;
+        right: 10px;
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .mobile-contact-actions {
+        gap: 7px;
+    }
+
+    .mobile-contact-actions a {
+        width: 42px;
+        height: 42px;
+        font-size: .9rem;
+    }
 }
 
 .favorite-actions button:last-child {

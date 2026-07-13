@@ -18,7 +18,7 @@
 </head>
 <body>
     <header id="navbar">
-        <a class="mobile-location" href="#contact" aria-label="Deschide contactele Millory">
+        <a class="mobile-location" href="https://www.google.com/maps/search/?api=1&query=Strada%20Ismail%2C%20Chisinau" target="_blank" rel="noopener" aria-label="Deschide locatia Millory in Google Maps">
             <span aria-hidden="true">&#9906;</span>
             <strong>Strada Ismail, Chisinau</strong>
         </a>
@@ -35,8 +35,17 @@
             </button>
 
             <div class="mobile-actions" aria-label="Actiuni rapide">
-                <button type="button" data-favorites-open aria-label="Deschide favoritele">&#9825;</button>
-                <button type="button" data-cart-open aria-label="Deschide cosul">&#128722;</button>
+                <button type="button" data-favorites-open aria-label="Deschide favoritele">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.8 4.6c-2.1-2-5.3-1.7-7.2.4L12 6.8 10.4 5C8.5 2.9 5.3 2.6 3.2 4.6 1 6.8.9 10.3 3 12.6l9 8.6 9-8.6c2.1-2.3 2-5.8-.2-8Z"></path>
+                    </svg>
+                </button>
+                <button type="button" data-cart-open aria-label="Deschide cosul">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6.2 8.2h15l-1.4 9.1a2 2 0 0 1-2 1.7H8.1a2 2 0 0 1-2-1.7L4.8 4H2.5"></path>
+                        <path d="M8.8 8.2a3.2 3.2 0 0 1 6.4 0"></path>
+                    </svg>
+                </button>
             </div>
 
             <div class="nav-links">
@@ -54,7 +63,11 @@
                 <a href="#process">Proces</a>
                 <a href="#projects">Lucrari</a>
                 <a href="#configurator">Configurator</a>
-                <button class="favorite-nav-button" type="button" data-favorites-open aria-label="Deschide favoritele">&#9825;</button>
+                <button class="favorite-nav-button" type="button" data-favorites-open aria-label="Deschide favoritele">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.8 4.6c-2.1-2-5.3-1.7-7.2.4L12 6.8 10.4 5C8.5 2.9 5.3 2.6 3.2 4.6 1 6.8.9 10.3 3 12.6l9 8.6 9-8.6c2.1-2.3 2-5.8-.2-8Z"></path>
+                    </svg>
+                </button>
                 <a class="mobile-menu-item" href="#catalog" data-catalog-filter="led">Oglinzi cu iluminare LED</a>
                 <a class="mobile-menu-item" href="#catalog" data-catalog-filter="decor">Oglinzi in rame</a>
                 <a class="mobile-menu-item" href="#catalog" data-catalog-filter="baie">Oglinzi simple</a>
@@ -477,6 +490,18 @@
             <a class="footer-credit" href="https://elevateweb.md" target="_blank" rel="noopener">Creat de Elevate Web</a>
         </div>
     </footer>
+
+    <div class="mobile-contact-bar" aria-label="Contact rapid Millory">
+        <a class="mobile-contact-phone" href="tel:+37369482034">
+            <strong>+373 69 482 034</strong>
+            <span>Telefon pentru comenzi</span>
+        </a>
+        <div class="mobile-contact-actions">
+            <a class="contact-viber" href="viber://chat?number=%2B37369482034" aria-label="Viber">V</a>
+            <a class="contact-whatsapp" href="https://wa.me/37369482034" target="_blank" rel="noopener" aria-label="WhatsApp">W</a>
+            <a class="contact-messenger" href="https://m.me/" target="_blank" rel="noopener" aria-label="Messenger">M</a>
+        </div>
+    </div>
 
     <div class="cart-overlay" data-cart-close hidden></div>
     <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Cos de cumparaturi">

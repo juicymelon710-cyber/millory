@@ -154,7 +154,11 @@
             favoriteButton.type = "button";
             favoriteButton.dataset.favoriteToggle = card.dataset.productId;
             favoriteButton.setAttribute("aria-label", "Adauga la favorite");
-            favoriteButton.innerHTML = "&#9825;";
+            favoriteButton.innerHTML = `
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.8 4.6c-2.1-2-5.3-1.7-7.2.4L12 6.8 10.4 5C8.5 2.9 5.3 2.6 3.2 4.6 1 6.8.9 10.3 3 12.6l9 8.6 9-8.6c2.1-2.3 2-5.8-.2-8Z"></path>
+                </svg>
+            `;
             favoriteButton.addEventListener("click", (event) => {
                 event.stopPropagation();
                 toggleFavorite(card.dataset.productId);
