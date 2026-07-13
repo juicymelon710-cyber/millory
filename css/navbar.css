@@ -12,6 +12,7 @@ header {
 
 .mobile-location,
 .mobile-actions,
+.mobile-menu-close,
 .mobile-menu-contact,
 .mobile-menu-item,
 .mobile-menu-sale,
@@ -298,7 +299,7 @@ header.nav-open .menu {
         left: 0;
         width: min(82vw, 470px);
         height: 100vh;
-        padding: 38px 22px 38px;
+        padding: 78px 22px 38px;
         display: grid;
         gap: 0;
         align-content: start;
@@ -314,10 +315,34 @@ header.nav-open .menu {
         transition: transform .28s ease, opacity .28s ease;
     }
 
+    header.nav-open::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: rgba(0, 0, 0, .48);
+    }
+
     header.nav-open .nav-links {
         transform: translateX(0);
         opacity: 1;
         pointer-events: auto;
+    }
+
+    .mobile-menu-close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        color: var(--white);
+        background: rgba(255, 255, 255, .08);
+        font-size: 2rem;
+        line-height: 1;
+        z-index: 2;
     }
 
     .nav-links > a:not(.mobile-menu-item):not(.mobile-menu-sale):not(.cta-button),
