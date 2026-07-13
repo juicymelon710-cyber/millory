@@ -6,6 +6,7 @@ const { getConfig, saveConfig } = require("./server/store");
 const { publicConfig, calculateQuote } = require("./server/calculator");
 
 const root = __dirname;
+const publicRoot = path.join(root, "public");
 const port = Number(process.env.PORT || 3000);
 const adminUser = process.env.ADMIN_USER || "admin";
 const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
@@ -112,12 +113,12 @@ function requireAdmin(req, res) {
 function serveStatic(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const pathname = decodeURIComponent(url.pathname);
-  if (pathname.includes("/server/") || pathname === "/data/calculator-products.js" || pathname.endsWith(".sqlite") || pathname.endsWith(".db")) {
+  if (pathname.includes("/server/") || pathname.includes("/data/") || pathname.endsWith(".sqlite") || pathname.endsWith(".db")) {
     send(res, 404, "Pagina nu a fost gasita.");
     return;
   }
-  let filePath = path.normalize(path.join(root, pathname === "/" ? "index.html" : pathname));
-  if (!filePath.startsWith(root)) {
+  let filePath = path.normalize(path.join(publicRoot, pathname === "/" ? "index.html" : pathname));
+  if (!filePath.startsWith(publicRoot)) {
     send(res, 403, "Acces refuzat.");
     return;
   }
@@ -189,6 +190,12 @@ async function route(req, res) {
   } catch (error) {
     sendJson(res, 400, { ok: false, message: error.message });
   }
+}
+
+if (require.main === module) {
+  http.createServer(route).listen(port, () => {
+    console.log(`Millory ruleaza pe http://localhost:${port}`);
+  });
 }
 
 module.exports = route;
