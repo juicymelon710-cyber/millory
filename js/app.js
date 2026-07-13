@@ -82,7 +82,7 @@
                     <h3>${product.title}</h3>
                     <strong class="product-price">${displayProductPrice(product)}</strong>
                     <div class="product-quick">
-                        <span>Dimensiune</span>
+                        <span>Dimensiune personalizata</span>
                         <strong>${primarySize(product)}</strong>
                     </div>
                     <p>${cardDescription(product)}</p>
@@ -115,13 +115,13 @@
             <article class="featured-card" data-product-id="${product.id}" tabindex="0" role="button" aria-label="Deschide detaliile pentru ${product.title}">
                 <div class="featured-image">
                     <img src="${product.image}" alt="${product.title}">
-                    <span>Marime la comanda</span>
+                    <span>Dimensiune personalizata</span>
                 </div>
                 <div class="featured-body">
                     <h3>${product.title}</h3>
                     <p>${primarySize(product)}</p>
                     <strong>${displayProductPrice(product)}</strong>
-                    <button type="button" class="featured-select">Alege dimensiunea</button>
+                    <button type="button" class="featured-select">Selecteaza marime</button>
                 </div>
             </article>
         `).join("");

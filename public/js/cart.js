@@ -224,7 +224,7 @@
         const favoriteProducts = favorites.map((id) => productMap.get(id)).filter(Boolean);
 
         if (!favoriteProducts.length) {
-            favoritesItemsRoot.innerHTML = "<div class=\"cart-empty\">Nu ai produse favorite inca. Apasa pe inima de pe un produs ca sa-l salvezi aici.</div>";
+            favoritesItemsRoot.innerHTML = "<div class=\"cart-empty\"><strong>Nu exista produse favorite</strong><span>Produsele salvate din catalog vor aparea aici.</span></div>";
             return;
         }
 

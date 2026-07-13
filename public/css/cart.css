@@ -195,12 +195,25 @@ header.nav-open .cart-nav-button {
 }
 
 .cart-empty {
+    display: grid;
+    gap: 6px;
     padding: 26px;
     color: var(--secondary);
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: var(--radius-medium);
     line-height: 1.6;
+}
+
+.cart-empty strong {
+    color: var(--primary);
+    font-family: var(--title-font);
+    font-size: 1.08rem;
+}
+
+.cart-empty span {
+    color: var(--secondary);
+    font-size: .92rem;
 }
 
 .favorite-actions {
