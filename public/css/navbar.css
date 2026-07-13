@@ -10,6 +10,15 @@ header {
     transition: var(--transition);
 }
 
+.mobile-location,
+.mobile-actions,
+.mobile-menu-contact,
+.mobile-menu-item,
+.mobile-menu-sale,
+.logo-word {
+    display: none;
+}
+
 header.scrolled,
 header.nav-open {
     background: rgba(251, 250, 247, .86);
@@ -124,60 +133,264 @@ header.nav-open .menu {
 }
 
 @media (max-width: 900px) {
+    header {
+        padding: 8px 0 0;
+        background: rgba(17, 17, 17, .94);
+    }
+
+    header.scrolled,
+    header.nav-open {
+        background: rgba(17, 17, 17, .94);
+        box-shadow: none;
+    }
+
+    .mobile-location {
+        width: min(95%, 560px);
+        height: 38px;
+        margin: 0 auto 7px;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 8px;
+        align-items: center;
+        color: var(--white);
+        font-size: .83rem;
+        letter-spacing: .06em;
+    }
+
+    .mobile-location span {
+        display: grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        color: var(--white);
+        background: #20a870;
+        font-size: .9rem;
+    }
+
+    .mobile-location strong {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 600;
+    }
+
+    .mobile-location button {
+        width: 38px;
+        height: 30px;
+        border-radius: 11px;
+        color: var(--white);
+        background: #050505;
+        font-size: .72rem;
+        font-weight: 800;
+    }
+
     .navbar {
-        height: 76px;
+        width: min(95%, 560px);
+        height: 66px;
+        padding: 0 16px;
+        border-radius: 9px;
+        background: #050505;
+        border: 1px solid rgba(255, 255, 255, .08);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, .32);
+        gap: 10px;
     }
 
     .logo {
-        width: 96px;
-        min-width: 96px;
+        order: 2;
+        justify-content: center;
+        width: auto;
+        min-width: 0;
+        flex: 1 1 auto;
     }
 
     .logo-image {
-        height: 62px;
+        display: none;
+    }
+
+    .logo-word {
+        display: block;
+        color: var(--white);
+        font-family: var(--title-font);
+        font-size: 1.42rem;
+        font-weight: 900;
+        letter-spacing: .08em;
+        text-transform: uppercase;
     }
 
     .menu {
+        order: 1;
         display: block;
+        width: 42px;
+        height: 42px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
         flex: 0 0 auto;
+    }
+
+    header.scrolled .menu,
+    header.nav-open .menu {
+        background: transparent;
+    }
+
+    .menu span {
+        width: 30px;
+        height: 3px;
+        margin: 5px auto;
+        background: var(--white);
+        border-radius: 999px;
+    }
+
+    header.nav-open .menu span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    header.nav-open .menu span:nth-child(2) {
+        opacity: 0;
+    }
+
+    header.nav-open .menu span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .mobile-actions {
+        order: 3;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: var(--white);
+        font-size: 1.95rem;
+        line-height: 1;
+    }
+
+    .mobile-actions a,
+    .mobile-actions button {
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 38px;
+        color: var(--white);
+        font-size: inherit;
+        background: transparent;
     }
 
     .nav-links {
         position: absolute;
-        top: 76px;
-        left: 5%;
-        right: 5%;
+        top: 0;
+        left: 0;
+        width: min(82vw, 470px);
+        height: 100vh;
+        padding: 38px 22px 38px;
         display: grid;
         gap: 0;
-        color: var(--primary);
-        background: rgba(251, 250, 247, .96);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-medium);
-        box-shadow: var(--shadow-medium);
-        overflow: hidden;
-        transform: translateY(-10px);
+        align-content: start;
+        color: var(--white);
+        background: #202329;
+        border: 0;
+        border-radius: 0;
+        box-shadow: 28px 0 44px rgba(0, 0, 0, .38);
+        overflow-y: auto;
+        transform: translateX(-102%);
         opacity: 0;
         pointer-events: none;
+        transition: transform .28s ease, opacity .28s ease;
     }
 
     header.nav-open .nav-links {
-        transform: translateY(0);
+        transform: translateX(0);
         opacity: 1;
         pointer-events: auto;
     }
 
+    .nav-links > a:not(.mobile-menu-item):not(.mobile-menu-sale):not(.cta-button),
+    .nav-links .cart-nav-button,
+    .nav-links .cta-button {
+        display: none;
+    }
+
+    .mobile-menu-contact {
+        display: grid;
+        justify-items: center;
+        gap: 10px;
+        padding: 0 0 32px;
+        text-align: center;
+    }
+
+    .mobile-menu-contact > a {
+        color: var(--white);
+        font-size: 1.9rem;
+        letter-spacing: .08em;
+        font-weight: 500;
+    }
+
+    .mobile-menu-contact span {
+        color: #ff6c55;
+        font-size: .7rem;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+    }
+
+    .mobile-menu-contact div {
+        display: flex;
+        gap: 16px;
+    }
+
+    .mobile-menu-contact div a {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        color: var(--white);
+        background: #278fff;
+        font-weight: 900;
+    }
+
+    .mobile-menu-contact div a:nth-child(2) {
+        background: #7f37c6;
+    }
+
+    .mobile-menu-contact div a:nth-child(3) {
+        background: #21bf4b;
+    }
+
     .nav-links a {
-        padding: 18px 20px;
-        border-bottom: 1px solid var(--line);
+        padding: 17px 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, .07);
+        color: rgba(255, 255, 255, .88);
+        font-size: 1rem;
+        font-weight: 500;
     }
 
     .nav-links a::after {
         display: none;
     }
 
-    .cta-button {
-        margin: 12px;
-        text-align: center;
-        border-bottom: 0 !important;
+    .mobile-menu-item {
+        display: block;
+    }
+
+    .mobile-menu-plus {
+        position: relative;
+    }
+
+    .mobile-menu-plus::after {
+        content: "+";
+        position: absolute;
+        right: 10px;
+        color: rgba(255, 255, 255, .62);
+        font-size: 1.35rem;
+        font-weight: 300;
+    }
+
+    .mobile-menu-sale {
+        display: block;
+        margin: 22px 0 28px;
+        border: 0 !important;
+        border-radius: 8px;
+        color: var(--white) !important;
+        background: #ff462b;
+        font-size: 1rem !important;
     }
 }

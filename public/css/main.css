@@ -938,8 +938,8 @@
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     gap: 10px;
-    min-height: 92px;
-    padding: 14px;
+    min-height: 72px;
+    padding: 12px 14px;
     border: 1px solid var(--line);
     border-radius: var(--radius-small);
     background: var(--white);
@@ -1479,8 +1479,13 @@ input[type="range"] {
 }
 
 @media (max-width: 620px) {
+    .section-title {
+        font-size: 2rem;
+        line-height: 1.08;
+    }
+
     .featured-products {
-        padding: 56px 0 50px;
+        padding: 46px 0 44px;
     }
 
     .featured-head {
@@ -1489,7 +1494,7 @@ input[type="range"] {
     }
 
     .featured-head .section-title {
-        font-size: 1.9rem;
+        font-size: 1.75rem;
     }
 
     .featured-controls {
@@ -1510,14 +1515,20 @@ input[type="range"] {
     }
 
     .featured-track {
-        grid-auto-columns: minmax(220px, 74vw);
+        grid-auto-columns: minmax(188px, 62vw);
         gap: 12px;
         padding-bottom: 10px;
     }
 
     .featured-card {
-        grid-template-rows: 205px 1fr;
-        min-height: 370px;
+        grid-template-rows: 168px 1fr;
+        min-height: 316px;
+        border-radius: 8px;
+    }
+
+    .featured-body {
+        gap: 8px;
+        padding: 14px 13px;
     }
 
     .featured-body h3 {
@@ -1544,11 +1555,12 @@ input[type="range"] {
 
     .calculator-panel,
     .calculator-summary {
-        padding: 14px;
+        padding: 12px;
     }
 
     .calculator-group {
-        padding: 14px;
+        padding: 12px;
+        border-radius: 14px;
     }
 
     .calculator-dimensions,
@@ -1559,7 +1571,18 @@ input[type="range"] {
     }
 
     .choice-card {
-        min-height: 82px;
+        min-height: 56px;
+        padding: 10px 12px;
+        gap: 8px;
+        border-radius: 12px;
+    }
+
+    .choice-card strong {
+        font-size: .88rem;
+    }
+
+    .choice-card em {
+        font-size: .86rem;
     }
 
     .product-card {

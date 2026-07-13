@@ -236,7 +236,6 @@
                             <input type="radio" name="addon-${group.id}" value="" data-empty-option>
                             <span>
                                 <strong>Fara</strong>
-                                <small>nu se adauga</small>
                             </span>
                             <em>${formatMdl(0)}</em>
                         </label>
@@ -246,7 +245,6 @@
                             <input type="${groupInputType(group)}" name="addon-${group.id}" value="${item.id}" data-group-id="${group.id}">
                             <span>
                                 <strong>${item.name}</strong>
-                                <small>${basisLabel(item.unit)}</small>
                             </span>
                             <em data-option-price="${item.id}">...</em>
                         </label>

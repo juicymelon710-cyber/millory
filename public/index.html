@@ -18,9 +18,15 @@
 </head>
 <body>
     <header id="navbar">
+        <div class="mobile-location" aria-label="Locatie showroom">
+            <span aria-hidden="true">⌖</span>
+            <strong>Strada Ismail, Chisinau</strong>
+            <button type="button">RU</button>
+        </div>
         <nav class="navbar" aria-label="Navigare principala">
             <a class="logo" href="#home" aria-label="Millory home">
                 <img class="logo-image" src="assets/logos/millory-logo-premium.png" alt="Millory">
+                <span class="logo-word">Millory</span>
             </a>
 
             <button class="menu" type="button" aria-label="Deschide meniul" aria-expanded="false">
@@ -29,11 +35,38 @@
                 <span></span>
             </button>
 
+            <div class="mobile-actions" aria-label="Actiuni rapide">
+                <a href="#catalog" aria-label="Favorite">♡</a>
+                <button type="button" data-cart-open aria-label="Deschide cosul">▢</button>
+            </div>
+
             <div class="nav-links">
+                <div class="mobile-menu-contact">
+                    <a href="tel:+40754599101">+40 754 599 101</a>
+                    <span>Telefon pentru comenzi</span>
+                    <div>
+                        <a href="viber://chat?number=%2B40754599101" aria-label="Viber">V</a>
+                        <a href="https://wa.me/40754599101" target="_blank" rel="noopener" aria-label="WhatsApp">W</a>
+                        <a href="https://m.me/" target="_blank" rel="noopener" aria-label="Messenger">M</a>
+                    </div>
+                </div>
                 <a href="#catalog">Catalog</a>
                 <a href="#process">Proces</a>
                 <a href="#projects">Lucrari</a>
                 <a href="#configurator">Configurator</a>
+                <a class="mobile-menu-item" href="#catalog">Oglinzi cu iluminare LED</a>
+                <a class="mobile-menu-item" href="#catalog">Oglinzi in rame</a>
+                <a class="mobile-menu-item" href="#catalog">Oglinzi simple</a>
+                <a class="mobile-menu-item" href="#catalog">Oglinzi cu becuri</a>
+                <a class="mobile-menu-item" href="#catalog">Oglinzi in stoc</a>
+                <a class="mobile-menu-item" href="#catalog">Cabine de dus</a>
+                <a class="mobile-menu-item mobile-menu-plus" href="#catalog">Accesorii</a>
+                <a class="mobile-menu-sale" href="#catalog"># Reducere</a>
+                <a class="mobile-menu-item" href="#projects">Lucrarile noastre</a>
+                <a class="mobile-menu-item" href="#process">Despre noi</a>
+                <a class="mobile-menu-item" href="#faq">Blog</a>
+                <a class="mobile-menu-item" href="#contact">Contacte</a>
+                <a class="mobile-menu-item mobile-menu-plus" href="#faq">Informatie</a>
                 <button class="cart-nav-button" type="button" data-cart-open aria-label="Deschide cosul">
                     <span aria-hidden="true">🛒</span>
                     <em data-cart-count>0</em>

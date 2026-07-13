@@ -149,7 +149,7 @@
 @media (max-width: 940px) {
     .hero {
         min-height: auto;
-        padding-top: 118px;
+        padding-top: 156px;
     }
 
     .hero-grid {
@@ -163,6 +163,7 @@
 
 @media (max-width: 620px) {
     .hero {
+        padding-top: 154px;
         padding-bottom: 76px;
     }
 

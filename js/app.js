@@ -352,7 +352,6 @@
                             <input type="checkbox" data-option-id="${item.id}" data-price="${modalOptionPrice(item)}" value="${item.id}">
                             <span>
                                 <strong>${item.name}</strong>
-                                ${cleanDescription(item.description) ? `<small>${cleanDescription(item.description)}</small>` : ""}
                             </span>
                             <em data-modal-option-price="${item.id}">${formatRon(modalOptionPrice(item))}</em>
                         </label>
