@@ -217,6 +217,7 @@
     }
 
     .hero-content span {
+        font-size: 0;
         min-height: 0;
         padding: 0;
         color: rgba(255, 255, 255, .88);
@@ -228,22 +229,24 @@
         text-transform: uppercase;
     }
 
+    .hero-content span::before {
+        content: "Premium. Realizate la comanda";
+        font-size: .66rem;
+    }
+
     .hero-content h1 {
-        margin-top: 16px;
+        margin-top: 14px;
         max-width: 300px;
         font-size: clamp(1.72rem, 8vw, 2.25rem);
         line-height: 1.02;
     }
 
     .hero-content p {
-        margin: 16px 0 24px;
-        max-width: 310px;
-        color: rgba(255, 255, 255, .84);
-        font-size: .84rem;
-        line-height: 1.45;
+        display: none;
     }
 
     .hero-buttons {
+        margin-top: 26px;
         width: 100%;
         justify-content: center;
     }
