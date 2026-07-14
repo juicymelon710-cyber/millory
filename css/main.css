@@ -1129,6 +1129,91 @@
     font-weight: 900;
 }
 
+.calculator-accordion {
+    padding: 0;
+    overflow: hidden;
+}
+
+.calculator-accordion summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 62px;
+    padding: 18px;
+    color: var(--primary);
+    font-family: var(--title-font);
+    font-weight: 900;
+    cursor: pointer;
+    list-style: none;
+}
+
+.calculator-accordion summary::-webkit-details-marker {
+    display: none;
+}
+
+.calculator-accordion summary span {
+    min-width: 0;
+}
+
+.calculator-accordion summary i {
+    position: relative;
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(17, 17, 17, .13);
+    border-radius: 999px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, .96), rgba(248, 243, 233, .96)),
+        var(--white);
+    box-shadow: 0 10px 24px rgba(17, 17, 17, .06);
+    transition: var(--transition);
+}
+
+.calculator-accordion summary i::before,
+.calculator-accordion summary i::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--primary);
+    transition: var(--transition);
+}
+
+.calculator-accordion summary i::before {
+    transform: translate(-80%, -50%) rotate(45deg);
+}
+
+.calculator-accordion summary i::after {
+    transform: translate(-20%, -50%) rotate(-45deg);
+}
+
+.calculator-accordion[open] summary {
+    border-bottom: 1px solid rgba(17, 17, 17, .08);
+}
+
+.calculator-accordion[open] summary i {
+    border-color: rgba(185, 150, 91, .38);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, .98), rgba(243, 232, 211, .96)),
+        var(--white);
+}
+
+.calculator-accordion[open] summary i::before {
+    transform: translate(-80%, -50%) rotate(-45deg);
+}
+
+.calculator-accordion[open] summary i::after {
+    transform: translate(-20%, -50%) rotate(45deg);
+}
+
+.calculator-accordion .choice-grid {
+    padding: 0 18px 18px;
+}
+
 .calculator-dimensions {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2060,6 +2145,19 @@ input[type="range"] {
         padding: 12px;
         border-radius: 14px;
         background: rgba(255, 250, 242, .92);
+    }
+
+    .calculator-accordion {
+        padding: 0;
+    }
+
+    .calculator-accordion summary {
+        min-height: 56px;
+        padding: 14px;
+    }
+
+    .calculator-accordion .choice-grid {
+        padding: 0 12px 12px;
     }
 
     .calculator-shell {

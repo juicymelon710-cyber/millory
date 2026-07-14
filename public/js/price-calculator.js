@@ -208,8 +208,11 @@
         if (!sizes.length) return "";
 
         return `
-            <fieldset class="calculator-group">
-                <legend>Dimensiuni recomandate</legend>
+            <details class="calculator-group calculator-accordion">
+                <summary>
+                    <span>Dimensiuni recomandate</span>
+                    <i aria-hidden="true"></i>
+                </summary>
                 <div class="choice-grid compact">
                     ${sizes.map((size) => `
                         <button class="choice-card size-choice" type="button" data-size-height="${size.height}" data-size-width="${size.width}">
@@ -221,15 +224,18 @@
                         </button>
                     `).join("")}
                 </div>
-            </fieldset>
+            </details>
         `;
     }
 
     function renderOptions() {
         const groups = activeProduct.optionGroups || [];
         optionsTarget.innerHTML = renderRecommendedSizes() + groups.map((group) => `
-            <fieldset class="calculator-group">
-                <legend>${group.name}</legend>
+            <details class="calculator-group calculator-accordion">
+                <summary>
+                    <span>${group.name}</span>
+                    <i aria-hidden="true"></i>
+                </summary>
                 <div class="choice-grid ${group.items.length > 2 ? "compact" : ""}">
                     ${groupInputType(group) === "radio" ? `
                         <label class="choice-card">
@@ -250,7 +256,7 @@
                         </label>
                     `).join("")}
                 </div>
-            </fieldset>
+            </details>
         `).join("");
 
         optionsTarget.querySelectorAll("[data-size-height]").forEach((button) => {
