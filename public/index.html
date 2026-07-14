@@ -84,7 +84,6 @@
                 <a href="#catalog">Catalog</a>
                 <a href="#process">Proces</a>
                 <a href="#projects">Lucrari</a>
-                <a href="#configurator">Configurator</a>
                 <button class="favorite-nav-button" type="button" data-favorites-open aria-label="Deschide favoritele">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M20.8 4.6c-2.1-2-5.3-1.7-7.2.4L12 6.8 10.4 5C8.5 2.9 5.3 2.6 3.2 4.6 1 6.8.9 10.3 3 12.6l9 8.6 9-8.6c2.1-2.3 2-5.8-.2-8Z"></path>
@@ -123,7 +122,6 @@
                     <p>Millory proiecteaza oglinzi LED, decorative si solutii personalizate pentru interioare moderne, cu finisaje curate si consultanta de la idee pana la montaj.</p>
                     <div class="hero-buttons">
                         <a href="#catalog" class="btn btn-primary">Vezi catalogul</a>
-                        <a href="#configurator" class="btn btn-outline light">Configureaza oglinda</a>
                     </div>
                 </div>
                 <aside class="hero-panel reveal" aria-label="Avantaje Millory">
@@ -367,73 +365,6 @@
             </div>
         </section>
 
-        <section class="configurator price-calculator" id="configurator" data-price-calculator>
-            <div class="container">
-                <div class="section-head reveal">
-                    <div>
-                        <p class="eyebrow">Calculator pret</p>
-                        <h2 class="section-title">Configureaza oglinda si vezi estimarea instant.</h2>
-                    </div>
-                    <p class="section-subtitle">Introdu dimensiunile in milimetri, alege suplimentele dorite si vezi pretul final in LEI. Detaliile tehnice de productie raman interne.</p>
-                </div>
-
-                <div class="calculator-shell reveal">
-                    <form class="calculator-panel" data-calculator-form>
-                        <fieldset class="calculator-group product-picker-group">
-                            <legend>Model oglinda</legend>
-                            <label class="calculator-select-label">
-                                Alege modelul
-                                <select name="product" data-calculator-product></select>
-                            </label>
-                        </fieldset>
-
-                        <fieldset class="calculator-group dimensions-group">
-                            <legend>Dimensiuni</legend>
-                            <div class="calculator-dimensions">
-                                <label>
-                                    Inaltime
-                                    <input type="number" name="height" value="800" min="400" max="3000" step="10" inputmode="numeric" data-calculator-height>
-                                    <span>mm</span>
-                                </label>
-                                <label>
-                                    Latime
-                                    <input type="number" name="width" value="800" min="400" max="3000" step="10" inputmode="numeric" data-calculator-width>
-                                    <span>mm</span>
-                                </label>
-                            </div>
-                            <p class="calculator-warning" data-calculator-warning aria-live="polite"></p>
-                        </fieldset>
-
-                        <div class="calculator-options" data-calculator-options></div>
-                    </form>
-
-                    <aside class="calculator-summary" aria-live="polite">
-                        <div class="summary-product">
-                            <img src="assets/images/millory-showroom-hero.png" alt="" data-summary-image>
-                            <div>
-                                <small>Model</small>
-                                <b data-summary-product>Alexandra</b>
-                            </div>
-                        </div>
-                        <span>Estimare configuratie</span>
-                        <strong data-calculator-total>0 LEI</strong>
-                        <div class="summary-dimensions">
-                            <div>
-                                <small>Dimensiune</small>
-                                <b data-summary-size>800 x 800 mm</b>
-                            </div>
-                            <div>
-                                <small>Suprafata</small>
-                                <b data-summary-area>0.64 m2</b>
-                            </div>
-                        </div>
-                        <div class="selected-options" data-selected-options></div>
-                        <a class="btn btn-primary" href="#contact">Cere oferta pentru configuratie</a>
-                    </aside>
-                </div>
-            </div>
-        </section>
-
         <section class="faq-section" id="faq">
             <div class="container">
                 <div class="section-head reveal">
@@ -548,7 +479,6 @@
                 <a href="#home">Principala</a>
                 <a href="#catalog">Catalog</a>
                 <a href="#projects">Lookbook</a>
-                <a href="#configurator">Configurator</a>
             </div>
             <div class="footer-column footer-contact">
                 <span>Contacte</span>
@@ -656,7 +586,6 @@
     <script src="data/calculator-products.js"></script>
     <script src="assets/videos/js/navbar.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/price-calculator.js"></script>
     <script src="js/cart.js"></script>
 </body>
 </html>
