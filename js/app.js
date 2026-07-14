@@ -140,6 +140,7 @@
         `).join("");
 
         productGrid.querySelectorAll(".product-card").forEach((card) => {
+            card.addEventListener("click", () => openProductModal(card.dataset.productId));
             card.addEventListener("keydown", (event) => {
                 if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault();
@@ -283,7 +284,7 @@
     function hasDisplayPrice(product) {
         const calcProduct = calculatorProductFor(product);
         if (calcProduct) {
-            const size = calcProduct.smallestSize || calcProduct.defaultSize || (calcProduct.recommendedSizes || [])[0];
+            const size = calcProduct.smallestSize || calcProduct.defaultSize || calcProduct.recommendedSizes[0];
             return legacyBasePrice(calcProduct, size) > 0;
         }
         return Number(product.priceMdl || 0) > 0;
@@ -300,7 +301,7 @@
     function displayProductPrice(product) {
         const calcProduct = calculatorProductFor(product);
         if (!calcProduct) return product.priceMdl ? `de la ${formatRon(product.priceMdl)}` : "pret la cerere";
-        const size = calcProduct.smallestSize || calcProduct.defaultSize || (calcProduct.recommendedSizes || [])[0];
+        const size = calcProduct.smallestSize || calcProduct.defaultSize || calcProduct.recommendedSizes[0];
         return `de la ${formatRon(legacyBasePrice(calcProduct, size))}`;
     }
 
@@ -338,7 +339,7 @@
     function legacyBasePrice(product, size) {
         if (!product || !size) return 0;
         const metrics = metricsFromSize(size);
-        const cost = (product.materials || []).reduce((total, material) => {
+        const cost = product.materials.reduce((total, material) => {
             return total + Number(material.priceMdl || 0) * quantityByType(material.type, metrics);
         }, 0);
         return Math.round(cost * (1 + legacyCoefficient(product, metrics)));
@@ -384,11 +385,11 @@
         updateModalOptionPrices();
         const total = productSizePrice(activeProduct, activeSize) + getSelectedOptionsTotal();
         const baseText = `Baza: ${formatRon(productSizePrice(activeProduct, activeSize))} | optiuni incluse separat`;
-        if (modalTotal) modalTotal.textContent = formatRon(total);
-        if (modalBasePrice) modalBasePrice.textContent = baseText;
+        modalTotal.textContent = formatRon(total);
+        modalBasePrice.textContent = baseText;
         if (modalStickyTotal) modalStickyTotal.textContent = formatRon(total);
         if (modalStickyBasePrice) modalStickyBasePrice.textContent = baseText;
-        if (activeSizeLabel) activeSizeLabel.textContent = formatSizeName(activeSize);
+        activeSizeLabel.textContent = formatSizeName(activeSize);
     }
 
     function selectSize(sizeId) {
@@ -396,10 +397,10 @@
         const sizes = modalSizesFor(activeProduct);
         activeSize = sizes.find((size) => String(size.id) === String(sizeId)) || sizes[0] || activeSize;
         if (!activeSize) return;
-        if (modalHeight) modalHeight.value = activeSize.height;
-        if (modalWidth) modalWidth.value = activeSize.width;
+        modalHeight.value = activeSize.height;
+        modalWidth.value = activeSize.width;
 
-        modalSizes?.querySelectorAll(".size-option").forEach((item) => {
+        modalSizes.querySelectorAll(".size-option").forEach((item) => {
             item.classList.toggle("active", String(item.dataset.sizeId) === String(activeSize.id));
         });
 
@@ -415,7 +416,6 @@
     }
 
     function renderOptions(product) {
-        if (!modalOptions) return;
         const source = modalProductData(product);
         const optionGroups = source.optionGroups || [];
 
@@ -557,10 +557,10 @@
         };
 
         renderModalGallery(activeProduct);
-        if (modalTitle) modalTitle.textContent = activeProduct.title || "Oglinda";
-        if (modalDescription) modalDescription.textContent = cleanDescription(activeProduct.description);
-        if (modalTags) modalTags.innerHTML = (activeProduct.tags || []).map((tag) => `<span>${tag}</span>`).join("");
-        if (modalFacts) modalFacts.innerHTML = [
+        modalTitle.textContent = activeProduct.title;
+        modalDescription.textContent = cleanDescription(activeProduct.description);
+        modalTags.innerHTML = activeProduct.tags.map((tag) => `<span>${tag}</span>`).join("");
+        modalFacts.innerHTML = [
             defaultSize ? ["Dimensiune standard", defaultSize.name] : null,
             smallestSize ? ["Minim", smallestSize.name] : null,
             biggestSize ? ["Maxim", biggestSize.name] : null,
@@ -572,23 +572,19 @@
                 <strong>${value}</strong>
             </div>
         `).join("");
-        if (modalHeight) {
-            modalHeight.min = smallestSize ? smallestSize.height : 400;
-            modalHeight.max = biggestSize ? biggestSize.height : 3000;
-        }
-        if (modalWidth) {
-            modalWidth.min = smallestSize ? smallestSize.width : 400;
-            modalWidth.max = biggestSize ? biggestSize.width : 3000;
-        }
+        modalHeight.min = smallestSize ? smallestSize.height : 400;
+        modalHeight.max = biggestSize ? biggestSize.height : 3000;
+        modalWidth.min = smallestSize ? smallestSize.width : 400;
+        modalWidth.max = biggestSize ? biggestSize.width : 3000;
 
-        if (modalSizes) modalSizes.innerHTML = sizes.map((size) => `
+        modalSizes.innerHTML = sizes.map((size) => `
             <button class="size-option" type="button" data-size-id="${size.id}">
                 <span>${formatSizeName(size)}</span>
                 <strong>${formatRon(productSizePrice(activeProduct, size))}</strong>
             </button>
         `).join("");
 
-        modalSizes?.querySelectorAll(".size-option").forEach((button) => {
+        modalSizes.querySelectorAll(".size-option").forEach((button) => {
             button.addEventListener("click", () => selectSize(button.dataset.sizeId));
         });
 
@@ -611,16 +607,14 @@
         if (!input) return;
         input.addEventListener("input", () => {
             if (!activeProduct) return;
-            const width = modalWidth ? modalWidth.value : activeSize?.width || 800;
-            const height = modalHeight ? modalHeight.value : activeSize?.height || 800;
             activeSize = {
                 id: "custom",
-                name: `${width}x${height}`,
-                width: Number(width),
-                height: Number(height),
-                priceMdl: estimateCustomPrice(activeProduct, width, height)
+                name: `${modalWidth.value}x${modalHeight.value}`,
+                width: Number(modalWidth.value),
+                height: Number(modalHeight.value),
+                priceMdl: estimateCustomPrice(activeProduct, modalWidth.value, modalHeight.value)
             };
-            modalSizes?.querySelectorAll(".size-option").forEach((item) => item.classList.remove("active"));
+            modalSizes.querySelectorAll(".size-option").forEach((item) => item.classList.remove("active"));
             updateModalTotal();
         });
     });
@@ -731,13 +725,6 @@
             renderProducts(activeCatalogFilter);
         });
     });
-
-    document.addEventListener("click", (event) => {
-        if (event.target.closest("button, a, input, label")) return;
-        const card = event.target.closest(".product-card[data-product-id]");
-        if (!card) return;
-        openProductModal(card.dataset.productId);
-    }, true);
 
     if (showMoreProducts) {
         showMoreProducts.addEventListener("click", () => {
