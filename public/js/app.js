@@ -577,10 +577,37 @@
         const preview = card.querySelector("video");
         if (preview) {
             preview.muted = true;
-            preview.play().catch(() => {});
+            preview.defaultMuted = true;
+            preview.playsInline = true;
         }
         card.addEventListener("click", () => openVideoLightbox(card.dataset.videoSrc));
     });
+
+    const realVideoPreviews = document.querySelectorAll(".real-video-card video");
+    function playPreviewVideo(video) {
+        if (!video) return;
+        video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
+        video.play().catch(() => {});
+    }
+
+    if ("IntersectionObserver" in window) {
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const video = entry.target;
+                if (entry.isIntersecting) {
+                    playPreviewVideo(video);
+                } else {
+                    video.pause();
+                }
+            });
+        }, { threshold: .28 });
+
+        realVideoPreviews.forEach((video) => videoObserver.observe(video));
+    } else {
+        realVideoPreviews.forEach(playPreviewVideo);
+    }
 
     document.addEventListener("keydown", (event) => {
         if (event.key !== "Escape") return;
