@@ -3,6 +3,7 @@
     const calculatorProducts = window.MILLORY_CALCULATOR_PRODUCTS || [];
     const productGrid = document.getElementById("productGrid");
     const featuredTrack = document.getElementById("featuredTrack");
+    const popularGrid = document.getElementById("popularGrid");
     const featuredPrev = document.querySelector("[data-featured-prev]");
     const featuredNext = document.querySelector("[data-featured-next]");
     const filters = document.querySelectorAll(".filter");
@@ -110,11 +111,30 @@
     function renderFeaturedProducts() {
         if (!featuredTrack) return;
 
-        const featuredProducts = products
-            .filter((product) => product.image)
-            .slice(0, 10);
+        const featuredProducts = featuredSelection();
 
         featuredTrack.innerHTML = featuredProducts.map((product) => `
+            ${productTeaserCard(product)}
+        `).join("");
+
+        bindProductTeasers(featuredTrack);
+    }
+
+    function featuredSelection() {
+        return products
+            .filter((product) => product.image)
+            .slice(0, 10);
+    }
+
+    function popularSelection() {
+        const featuredIds = new Set(featuredSelection().map((product) => String(product.id)));
+        return products
+            .filter((product) => product.image && hasDisplayPrice(product) && !featuredIds.has(String(product.id)))
+            .slice(0, 8);
+    }
+
+    function productTeaserCard(product) {
+        return `
             <article class="featured-card" data-product-id="${product.id}" tabindex="0" role="button" aria-label="Deschide detaliile pentru ${product.title}">
                 <div class="featured-image">
                     <img src="${product.image}" alt="${product.title}">
@@ -127,9 +147,12 @@
                     <button type="button" class="featured-select">Selectati marime</button>
                 </div>
             </article>
-        `).join("");
+        `;
+    }
 
-        featuredTrack.querySelectorAll(".featured-card").forEach((card) => {
+    function bindProductTeasers(root) {
+        if (!root) return;
+        root.querySelectorAll(".featured-card").forEach((card) => {
             const open = () => openProductModal(card.dataset.productId);
             card.addEventListener("click", open);
             card.addEventListener("keydown", (event) => {
@@ -146,6 +169,12 @@
                 });
             }
         });
+    }
+
+    function renderPopularProducts() {
+        if (!popularGrid) return;
+        popularGrid.innerHTML = popularSelection().map((product) => productTeaserCard(product)).join("");
+        bindProductTeasers(popularGrid);
     }
 
     function scrollFeatured(direction) {
@@ -626,6 +655,7 @@
 
     renderProducts("all");
     renderFeaturedProducts();
+    renderPopularProducts();
     autoplayFeatured();
     updateConfigurator();
 })();
