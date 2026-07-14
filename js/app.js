@@ -7,6 +7,8 @@
     const featuredPrev = document.querySelector("[data-featured-prev]");
     const featuredNext = document.querySelector("[data-featured-next]");
     const filters = document.querySelectorAll(".filter");
+    const shapeFilters = document.getElementById("shapeFilters");
+    const shapeFilterButtons = document.querySelectorAll(".shape-filter");
     const catalogMore = document.getElementById("catalogMore");
     const showMoreProducts = document.getElementById("showMoreProducts");
     const menuFilterLinks = document.querySelectorAll("[data-catalog-filter]");
@@ -48,7 +50,10 @@
     let activeSize = null;
     let featuredAutoplay = null;
     let showFullCatalog = false;
+    let activeCatalogFilter = "all";
+    let activeShapeFilter = "all";
     const homepageProductLimit = 10;
+    const shapeFilterCategories = new Set(["led", "baie", "decor"]);
 
     const shapeLabels = {
         rect: "Dreptunghiulara",
@@ -70,21 +75,44 @@
             .trim();
     }
 
-    function renderProducts(activeFilter = "all") {
-        if (!productGrid) return;
+    function productMatchesShape(product, shapeFilter) {
+        if (shapeFilter === "all") return true;
+        if (shapeFilter === "decor") return !["rect", "round"].includes(product.shape);
+        return product.shape === shapeFilter;
+    }
 
-        const visibleProducts = activeFilter === "all"
+    function syncShapeFilters(activeFilter) {
+        const shouldShow = shapeFilterCategories.has(activeFilter);
+        if (shapeFilters) shapeFilters.hidden = !shouldShow;
+        if (!shouldShow) activeShapeFilter = "all";
+        shapeFilterButtons.forEach((button) => {
+            button.classList.toggle("active", button.dataset.shapeFilter === activeShapeFilter);
+        });
+    }
+
+    function renderProducts(activeFilter = activeCatalogFilter) {
+        if (!productGrid) return;
+        activeCatalogFilter = activeFilter;
+        syncShapeFilters(activeFilter);
+
+        const categoryProducts = activeFilter === "all"
             ? products
             : products.filter((product) => product.category === activeFilter);
+        const visibleProducts = shapeFilterCategories.has(activeFilter)
+            ? categoryProducts.filter((product) => productMatchesShape(product, activeShapeFilter))
+            : categoryProducts;
         const sortedProducts = sortPricedProducts(visibleProducts);
         const shouldLimit = activeFilter === "all" && !showFullCatalog;
         const displayProducts = shouldLimit ? sortedProducts.slice(0, homepageProductLimit) : sortedProducts;
 
         if (!visibleProducts.length) {
+            const emptyText = activeShapeFilter === "all"
+                ? "Compartimentul este pastrat in meniu, dar produsele pentru aceasta categorie vor fi adaugate ulterior."
+                : "Nu sunt produse disponibile momentan pentru forma selectata.";
             productGrid.innerHTML = `
                 <div class="catalog-empty reveal visible">
                     <strong>0 produse disponibile momentan</strong>
-                    <p>Compartimentul este pastrat in meniu, dar produsele pentru aceasta categorie vor fi adaugate ulterior.</p>
+                    <p>${emptyText}</p>
                 </div>
             `;
             if (catalogMore) catalogMore.hidden = true;
@@ -684,13 +712,24 @@
             filters.forEach((item) => item.classList.remove("active"));
             button.classList.add("active");
             showFullCatalog = button.dataset.filter !== "all";
+            activeShapeFilter = "all";
             renderProducts(button.dataset.filter);
+        });
+    });
+
+    shapeFilterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            activeShapeFilter = button.dataset.shapeFilter || "all";
+            shapeFilterButtons.forEach((item) => item.classList.toggle("active", item === button));
+            showFullCatalog = true;
+            renderProducts(activeCatalogFilter);
         });
     });
 
     if (showMoreProducts) {
         showMoreProducts.addEventListener("click", () => {
             showFullCatalog = true;
+            activeShapeFilter = "all";
             filters.forEach((item) => item.classList.toggle("active", item.dataset.filter === "all"));
             renderProducts("all");
         });
@@ -701,6 +740,7 @@
             const filter = link.dataset.catalogFilter;
             filters.forEach((item) => item.classList.toggle("active", item.dataset.filter === filter));
             showFullCatalog = filter === "all";
+            activeShapeFilter = "all";
             renderProducts(filter);
             document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" });
         });
