@@ -7,6 +7,8 @@
     const featuredPrev = document.querySelector("[data-featured-prev]");
     const featuredNext = document.querySelector("[data-featured-next]");
     const filters = document.querySelectorAll(".filter");
+    const catalogMore = document.getElementById("catalogMore");
+    const showMoreProducts = document.getElementById("showMoreProducts");
     const menuFilterLinks = document.querySelectorAll("[data-catalog-filter]");
     const revealItems = document.querySelectorAll(".reveal");
     const shapeSelect = document.getElementById("shapeSelect");
@@ -45,6 +47,8 @@
     let activeProduct = null;
     let activeSize = null;
     let featuredAutoplay = null;
+    let showFullCatalog = false;
+    const homepageProductLimit = 10;
 
     const shapeLabels = {
         rect: "Dreptunghiulara",
@@ -66,12 +70,15 @@
             .trim();
     }
 
-    function renderProducts(activeFilter) {
+    function renderProducts(activeFilter = "all") {
         if (!productGrid) return;
 
         const visibleProducts = activeFilter === "all"
             ? products
             : products.filter((product) => product.category === activeFilter);
+        const sortedProducts = sortPricedProducts(visibleProducts);
+        const shouldLimit = activeFilter === "all" && !showFullCatalog;
+        const displayProducts = shouldLimit ? sortedProducts.slice(0, homepageProductLimit) : sortedProducts;
 
         if (!visibleProducts.length) {
             productGrid.innerHTML = `
@@ -80,10 +87,11 @@
                     <p>Compartimentul este pastrat in meniu, dar produsele pentru aceasta categorie vor fi adaugate ulterior.</p>
                 </div>
             `;
+            if (catalogMore) catalogMore.hidden = true;
             return;
         }
 
-        productGrid.innerHTML = sortPricedProducts(visibleProducts).map((product) => `
+        productGrid.innerHTML = displayProducts.map((product) => `
             <article class="product-card reveal visible" data-category="${product.category}" data-product-id="${product.id}" tabindex="0" role="button" aria-label="Deschide detaliile pentru ${product.title}">
                 <div class="product-visual">
                     ${product.image ? `<img src="${product.image}" alt="${product.title}">` : `<div class="product-mirror ${product.shape}" aria-hidden="true"></div>`}
@@ -435,6 +443,11 @@
                 });
             });
         });
+
+        if (catalogMore) {
+            const hasMoreProducts = activeFilter === "all" && sortedProducts.length > homepageProductLimit;
+            catalogMore.hidden = !hasMoreProducts || showFullCatalog;
+        }
     }
 
     function productGalleryImages(product) {
@@ -670,14 +683,24 @@
         button.addEventListener("click", () => {
             filters.forEach((item) => item.classList.remove("active"));
             button.classList.add("active");
+            showFullCatalog = button.dataset.filter !== "all";
             renderProducts(button.dataset.filter);
         });
     });
+
+    if (showMoreProducts) {
+        showMoreProducts.addEventListener("click", () => {
+            showFullCatalog = true;
+            filters.forEach((item) => item.classList.toggle("active", item.dataset.filter === "all"));
+            renderProducts("all");
+        });
+    }
 
     menuFilterLinks.forEach((link) => {
         link.addEventListener("click", () => {
             const filter = link.dataset.catalogFilter;
             filters.forEach((item) => item.classList.toggle("active", item.dataset.filter === filter));
+            showFullCatalog = filter === "all";
             renderProducts(filter);
             document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" });
         });

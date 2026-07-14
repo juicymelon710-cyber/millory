@@ -341,6 +341,20 @@
     gap: 14px;
 }
 
+.catalog-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+.catalog-more .btn {
+    min-width: min(100%, 260px);
+}
+
+.catalog-more[hidden] {
+    display: none;
+}
+
 .catalog-empty {
     grid-column: 1 / -1;
     display: grid;
