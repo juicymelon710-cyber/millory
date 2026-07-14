@@ -144,7 +144,7 @@
     }
 
     function injectProductButtons() {
-        document.querySelectorAll(".product-card[data-product-id], .featured-card[data-product-id]").forEach((card) => {
+        document.querySelectorAll(".product-card[data-product-id]").forEach((card) => {
             if (card.querySelector(".cart-card-button")) return;
             const target = card.querySelector(".product-body") || card.querySelector(".featured-body");
             if (!target) return;

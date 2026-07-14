@@ -217,21 +217,7 @@
     }
 
     .hero-content span {
-        font-size: 0;
-        min-height: 0;
-        padding: 0;
-        color: rgba(255, 255, 255, .88);
-        background: transparent;
-        border: 0;
-        backdrop-filter: none;
-        font-size: .64rem;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-    }
-
-    .hero-content span::before {
-        content: "Premium. Realizate la comanda";
-        font-size: .66rem;
+        display: none;
     }
 
     .hero-content h1 {
