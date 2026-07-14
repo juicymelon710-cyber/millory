@@ -39,6 +39,8 @@
     const modalOptions = document.getElementById("modalOptions");
     const modalTotal = document.getElementById("modalTotal");
     const modalBasePrice = document.getElementById("modalBasePrice");
+    const modalStickyTotal = document.getElementById("modalStickyTotal");
+    const modalStickyBasePrice = document.getElementById("modalStickyBasePrice");
     const modalOrder = document.getElementById("modalOrder");
     let activeProduct = null;
     let activeSize = null;
@@ -340,8 +342,11 @@
         if (!activeProduct || !activeSize) return;
         updateModalOptionPrices();
         const total = productSizePrice(activeProduct, activeSize) + getSelectedOptionsTotal();
+        const baseText = `Baza: ${formatRon(productSizePrice(activeProduct, activeSize))} | optiuni incluse separat`;
         modalTotal.textContent = formatRon(total);
-        modalBasePrice.textContent = `Baza: ${formatRon(productSizePrice(activeProduct, activeSize))} | optiuni incluse separat`;
+        modalBasePrice.textContent = baseText;
+        if (modalStickyTotal) modalStickyTotal.textContent = formatRon(total);
+        if (modalStickyBasePrice) modalStickyBasePrice.textContent = baseText;
         activeSizeLabel.textContent = formatSizeName(activeSize);
     }
 
