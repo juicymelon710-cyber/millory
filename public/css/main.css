@@ -2253,7 +2253,7 @@ input[type="range"] {
     .calculator-select-label select,
     .calculator-dimensions input {
         min-height: 54px;
-        font-size: .96rem;
+        font-size: 16px;
         background-color: #fffdf8;
     }
 
@@ -2432,6 +2432,7 @@ input[type="range"] {
     .dimension-inputs input {
         min-height: 42px;
         padding: 10px;
+        font-size: 16px;
     }
 
     .size-option {
