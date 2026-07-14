@@ -24,6 +24,10 @@
     const imageLightbox = document.getElementById("imageLightbox");
     const lightboxImage = document.getElementById("lightboxImage");
     const closeLightboxButtons = document.querySelectorAll("[data-close-lightbox]");
+    const videoLightbox = document.getElementById("videoLightbox");
+    const videoLightboxPlayer = document.getElementById("videoLightboxPlayer");
+    const closeVideoLightboxButtons = document.querySelectorAll("[data-close-video-lightbox]");
+    const realVideoCards = document.querySelectorAll("[data-video-src]");
     const modalTitle = document.getElementById("modalTitle");
     const modalDescription = document.getElementById("modalDescription");
     const modalTags = document.getElementById("modalTags");
@@ -445,6 +449,24 @@
         lightboxImage.alt = "";
     }
 
+    function openVideoLightbox(src) {
+        if (!videoLightbox || !videoLightboxPlayer || !src) return;
+        videoLightboxPlayer.src = src;
+        videoLightboxPlayer.currentTime = 0;
+        videoLightbox.classList.add("open");
+        videoLightbox.setAttribute("aria-hidden", "false");
+        videoLightboxPlayer.play().catch(() => {});
+    }
+
+    function closeVideoLightbox() {
+        if (!videoLightbox || !videoLightboxPlayer) return;
+        videoLightbox.classList.remove("open");
+        videoLightbox.setAttribute("aria-hidden", "true");
+        videoLightboxPlayer.pause();
+        videoLightboxPlayer.removeAttribute("src");
+        videoLightboxPlayer.load();
+    }
+
     function renderModalGallery(product) {
         if (!modalGallery) return;
         modalGallery.innerHTML = productGalleryImages(product).map((src, index) => `
@@ -555,8 +577,25 @@
         button.addEventListener("click", closeImageLightbox);
     });
 
+    closeVideoLightboxButtons.forEach((button) => {
+        button.addEventListener("click", closeVideoLightbox);
+    });
+
+    realVideoCards.forEach((card) => {
+        const preview = card.querySelector("video");
+        if (preview) {
+            preview.muted = true;
+            preview.play().catch(() => {});
+        }
+        card.addEventListener("click", () => openVideoLightbox(card.dataset.videoSrc));
+    });
+
     document.addEventListener("keydown", (event) => {
         if (event.key !== "Escape") return;
+        if (videoLightbox?.classList.contains("open")) {
+            closeVideoLightbox();
+            return;
+        }
         if (imageLightbox?.classList.contains("open")) {
             closeImageLightbox();
             return;
