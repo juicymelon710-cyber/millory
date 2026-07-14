@@ -439,16 +439,20 @@
                 <summary>${group.name}</summary>
                 <div class="option-list">
                     ${group.items.map((item) => `
-                        <label class="option-row">
-                            <input type="checkbox" data-option-id="${item.id}" data-price="${modalOptionPrice(item)}" value="${item.id}">
-                            <span>
-                                <strong>${item.name}</strong>
-                            </span>
-                            <span class="option-price-pair">
-                                <del data-modal-option-old-price="${item.id}">${formatRon(modalOptionOldPrice(item))}</del>
-                                <em data-modal-option-price="${item.id}">${formatRon(modalOptionPrice(item))}</em>
-                            </span>
-                        </label>
+                        <div class="option-item">
+                            <label class="option-row">
+                                <input type="checkbox" data-option-id="${item.id}" data-price="${modalOptionPrice(item)}" value="${item.id}">
+                                <span class="option-name">
+                                    <strong>${item.name}</strong>
+                                    <button type="button" class="option-info-btn" data-option-info-toggle="${item.id}" aria-label="Detalii despre ${item.name}">i</button>
+                                </span>
+                                <span class="option-price-pair">
+                                    <del data-modal-option-old-price="${item.id}">${formatRon(modalOptionOldPrice(item))}</del>
+                                    <em data-modal-option-price="${item.id}">${formatRon(modalOptionPrice(item))}</em>
+                                </span>
+                            </label>
+                            <p class="option-info-text" data-option-info-text="${item.id}" hidden>${optionInfoText(item)}</p>
+                        </div>
                     `).join("")}
                 </div>
             </details>
@@ -457,6 +461,19 @@
         modalOptions.querySelectorAll("input").forEach((input) => {
             input.addEventListener("change", updateModalTotal);
         });
+
+        modalOptions.querySelectorAll("[data-option-info-toggle]").forEach((button) => {
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                const text = modalOptions.querySelector(`[data-option-info-text="${button.dataset.optionInfoToggle}"]`);
+                if (text) text.hidden = !text.hidden;
+            });
+        });
+    }
+
+    function optionInfoText(item) {
+        return cleanDescription(item.description) || "Informatia va fi adaugata in curand.";
     }
 
     function updateModalOptionPrices() {

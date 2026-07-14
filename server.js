@@ -4,12 +4,15 @@ const http = require("http");
 const path = require("path");
 const { getConfig, saveConfig } = require("./server/store");
 const { publicConfig, calculateQuote } = require("./server/calculator");
+const viber = require("./server/viber");
 
 const root = __dirname;
 const port = Number(process.env.PORT || 3000);
 const adminUser = process.env.ADMIN_USER || "admin";
 const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
 const sessionSecret = process.env.SESSION_SECRET || "millory-change-this-secret";
+const viberBotToken = process.env.VIBER_BOT_TOKEN || "";
+const viberOwnerId = process.env.VIBER_OWNER_ID || "";
 const sessions = new Map();
 const publicRoot = path.join(root, "public");
 
@@ -166,6 +169,36 @@ async function route(req, res) {
 
     if (req.method === "POST" && url.pathname === "/api/calculator/quote") {
       sendJson(res, 200, { ok: true, quote: calculateQuote(getConfig(), await readBody(req)) });
+      return;
+    }
+
+    if (req.method === "POST" && url.pathname === "/api/viber/webhook") {
+      const body = await readBody(req);
+      const senderId = body?.sender?.id;
+      if (senderId && viberBotToken) {
+        try {
+          await viber.sendMessage(viberBotToken, senderId, `ID-ul tau Viber pentru configurare Millory: ${senderId}`);
+        } catch (error) {
+          console.error("Viber webhook reply failed:", error.message);
+        }
+      }
+      sendJson(res, 200, { status: 0, status_message: "ok" });
+      return;
+    }
+
+    if (req.method === "POST" && url.pathname === "/api/checkout/viber") {
+      if (!viberBotToken || !viberOwnerId) {
+        sendJson(res, 503, { ok: false, message: "Trimiterea directa prin Viber nu este configurata." });
+        return;
+      }
+      const body = await readBody(req);
+      const message = String(body.message || "").trim();
+      if (!message) {
+        sendJson(res, 400, { ok: false, message: "Mesaj gol." });
+        return;
+      }
+      await viber.sendMessage(viberBotToken, viberOwnerId, message);
+      sendJson(res, 200, { ok: true, message: "Comanda a fost trimisa prin Viber." });
       return;
     }
 

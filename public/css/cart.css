@@ -544,6 +544,17 @@ header.nav-open .cart-nav-button {
     line-height: 1.55;
 }
 
+.checkout-note {
+    padding: 12px 14px;
+    color: var(--primary);
+    background: rgba(185, 150, 91, .14);
+    border: 1px solid rgba(185, 150, 91, .35);
+    border-radius: var(--radius-small);
+    font-size: .88rem;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
 .checkout-actions {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

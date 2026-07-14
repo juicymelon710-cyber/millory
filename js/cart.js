@@ -354,23 +354,52 @@
         return lines.join("\n");
     }
 
-    function renderConfirmedSummary(message) {
+    function renderConfirmedSummary(message, note) {
         if (!checkoutSummary) return;
         checkoutSummary.innerHTML = `
             <strong>Rezumat generat</strong>
             <pre>${message}</pre>
+            ${note ? `<p class="checkout-note">${note}</p>` : ""}
         `;
     }
 
-    async function sendViber(message) {
+    async function sendViaServer(message) {
+        const response = await fetch("/api/checkout/viber", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message })
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.ok) throw new Error(data.message || "Trimiterea a esuat.");
+    }
+
+    async function sendViberFallback(message) {
+        let copied = false;
         if (navigator.clipboard && window.isSecureContext) {
             try {
                 await navigator.clipboard.writeText(message);
+                copied = true;
             } catch {
-                // Browser support varies for Viber deep links with prefilled text.
+                // Browser support varies for clipboard access; fall back to manual copy.
             }
         }
-        window.location.href = `viber://chat?number=${encodeURIComponent(STORE_PHONE_INTERNATIONAL)}`;
+
+        renderConfirmedSummary(message, copied
+            ? "Viber nu poate prelua automat textul comenzii. L-am copiat deja - apasa in caseta de scriere din Viber si lipeste-l (Ctrl+V), apoi trimite-l."
+            : "Viber nu poate prelua automat textul comenzii. Copiaza rezumatul de mai sus si lipeste-l in conversatia care se deschide in Viber, apoi trimite-l.");
+
+        window.setTimeout(() => {
+            window.location.href = `viber://chat?number=${encodeURIComponent(STORE_PHONE_INTERNATIONAL)}`;
+        }, 900);
+    }
+
+    async function sendViber(message) {
+        try {
+            await sendViaServer(message);
+            renderConfirmedSummary(message, "Comanda a fost trimisa direct pe Viber. Te contactam in curand!");
+        } catch {
+            await sendViberFallback(message);
+        }
     }
 
     function bindEvents() {
@@ -413,13 +442,13 @@
                 event.preventDefault();
                 if (!cart.length) return;
                 const message = checkoutMessage(new FormData(checkoutForm));
-                renderConfirmedSummary(message);
 
                 if (checkoutChannel === "viber") {
                     sendViber(message);
                     return;
                 }
 
+                renderConfirmedSummary(message);
                 window.open(`https://wa.me/${STORE_PHONE}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
             });
 
