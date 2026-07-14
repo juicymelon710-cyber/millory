@@ -332,6 +332,12 @@
         return Math.round(Number(item.priceMdl || item.priceRon || 0) * quantityByType(item.type, metrics));
     }
 
+    function modalOptionOldPrice(item) {
+        const currentPrice = modalOptionPrice(item);
+        if (!currentPrice) return 0;
+        return currentPrice + 30;
+    }
+
     function getSelectedOptionsTotal() {
         if (!modalOptions) return 0;
         return Array.from(modalOptions.querySelectorAll("input:checked"))
@@ -397,7 +403,10 @@
                             <span>
                                 <strong>${item.name}</strong>
                             </span>
-                            <em data-modal-option-price="${item.id}">${formatRon(modalOptionPrice(item))}</em>
+                            <span class="option-price-pair">
+                                <del data-modal-option-old-price="${item.id}">${formatRon(modalOptionOldPrice(item))}</del>
+                                <em data-modal-option-price="${item.id}">${formatRon(modalOptionPrice(item))}</em>
+                            </span>
                         </label>
                     `).join("")}
                 </div>
@@ -420,6 +429,9 @@
                 });
                 modalOptions.querySelectorAll(`[data-modal-option-price="${item.id}"]`).forEach((target) => {
                     target.textContent = formatRon(price);
+                });
+                modalOptions.querySelectorAll(`[data-modal-option-old-price="${item.id}"]`).forEach((target) => {
+                    target.textContent = formatRon(price ? price + 30 : 0);
                 });
             });
         });
