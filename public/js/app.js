@@ -80,6 +80,11 @@
         const shouldLimit = activeFilter === "all" && !showFullCatalog;
         const displayProducts = shouldLimit ? sortedProducts.slice(0, homepageProductLimit) : sortedProducts;
 
+        if (catalogMore) {
+            const hasMoreProducts = activeFilter === "all" && sortedProducts.length > homepageProductLimit;
+            catalogMore.hidden = !hasMoreProducts || showFullCatalog;
+        }
+
         if (!visibleProducts.length) {
             productGrid.innerHTML = `
                 <div class="catalog-empty reveal visible">
@@ -443,11 +448,6 @@
                 });
             });
         });
-
-        if (catalogMore) {
-            const hasMoreProducts = activeFilter === "all" && sortedProducts.length > homepageProductLimit;
-            catalogMore.hidden = !hasMoreProducts || showFullCatalog;
-        }
     }
 
     function productGalleryImages(product) {
