@@ -60,6 +60,11 @@ header.nav-open .cart-nav-button {
     transition: var(--transition);
 }
 
+.featured-body .cart-card-button {
+    color: var(--primary);
+    background: var(--accent);
+}
+
 .favorite-nav-button {
     color: currentColor;
 }

@@ -1817,8 +1817,7 @@ input[type="range"] {
 .social-icon {
     width: 22px;
     height: 22px;
-    fill: currentColor;
-    stroke: none;
+    overflow: visible;
 }
 
 .contact-socials a:nth-child(2) {

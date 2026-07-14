@@ -381,12 +381,30 @@ header.nav-open .menu {
 
     .mobile-actions a,
     .mobile-actions button {
+        position: relative;
         display: grid;
         place-items: center;
         width: 38px;
         height: 42px;
         color: var(--white);
         background: transparent;
+    }
+
+    .mobile-actions [data-cart-count] {
+        position: absolute;
+        top: 2px;
+        right: 0;
+        min-width: 17px;
+        height: 17px;
+        display: grid;
+        place-items: center;
+        padding: 0 4px;
+        color: var(--primary);
+        background: var(--accent-hover);
+        border-radius: 999px;
+        font-size: .62rem;
+        font-style: normal;
+        font-weight: 900;
     }
 
     .mobile-actions svg,
