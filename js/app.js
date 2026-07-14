@@ -747,7 +747,7 @@
     });
 
     function updateConfigurator() {
-        if (!previewMirror || !shapeSelect || !lightSelect || !widthRange || !widthValue || !summaryShape || !summaryLight || !summaryWidth) return;
+        if (!previewMirror) return;
 
         const shape = shapeSelect.value;
         const light = lightSelect.value;
@@ -795,5 +795,5 @@
     renderFeaturedProducts();
     renderPopularProducts();
     autoplayFeatured();
-    if (previewMirror) updateConfigurator();
+    updateConfigurator();
 })();
