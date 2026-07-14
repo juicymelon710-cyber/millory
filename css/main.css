@@ -1788,28 +1788,6 @@ input[type="range"] {
     background: #278fff;
 }
 
-.desktop-social-call a svg,
-.mobile-menu-contact div a svg,
-.contact-socials a svg,
-.mobile-contact-actions a svg {
-    width: 58%;
-    height: 58%;
-    display: block;
-    fill: currentColor;
-}
-
-.contact-viber {
-    background: #7f37c6;
-}
-
-.contact-whatsapp {
-    background: #21bf4b;
-}
-
-.contact-messenger {
-    background: #278fff;
-}
-
 .contact-map {
     width: min(100%, 470px);
     height: 220px;
