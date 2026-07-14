@@ -124,7 +124,7 @@
                     <h3>${product.title}</h3>
                     <p>${primarySize(product)}</p>
                     <strong>${displayProductPrice(product)}</strong>
-                    <button type="button" class="featured-select">Selecteaza marime</button>
+                    <button type="button" class="featured-select">Selectati marime</button>
                 </div>
             </article>
         `).join("");
