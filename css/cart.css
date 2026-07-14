@@ -296,9 +296,9 @@ header.nav-open .cart-nav-button {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        font-size: clamp(1.3rem, 5vw, 1.75rem);
+        font-size: clamp(1.05rem, 4.2vw, 1.35rem);
         font-weight: 500;
-        letter-spacing: .06em;
+        letter-spacing: .04em;
     }
 
     .mobile-contact-phone span {
@@ -355,6 +355,11 @@ header.nav-open .cart-nav-button {
         width: 42px;
         height: 42px;
         font-size: .9rem;
+    }
+
+    .mobile-contact-phone strong {
+        font-size: .98rem;
+        letter-spacing: .03em;
     }
 }
 

@@ -1633,7 +1633,7 @@ input[type="range"] {
     display: inline-flex;
     margin: 10px 0 34px;
     color: var(--white);
-    font-size: clamp(2.2rem, 5vw, 4.8rem);
+    font-size: clamp(1.8rem, 3.8vw, 3.6rem);
     font-weight: 400;
     letter-spacing: .08em;
     line-height: 1;
@@ -1688,6 +1688,25 @@ input[type="range"] {
 
 .contact-socials a:nth-child(3) {
     background: #278fff;
+}
+
+.contact-map {
+    width: min(100%, 470px);
+    height: 220px;
+    margin-top: 30px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .13);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .06);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
+}
+
+.contact-map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: grayscale(.16) contrast(1.05);
 }
 
 .contact-form {
@@ -1963,8 +1982,8 @@ input[type="range"] {
 
     .contact-phone {
         margin: 0 0 34px;
-        font-size: clamp(2.35rem, 12vw, 3.6rem);
-        letter-spacing: .08em;
+        font-size: clamp(1.75rem, 8vw, 2.45rem);
+        letter-spacing: .06em;
     }
 
     .contact-details {
@@ -1987,6 +2006,12 @@ input[type="range"] {
     .contact-socials a {
         width: 50px;
         height: 50px;
+    }
+
+    .contact-map {
+        height: 190px;
+        margin-top: 24px;
+        border-radius: 14px;
     }
 
     .contact-form {
