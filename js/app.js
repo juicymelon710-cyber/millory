@@ -19,7 +19,10 @@
     const contactForm = document.querySelector(".contact-form");
     const formNote = document.getElementById("formNote");
     const productModal = document.getElementById("productModal");
-    const modalImage = document.getElementById("modalImage");
+    const modalGallery = document.getElementById("modalGallery");
+    const imageLightbox = document.getElementById("imageLightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const closeLightboxButtons = document.querySelectorAll("[data-close-lightbox]");
     const modalTitle = document.getElementById("modalTitle");
     const modalDescription = document.getElementById("modalDescription");
     const modalTags = document.getElementById("modalTags");
@@ -392,6 +395,49 @@
         });
     }
 
+    function productGalleryImages(product) {
+        const image = product.image || "assets/images/millory-showroom-hero.png";
+        return [image, image, image, image];
+    }
+
+    function openImageLightbox(src, alt) {
+        if (!imageLightbox || !lightboxImage) return;
+        lightboxImage.src = src;
+        lightboxImage.alt = alt || "";
+        imageLightbox.classList.add("open");
+        imageLightbox.setAttribute("aria-hidden", "false");
+    }
+
+    function closeImageLightbox() {
+        if (!imageLightbox || !lightboxImage) return;
+        imageLightbox.classList.remove("open");
+        imageLightbox.setAttribute("aria-hidden", "true");
+        lightboxImage.src = "";
+        lightboxImage.alt = "";
+    }
+
+    function renderModalGallery(product) {
+        if (!modalGallery) return;
+        modalGallery.innerHTML = productGalleryImages(product).map((src, index) => `
+            <button class="modal-gallery-item" type="button" data-gallery-src="${src}" aria-label="Deschide imaginea ${index + 1} pentru ${product.title}">
+                <img src="${src}" alt="${product.title} imagine ${index + 1}">
+                <span aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10.8 5.5a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6Z"></path>
+                        <path d="m15 15 4.5 4.5"></path>
+                        <path d="M10.8 8.3v5.1M8.3 10.8h5.1"></path>
+                    </svg>
+                </span>
+            </button>
+        `).join("");
+
+        modalGallery.querySelectorAll(".modal-gallery-item").forEach((button) => {
+            button.addEventListener("click", () => {
+                openImageLightbox(button.dataset.gallerySrc, activeProduct?.title || "");
+            });
+        });
+    }
+
     function openProductModal(productId) {
         activeProduct = products.find((product) => String(product.id) === String(productId));
         if (!activeProduct || !productModal) return;
@@ -409,8 +455,7 @@
             priceMdl: activeProduct.priceMdl
         };
 
-        modalImage.src = activeProduct.image || "assets/images/millory-showroom-hero.png";
-        modalImage.alt = activeProduct.title;
+        renderModalGallery(activeProduct);
         modalTitle.textContent = activeProduct.title;
         modalDescription.textContent = cleanDescription(activeProduct.description);
         modalTags.innerHTML = activeProduct.tags.map((tag) => `<span>${tag}</span>`).join("");
@@ -454,6 +499,7 @@
         productModal.classList.remove("open");
         productModal.setAttribute("aria-hidden", "true");
         document.body.classList.remove("product-modal-open");
+        closeImageLightbox();
     }
 
     [modalHeight, modalWidth].forEach((input) => {
@@ -476,8 +522,17 @@
         button.addEventListener("click", closeProductModal);
     });
 
+    closeLightboxButtons.forEach((button) => {
+        button.addEventListener("click", closeImageLightbox);
+    });
+
     document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") closeProductModal();
+        if (event.key !== "Escape") return;
+        if (imageLightbox?.classList.contains("open")) {
+            closeImageLightbox();
+            return;
+        }
+        closeProductModal();
     });
 
     if (modalOrder) {
