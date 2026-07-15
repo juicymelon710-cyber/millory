@@ -317,15 +317,18 @@ header.nav-open .cart-nav-button {
     .mobile-contact-actions {
         display: flex;
         align-items: center;
-        gap: 10px;
+        flex: none;
+        gap: 14px;
     }
 
     .mobile-contact-actions a {
         display: grid;
         place-items: center;
-        width: 48px;
-        height: 48px;
+        flex: none;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
+        overflow: hidden;
         color: var(--white);
         font-weight: 900;
         box-shadow: 0 12px 24px rgba(0, 0, 0, .22);
@@ -353,13 +356,7 @@ header.nav-open .cart-nav-button {
     }
 
     .mobile-contact-actions {
-        gap: 7px;
-    }
-
-    .mobile-contact-actions a {
-        width: 42px;
-        height: 42px;
-        font-size: .9rem;
+        gap: 12px;
     }
 
     .mobile-contact-phone strong {

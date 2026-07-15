@@ -441,7 +441,10 @@
                     ${group.items.map((item) => `
                         <div class="option-item">
                             <label class="option-row">
-                                <input type="checkbox" data-option-id="${item.id}" data-price="${modalOptionPrice(item)}" value="${item.id}">
+                                <span class="option-check-wrap">
+                                    <input type="checkbox" data-option-id="${item.id}" data-price="${modalOptionPrice(item)}" value="${item.id}">
+                                    <span class="option-check-box" aria-hidden="true"></span>
+                                </span>
                                 <span class="option-name">
                                     <strong>${item.name}</strong>
                                     <button type="button" class="option-info-btn" data-option-info-toggle="${item.id}" aria-label="Detalii despre ${item.name}">i</button>

@@ -506,15 +506,19 @@ header.nav-open .menu {
 
     .mobile-menu-contact div {
         display: flex;
-        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 14px;
     }
 
     .mobile-menu-contact div a {
         display: grid;
         place-items: center;
-        width: 46px;
-        height: 46px;
+        flex: none;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
+        overflow: hidden;
         color: var(--white);
         background: #7f37c6;
         font-weight: 900;

@@ -1024,11 +1024,40 @@
     border-top: 1px solid rgba(255, 255, 255, .06);
 }
 
-.option-row input {
-    width: 15px;
-    height: 15px;
+.option-check-wrap {
+    position: relative;
+    display: inline-block;
+    flex: none;
+    width: 16px;
+    height: 16px;
+}
+
+.option-check-wrap input {
+    position: absolute;
+    inset: 0;
+    width: 16px;
+    height: 16px;
     margin: 0;
-    accent-color: var(--accent);
+    opacity: 0;
+    cursor: pointer;
+}
+
+.option-check-box {
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    border: 1.5px solid rgba(255, 255, 255, .35);
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+    pointer-events: none;
+}
+
+.option-check-wrap input:checked + .option-check-box {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5 6.5 12 13 4.5'/%3E%3C/svg%3E");
 }
 
 .option-row strong,
