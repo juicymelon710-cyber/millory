@@ -322,11 +322,12 @@ header.nav-open .cart-nav-button {
     }
 
     .mobile-contact-actions a {
-        display: grid;
-        place-items: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         flex: none;
-        width: 50px;
-        height: 50px;
+        width: 44px;
+        height: 44px;
         border-radius: 50%;
         overflow: hidden;
         color: var(--white);
@@ -356,7 +357,7 @@ header.nav-open .cart-nav-button {
     }
 
     .mobile-contact-actions {
-        gap: 12px;
+        gap: 14px;
     }
 
     .mobile-contact-phone strong {
