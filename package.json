@@ -8,5 +8,8 @@
     "dev": "node server.js",
     "init-db": "node scripts/init-db.js"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "simple-icons": "^16.26.0"
+  }
 }

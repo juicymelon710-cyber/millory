@@ -1879,7 +1879,7 @@ input[type="range"] {
     height: 54px;
     border-radius: 50%;
     color: var(--white);
-    background: #7f37c6;
+    background: #7360f2;
     font-weight: 900;
     box-shadow: 0 16px 32px rgba(0, 0, 0, .24);
 }
@@ -1891,11 +1891,11 @@ input[type="range"] {
 }
 
 .contact-socials a:nth-child(2) {
-    background: #21bf4b;
+    background: #25d366;
 }
 
 .contact-socials a:nth-child(3) {
-    background: #278fff;
+    background: #0866ff;
 }
 
 .contact-map {
@@ -2021,25 +2021,22 @@ input[type="range"] {
 .social-links {
     display: flex;
     justify-content: flex-end;
-    gap: 12px;
+    gap: 14px;
 }
 
 .social-links a {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 46px;
-    height: 46px;
+    flex: none;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
+    overflow: hidden;
     color: var(--white);
     border: 1px solid rgba(255, 255, 255, .16);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 14px 30px rgba(0, 0, 0, .2);
     transition: transform .25s ease, border-color .25s ease, background .25s ease, color .25s ease;
-}
-
-.social-links svg {
-    width: 22px;
-    height: 22px;
 }
 
 .social-instagram {
@@ -2047,7 +2044,7 @@ input[type="range"] {
 }
 
 .social-facebook {
-    background: #1877f2;
+    background: #0866ff;
 }
 
 .social-tiktok {
@@ -2719,8 +2716,8 @@ input[type="range"] {
     }
 
     .social-links a {
-        width: 46px;
-        height: 46px;
+        width: 44px;
+        height: 44px;
     }
 
     .footer-bottom {

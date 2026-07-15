@@ -521,16 +521,16 @@ header.nav-open .menu {
         border-radius: 50%;
         overflow: hidden;
         color: var(--white);
-        background: #7f37c6;
+        background: #7360f2;
         font-weight: 900;
     }
 
     .mobile-menu-contact div a:nth-child(2) {
-        background: #21bf4b;
+        background: #25d366;
     }
 
     .mobile-menu-contact div a:nth-child(3) {
-        background: #278fff;
+        background: #0866ff;
     }
 
     .nav-links a {
