@@ -2718,6 +2718,11 @@ input[type="range"] {
         width: auto;
     }
 
+    .social-links a {
+        width: 46px;
+        height: 46px;
+    }
+
     .footer-bottom {
         display: grid;
         justify-items: center;
