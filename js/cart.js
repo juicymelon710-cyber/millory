@@ -3,6 +3,7 @@
     const FAVORITES_KEY = "millory:favorites";
     const STORE_PHONE = "37369482034";
     const STORE_PHONE_INTERNATIONAL = "+37369482034";
+    const STORE_TELEGRAM_USERNAME = "millorymd";
     const products = window.MILLORY_PRODUCTS || [];
     const productMap = new Map(products.map((product) => [String(product.id), product]));
 
@@ -364,7 +365,7 @@
     }
 
     async function sendViaServer(message) {
-        const response = await fetch("/api/checkout/viber", {
+        const response = await fetch("/api/checkout/telegram", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message })
@@ -373,32 +374,19 @@
         if (!response.ok || !data.ok) throw new Error(data.message || "Trimiterea a esuat.");
     }
 
-    async function sendViberFallback(message) {
-        let copied = false;
-        if (navigator.clipboard && window.isSecureContext) {
-            try {
-                await navigator.clipboard.writeText(message);
-                copied = true;
-            } catch {
-                // Browser support varies for clipboard access; fall back to manual copy.
-            }
-        }
-
-        renderConfirmedSummary(message, copied
-            ? "Viber nu poate prelua automat textul comenzii. L-am copiat deja - apasa in caseta de scriere din Viber si lipeste-l (Ctrl+V), apoi trimite-l."
-            : "Viber nu poate prelua automat textul comenzii. Copiaza rezumatul de mai sus si lipeste-l in conversatia care se deschide in Viber, apoi trimite-l.");
-
+    function sendTelegramFallback(message) {
+        renderConfirmedSummary(message, "Se deschide Telegram cu mesajul comenzii deja scris - apasa Trimite.");
         window.setTimeout(() => {
-            window.location.href = `viber://chat?number=${encodeURIComponent(STORE_PHONE_INTERNATIONAL)}`;
-        }, 900);
+            window.open(`https://t.me/${STORE_TELEGRAM_USERNAME}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+        }, 400);
     }
 
-    async function sendViber(message) {
+    async function sendTelegram(message) {
         try {
             await sendViaServer(message);
-            renderConfirmedSummary(message, "Comanda a fost trimisa direct pe Viber. Te contactam in curand!");
+            renderConfirmedSummary(message, "Comanda a fost trimisa direct pe Telegram. Te contactam in curand!");
         } catch {
-            await sendViberFallback(message);
+            sendTelegramFallback(message);
         }
     }
 
@@ -443,8 +431,8 @@
                 if (!cart.length) return;
                 const message = checkoutMessage(new FormData(checkoutForm));
 
-                if (checkoutChannel === "viber") {
-                    sendViber(message);
+                if (checkoutChannel === "telegram") {
+                    sendTelegram(message);
                     return;
                 }
 
