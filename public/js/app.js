@@ -55,6 +55,136 @@
     const homepageProductLimit = 10;
     const shapeFilterCategories = new Set(["led", "baie", "decor"]);
 
+    const API_TIMEOUT_MS = 5000;
+    const productDetailCache = new Map();
+    const calculatorDetailCache = new Map();
+    let productListHydrated = false;
+
+    async function fetchJsonWithTimeout(url, timeoutMs = API_TIMEOUT_MS) {
+        const controller = new AbortController();
+        const timer = window.setTimeout(() => controller.abort(), timeoutMs);
+        try {
+            const response = await fetch(url, { signal: controller.signal });
+            if (!response.ok) return null;
+            return await response.json();
+        } catch {
+            return null;
+        } finally {
+            window.clearTimeout(timer);
+        }
+    }
+
+    function upsertById(list, id, patch) {
+        const cleanPatch = Object.fromEntries(Object.entries(patch).filter(([, value]) => value !== undefined));
+        const index = list.findIndex((entry) => String(entry.id) === String(id));
+        if (index === -1) {
+            list.push({ id, ...cleanPatch });
+        } else {
+            Object.assign(list[index], cleanPatch);
+        }
+    }
+
+    function normalizeApiProduct(product) {
+        return {
+            title: product.title,
+            description: product.description,
+            category: product.category,
+            shape: product.shape,
+            priceMdl: product.priceMdl,
+            inStock: product.inStock,
+            image: (product.images || []).find((img) => img.isPrimary)?.url || product.images?.[0]?.url,
+            tags: product.tags,
+            filters: product.filters,
+            defaultSize: product.defaultSize,
+            smallestSize: product.smallestSize,
+            biggestSize: product.biggestSize,
+            recommendedSizes: product.sizes,
+            materials: product.materials,
+            optionGroups: product.optionGroups
+        };
+    }
+
+    function normalizeApiCalculatorProduct(product) {
+        return {
+            id: product.id,
+            slug: product.id,
+            name: product.title,
+            defaultSize: product.defaultSize,
+            smallestSize: product.smallestSize,
+            biggestSize: product.biggestSize,
+            recommendedSizes: product.recommendedSizes,
+            materials: product.materials,
+            optionGroups: product.optionGroups,
+            smallCoefficient: product.smallCoefficient,
+            mediumCoefficient: product.mediumCoefficient,
+            bigCoefficient: product.bigCoefficient,
+            mediumSize: product.mediumSize,
+            bigSize: product.bigSize
+        };
+    }
+
+    async function fetchAllApiProducts() {
+        const limit = 100;
+        let offset = 0;
+        const collected = [];
+        for (;;) {
+            const data = await fetchJsonWithTimeout(`/api/products?limit=${limit}&offset=${offset}`);
+            if (!data || data.ok !== true || !Array.isArray(data.products)) return null;
+            collected.push(...data.products);
+            if (data.products.length < limit || collected.length >= data.total) break;
+            offset += limit;
+        }
+        return collected;
+    }
+
+    async function hydrateProductList() {
+        if (productListHydrated) return;
+        const apiProducts = await fetchAllApiProducts();
+        if (!apiProducts || !apiProducts.length) return;
+        productListHydrated = true;
+        apiProducts.forEach((item) => {
+            upsertById(products, item.id, {
+                title: item.title,
+                description: item.description,
+                category: item.category,
+                shape: item.shape,
+                priceMdl: item.priceMdl,
+                inStock: item.inStock,
+                image: item.image,
+                tags: item.tags && item.tags.length ? item.tags : undefined
+            });
+        });
+        renderProducts(activeCatalogFilter);
+        renderFeaturedProducts();
+        renderPopularProducts();
+    }
+
+    async function hydrateProductDetail(productId) {
+        if (productDetailCache.has(productId)) {
+            upsertById(products, productId, productDetailCache.get(productId));
+            return true;
+        }
+        const data = await fetchJsonWithTimeout(`/api/products/${encodeURIComponent(productId)}`);
+        if (!data || data.ok !== true || !data.product) return false;
+        const detail = normalizeApiProduct(data.product);
+        productDetailCache.set(productId, detail);
+        upsertById(products, productId, detail);
+        return true;
+    }
+
+    async function hydrateCalculatorDetail(productId) {
+        if (calculatorDetailCache.has(productId)) {
+            upsertById(calculatorProducts, productId, calculatorDetailCache.get(productId));
+            return true;
+        }
+        const data = await fetchJsonWithTimeout(`/api/calculator/products/${encodeURIComponent(productId)}`);
+        if (!data || data.ok !== true || !data.product) return false;
+        const detail = normalizeApiCalculatorProduct(data.product);
+        calculatorDetailCache.set(productId, detail);
+        upsertById(calculatorProducts, productId, detail);
+        return true;
+    }
+
     const shapeLabels = {
         rect: "Dreptunghiulara",
         round: "Rotunda",
@@ -438,7 +568,7 @@
             <details class="option-group" ${groupIndex < 4 ? "open" : ""}>
                 <summary>${group.name}</summary>
                 <div class="option-list">
-                    ${group.items.map((item) => `
+                    ${(group.items || []).map((item) => `
                         <div class="option-item">
                             <label class="option-row">
                                 <span class="option-check-wrap">
@@ -483,7 +613,7 @@
         if (!modalOptions || !activeProduct || !activeSize) return;
         const source = modalProductData(activeProduct);
         (source.optionGroups || []).forEach((group) => {
-            group.items.forEach((item) => {
+            (group.items || []).forEach((item) => {
                 const price = modalOptionPrice(item);
                 modalOptions.querySelectorAll(`[data-option-id="${item.id}"]`).forEach((input) => {
                     input.dataset.price = String(price);
@@ -559,9 +689,7 @@
         });
     }
 
-    function openProductModal(productId) {
-        activeProduct = products.find((product) => String(product.id) === String(productId));
-        if (!activeProduct || !productModal) return;
+    function buildProductModalView() {
         const source = modalProductData(activeProduct);
         const sizes = modalSizesFor(activeProduct);
         const defaultSize = source.defaultSize || activeProduct.defaultSize;
@@ -579,7 +707,7 @@
         renderModalGallery(activeProduct);
         modalTitle.textContent = activeProduct.title;
         modalDescription.textContent = cleanDescription(activeProduct.description);
-        modalTags.innerHTML = activeProduct.tags.map((tag) => `<span>${tag}</span>`).join("");
+        modalTags.innerHTML = (activeProduct.tags || []).map((tag) => `<span>${tag}</span>`).join("");
         modalFacts.innerHTML = [
             defaultSize ? ["Dimensiune standard", defaultSize.name] : null,
             smallestSize ? ["Minim", smallestSize.name] : null,
@@ -610,9 +738,30 @@
 
         renderOptions(activeProduct);
         selectSize(activeSize.id);
+    }
+
+    async function openProductModal(productId) {
+        activeProduct = products.find((product) => String(product.id) === String(productId));
+        if (!activeProduct || !productModal) return;
+
+        // Open immediately with whatever data is already available (static fallback
+        // or previously cached API data) so the modal never waits on the network.
+        buildProductModalView();
         productModal.classList.add("open");
         productModal.setAttribute("aria-hidden", "false");
         document.body.classList.add("product-modal-open");
+
+        const [detailLoaded] = await Promise.all([
+            hydrateProductDetail(productId),
+            hydrateCalculatorDetail(productId)
+        ]);
+
+        // Only refresh the view if the same product's modal is still open - the
+        // user may have closed it or opened a different product while we waited.
+        if (!detailLoaded) return;
+        if (!productModal.classList.contains("open")) return;
+        if (String(activeProduct?.id) !== String(productId)) return;
+        buildProductModalView();
     }
 
     function closeProductModal() {
@@ -816,4 +965,5 @@
     renderPopularProducts();
     autoplayFeatured();
     updateConfigurator();
+    hydrateProductList();
 })();

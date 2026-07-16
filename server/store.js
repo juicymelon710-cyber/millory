@@ -24,7 +24,11 @@ function hasConfig() {
 
 function getConfig() {
   const row = runStore("get");
-  if (!row?.data) throw new Error("Calculatorul nu este initializat. Ruleaza npm run init-db.");
+  if (!row?.data) {
+    const error = new Error("Calculatorul nu este initializat. Ruleaza npm run init-db.");
+    error.status = 400;
+    throw error;
+  }
   return normalizeConfig(row.data);
 }
 

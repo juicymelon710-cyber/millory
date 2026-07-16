@@ -1,5 +1,11 @@
 const VALID_UNITS = new Set(["m2", "ml", "mm", "buc"]);
 
+function badRequest(message) {
+  const error = new Error(message);
+  error.status = 400;
+  return error;
+}
+
 function toNumber(value, fallback = 0) {
   const number = Number(value);
   return Number.isFinite(number) ? number : fallback;
@@ -55,10 +61,10 @@ function normalizeConfig(input) {
   };
 
   if (normalized.settings.minHeight > normalized.settings.maxHeight) {
-    throw new Error("Dimensiunea minima de inaltime nu poate fi mai mare decat maxima.");
+    throw badRequest("Dimensiunea minima de inaltime nu poate fi mai mare decat maxima.");
   }
   if (normalized.settings.minWidth > normalized.settings.maxWidth) {
-    throw new Error("Dimensiunea minima de latime nu poate fi mai mare decat maxima.");
+    throw badRequest("Dimensiunea minima de latime nu poate fi mai mare decat maxima.");
   }
 
   normalized.products = (source.products || []).map((product, productIndex) => {
@@ -105,12 +111,12 @@ function normalizeConfig(input) {
   });
 
   if (!normalized.products.length) {
-    throw new Error("Trebuie sa existe cel putin un produs in calculator.");
+    throw badRequest("Trebuie sa existe cel putin un produs in calculator.");
   }
 
   normalized.products.forEach((product) => {
     if (!product.materials.length) {
-      throw new Error(`Produsul ${product.name} trebuie sa aiba cel putin un material.`);
+      throw badRequest(`Produsul ${product.name} trebuie sa aiba cel putin un material.`);
     }
   });
 
@@ -172,7 +178,7 @@ function metricsFor(product, settings, widthInput, heightInput) {
 
 function calculateQuote(config, payload) {
   const product = config.products.find((entry) => entry.id === payload.productId && entry.available !== false);
-  if (!product) throw new Error("Produsul selectat nu este disponibil.");
+  if (!product) throw badRequest("Produsul selectat nu este disponibil.");
 
   const metrics = metricsFor(product, config.settings, payload.width, payload.height);
   const materialCost = product.materials.reduce((sum, material) => {

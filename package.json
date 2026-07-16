@@ -6,10 +6,18 @@
     "prepare-public": "node scripts/prepare-public.js",
     "start": "node server.js",
     "dev": "node server.js",
-    "init-db": "node scripts/init-db.js"
+    "init-db": "node scripts/init-db.js",
+    "db:migrate": "node scripts/migrate-turso.js",
+    "db:import-products": "node scripts/import-products-turso.js",
+    "test:api": "node scripts/test-api.js",
+    "test:frontend": "node scripts/test-frontend-integration.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@libsql/client": "^0.17.4",
+    "dotenv": "^17.4.2"
+  },
   "devDependencies": {
+    "playwright": "^1.61.1",
     "simple-icons": "^16.26.0"
   }
 }
