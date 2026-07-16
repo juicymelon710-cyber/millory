@@ -630,6 +630,14 @@ a {
     color: var(--secondary);
 }
 
+/* "La comanda" - made-to-order / calculator-priced items with no fixed
+   catalog price, shown in the accent gold rather than success/danger/muted
+   since it isn't a stock-level state (in stock, out of stock, inactive). */
+.admin-badge-order {
+    background: rgba(185, 150, 91, .16);
+    color: var(--accent-hover);
+}
+
 .admin-pagination {
     display: flex;
     align-items: center;

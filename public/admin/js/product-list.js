@@ -11,6 +11,26 @@ const AdminProductList = (function () {
         return `${Number(value || 0).toLocaleString("ro-RO")} MDL`;
     }
 
+    // priceMdl === 0 means the product has no fixed catalog price - it's a
+    // made-to-order / calculator-priced item, not a data error (see the
+    // price/stock dry-run: only one product in the whole catalog has ever
+    // had a fixed price). "Epuizat" is reserved for products that DO have a
+    // fixed price and are genuinely out of stock.
+    function renderPriceCell(p) {
+        if (Number(p.priceMdl) > 0) return escapeHtml(formatPrice(p.priceMdl));
+        return `<span class="admin-badge admin-badge-order">La comandă</span>`;
+    }
+
+    function renderStockCell(p) {
+        if (p.inStock) {
+            return `<span class="admin-badge admin-badge-success">În stoc</span>`;
+        }
+        if (Number(p.priceMdl) === 0) {
+            return `<span class="admin-badge admin-badge-order">La comandă</span>`;
+        }
+        return `<span class="admin-badge admin-badge-muted">Epuizat</span>`;
+    }
+
     // Product images are stored as root-relative paths (e.g. "assets/products/x.jpg").
     // The admin app lives under /admin/, so without a leading slash the browser
     // resolves them against /admin/ instead of the site root, breaking every thumbnail.
@@ -20,23 +40,30 @@ const AdminProductList = (function () {
         return `/${path}`;
     }
 
-    function buildQuery(state) {
+    // The API only knows the raw in_stock flag (true/false); "La comanda" vs
+    // "Epuizat" is a distinction this admin view makes by also looking at
+    // priceMdl (see renderStockCell), so both map to inStock=false server-side
+    // and get split apart after the response arrives (see needsClientSplit).
+    function buildQuery(state, overrides) {
         const params = new URLSearchParams();
         if (state.search) params.set("search", state.search);
         if (state.deleted) {
             params.set("deleted", "true");
         } else {
             if (state.category) params.set("category", state.category);
-            if (state.inStock) params.set("inStock", state.inStock);
+            if (state.stock === "true") params.set("inStock", "true");
+            else if (state.stock === "la-comanda" || state.stock === "epuizat") params.set("inStock", "false");
             if (state.active) params.set("active", state.active);
         }
-        params.set("limit", state.limit);
-        params.set("offset", state.offset);
+        const limit = overrides?.limit ?? state.limit;
+        const offset = overrides?.offset ?? state.offset;
+        params.set("limit", limit);
+        params.set("offset", offset);
         return `?${params.toString()}`;
     }
 
     async function render(contentEl) {
-        const state = { search: "", category: "", inStock: "", active: "", deleted: false, limit: 20, offset: 0 };
+        const state = { search: "", category: "", stock: "", active: "", deleted: false, limit: 20, offset: 0 };
         let categories = [];
         try {
             const categoriesResponse = await AdminApi.categories();
@@ -52,9 +79,10 @@ const AdminProductList = (function () {
                         ${categories.map((c) => `<option value="${escapeHtml(c.id)}">${escapeHtml(c.name)}</option>`).join("")}
                     </select>
                     <select data-filter-stock>
-                        <option value="">Stoc: toate</option>
-                        <option value="true">In stoc</option>
-                        <option value="false">Stoc epuizat</option>
+                        <option value="">Toate</option>
+                        <option value="true">În stoc</option>
+                        <option value="la-comanda">La comandă</option>
+                        <option value="epuizat">Epuizat</option>
                     </select>
                     <select data-filter-active>
                         <option value="">Status: toate</option>
@@ -103,7 +131,7 @@ const AdminProductList = (function () {
             }, 300);
         });
         categorySelect.addEventListener("change", () => { state.category = categorySelect.value; state.offset = 0; load(); });
-        stockSelect.addEventListener("change", () => { state.inStock = stockSelect.value; state.offset = 0; load(); });
+        stockSelect.addEventListener("change", () => { state.stock = stockSelect.value; state.offset = 0; load(); });
         activeSelect.addEventListener("change", () => { state.active = activeSelect.value; state.offset = 0; load(); });
 
         let loadToken = 0;
@@ -116,7 +144,26 @@ const AdminProductList = (function () {
             const token = ++loadToken;
             listBody.innerHTML = `<p class="admin-panel-card">Se incarca...</p>`;
             try {
-                const data = await AdminApi.adminProducts(buildQuery(state));
+                const needsClientSplit = state.stock === "la-comanda" || state.stock === "epuizat";
+                let data;
+                if (needsClientSplit) {
+                    // The server only distinguishes in_stock true/false; "La comanda"
+                    // vs "Epuizat" also depends on priceMdl, so fetch the full
+                    // inStock=false set (well within one page - see the 200-item
+                    // API limit) and do the price split and pagination client-side.
+                    const raw = await AdminApi.adminProducts(buildQuery(state, { limit: 200, offset: 0 }));
+                    const filtered = raw.products.filter((p) => (
+                        state.stock === "la-comanda" ? Number(p.priceMdl) === 0 : Number(p.priceMdl) > 0
+                    ));
+                    data = {
+                        total: filtered.length,
+                        limit: state.limit,
+                        offset: state.offset,
+                        products: filtered.slice(state.offset, state.offset + state.limit)
+                    };
+                } else {
+                    data = await AdminApi.adminProducts(buildQuery(state));
+                }
                 if (token !== loadToken) return;
                 renderTable(data);
             } catch (error) {
@@ -141,10 +188,8 @@ const AdminProductList = (function () {
                         <span class="admin-cell-sub">${escapeHtml(p.id)}</span>
                     </td>
                     <td data-label="Categorie">${escapeHtml(p.categoryName || p.category || "-")}</td>
-                    <td data-label="Pret">${formatPrice(p.priceMdl)}</td>
-                    <td data-label="Stoc">
-                        <span class="admin-badge ${p.inStock ? "admin-badge-success" : "admin-badge-muted"}">${p.inStock ? "In stoc" : "Epuizat"}</span>
-                    </td>
+                    <td data-label="Pret">${renderPriceCell(p)}</td>
+                    <td data-label="Stoc">${renderStockCell(p)}</td>
                     <td data-label="Status">
                         <span class="admin-badge ${p.active ? "admin-badge-success" : "admin-badge-danger"}">${p.active ? "Activ" : "Inactiv"}</span>
                     </td>
