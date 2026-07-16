@@ -4,6 +4,8 @@
     --muted: #8d938f;
     --accent: #b9965b;
     --accent-hover: #d2b47a;
+    --accent-ink: #7d5f30;
+    --accent-wash: rgba(185, 150, 91, .1);
     --white: #ffffff;
     --soft: #f7f3ec;
     --light: #fbfaf7;
@@ -492,6 +494,19 @@ a {
     background: rgba(224, 80, 60, .06);
 }
 
+/* Edit stays a quiet secondary action - a faint gold border rather than a
+   filled background, so it never competes with the primary "Adauga produs"
+   button (which keeps the solid gold fill). */
+.admin-btn-edit {
+    border-color: rgba(185, 150, 91, .35);
+}
+
+.admin-btn-edit:hover {
+    border-color: var(--accent);
+    color: var(--accent-ink);
+    background: var(--accent-wash);
+}
+
 .admin-btn-small {
     padding: 5px 10px;
     font-size: 12px;
@@ -540,10 +555,33 @@ a {
     min-width: 180px;
 }
 
+/* The selected option's text needs to read clearly in the closed select,
+   not just on hover/open - a touch more weight than the placeholder-like
+   default keeps the current filter legible at a glance. */
+.admin-toolbar-filters select {
+    font-weight: 600;
+}
+
 .admin-toolbar-filters input:focus,
 .admin-toolbar-filters select:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(185, 150, 91, .12);
+}
+
+/* A filter that differs from its default ("Toate"/all) gets a faint gold
+   border so an applied filter is visible even before opening the dropdown. */
+.admin-toolbar-filters select.is-filtered {
+    border-color: rgba(185, 150, 91, .45);
+    background: var(--accent-wash);
+}
+
+.admin-toolbar button:focus-visible,
+.admin-toolbar input:focus-visible,
+.admin-toolbar select:focus-visible,
+.admin-table-wrap button:focus-visible,
+.admin-pagination button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
 }
 
 /* ===== Table ===== */
@@ -564,7 +602,7 @@ a {
 
 .admin-table th {
     text-align: left;
-    padding: 9px 12px;
+    padding: 9px 10px;
     font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
@@ -574,7 +612,7 @@ a {
 }
 
 .admin-table td {
-    padding: 7px 12px;
+    padding: 7px 10px;
     border-bottom: 1px solid var(--line);
     vertical-align: middle;
     font-size: var(--fs-table);
@@ -582,6 +620,14 @@ a {
 
 .admin-table tr:last-child td {
     border-bottom: 0;
+}
+
+.admin-table tbody tr {
+    transition: background-color var(--transition);
+}
+
+.admin-table tbody tr:hover {
+    background: var(--soft);
 }
 
 .admin-cell-image img,
@@ -632,10 +678,22 @@ a {
 
 /* "La comanda" - made-to-order / calculator-priced items with no fixed
    catalog price, shown in the accent gold rather than success/danger/muted
-   since it isn't a stock-level state (in stock, out of stock, inactive). */
+   since it isn't a stock-level state (in stock, out of stock, inactive).
+   Uses --accent-ink (a dark warm brown) rather than the lighter
+   --accent-hover, which doesn't have enough contrast for badge text on a
+   light background. */
 .admin-badge-order {
-    background: rgba(185, 150, 91, .16);
-    color: var(--accent-hover);
+    background: rgba(185, 150, 91, .22);
+    color: var(--accent-ink);
+    border: 1px solid rgba(185, 150, 91, .3);
+}
+
+/* Real price: plain text, not a badge chip, but given a stronger weight and
+   a warm ink tone so it reads as the "premium" figure in the row rather
+   than blending into the rest of the table's regular-weight text. */
+.admin-price-value {
+    font-weight: 700;
+    color: var(--accent-ink);
 }
 
 .admin-pagination {

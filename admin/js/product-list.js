@@ -17,7 +17,7 @@ const AdminProductList = (function () {
     // had a fixed price). "Epuizat" is reserved for products that DO have a
     // fixed price and are genuinely out of stock.
     function renderPriceCell(p) {
-        if (Number(p.priceMdl) > 0) return escapeHtml(formatPrice(p.priceMdl));
+        if (Number(p.priceMdl) > 0) return `<span class="admin-price-value">${escapeHtml(formatPrice(p.priceMdl))}</span>`;
         return `<span class="admin-badge admin-badge-order">La comandă</span>`;
     }
 
@@ -113,6 +113,13 @@ const AdminProductList = (function () {
             filterFields.forEach((el) => { el.disabled = state.deleted; el.style.opacity = state.deleted ? 0.5 : 1; });
         }
 
+        // Purely visual: a faint gold border on a select whose value isn't
+        // the default ("Toate"/all), so an applied filter is visible without
+        // having to open the dropdown. Doesn't affect filtering behavior.
+        function syncFilterIndicator(select) {
+            select.classList.toggle("is-filtered", Boolean(select.value));
+        }
+
         addBtn.addEventListener("click", () => AdminRouter.navigate("/products/new"));
         trashToggleBtn.addEventListener("click", () => {
             state.deleted = !state.deleted;
@@ -130,9 +137,9 @@ const AdminProductList = (function () {
                 load();
             }, 300);
         });
-        categorySelect.addEventListener("change", () => { state.category = categorySelect.value; state.offset = 0; load(); });
-        stockSelect.addEventListener("change", () => { state.stock = stockSelect.value; state.offset = 0; load(); });
-        activeSelect.addEventListener("change", () => { state.active = activeSelect.value; state.offset = 0; load(); });
+        categorySelect.addEventListener("change", () => { state.category = categorySelect.value; state.offset = 0; syncFilterIndicator(categorySelect); load(); });
+        stockSelect.addEventListener("change", () => { state.stock = stockSelect.value; state.offset = 0; syncFilterIndicator(stockSelect); load(); });
+        activeSelect.addEventListener("change", () => { state.active = activeSelect.value; state.offset = 0; syncFilterIndicator(activeSelect); load(); });
 
         let loadToken = 0;
 
@@ -196,7 +203,7 @@ const AdminProductList = (function () {
                     <td data-label="Actiuni" class="admin-cell-actions">
                         ${state.deleted
                             ? `<button type="button" class="admin-btn-ghost" data-restore="${escapeHtml(p.id)}">Restaureaza</button>`
-                            : `<button type="button" class="admin-btn-ghost" data-edit="${escapeHtml(p.id)}">Editeaza</button>
+                            : `<button type="button" class="admin-btn-ghost admin-btn-edit" data-edit="${escapeHtml(p.id)}">Editeaza</button>
                                <button type="button" class="admin-btn-ghost admin-btn-danger" data-delete="${escapeHtml(p.id)}">Sterge</button>`
                         }
                     </td>
