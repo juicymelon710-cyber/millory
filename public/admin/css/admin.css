@@ -14,13 +14,25 @@
     --success: #3fa66b;
     --title-font: "Manrope", sans-serif;
     --text-font: "Inter", sans-serif;
-    --radius-small: 8px;
-    --radius-medium: 14px;
-    --radius-large: 24px;
-    --shadow-small: 0 8px 20px rgba(17, 17, 17, .08);
-    --shadow-medium: 0 18px 45px rgba(17, 17, 17, .14);
+    --radius-small: 7px;
+    --radius-medium: 11px;
+    --radius-large: 20px;
+    --shadow-small: 0 4px 12px rgba(17, 17, 17, .06);
+    --shadow-medium: 0 12px 30px rgba(17, 17, 17, .12);
     --shadow-large: 0 30px 70px rgba(17, 17, 17, .22);
-    --transition: .25s ease;
+    --transition: .18s ease;
+
+    /* Typography scale - kept deliberately dense; see admin/css/admin.css
+       header comment in the redesign report for the rationale behind each
+       tier (page title / section title / label / input / table / button). */
+    --fs-page-title: 26px;
+    --fs-section-title: 18px;
+    --fs-label: 13px;
+    --fs-input: 14px;
+    --fs-table: 13.5px;
+    --fs-button: 13.5px;
+    --fs-small: 11.5px;
+    --fs-body: 14px;
 }
 
 * {
@@ -31,9 +43,11 @@
 
 body {
     font-family: var(--text-font);
+    font-size: var(--fs-body);
     color: var(--primary);
     background: var(--light);
     min-height: 100vh;
+    line-height: 1.45;
 }
 
 button, input, textarea, select {
@@ -126,19 +140,20 @@ a {
 
 .admin-field {
     display: grid;
-    gap: 8px;
-    margin-bottom: 18px;
+    gap: 6px;
+    margin-bottom: 16px;
 }
 
 .admin-field label {
     color: rgba(255, 255, 255, .72);
-    font-size: .82rem;
+    font-size: var(--fs-label);
     font-weight: 700;
 }
 
 .admin-field input {
-    min-height: 48px;
-    padding: 0 16px;
+    min-height: 42px;
+    padding: 0 14px;
+    font-size: var(--fs-input);
     border-radius: var(--radius-small);
     border: 1px solid rgba(255, 255, 255, .16);
     background: rgba(255, 255, 255, .06);
@@ -150,7 +165,7 @@ a {
 .admin-field input:focus {
     border-color: var(--accent);
     background: rgba(255, 255, 255, .1);
-    box-shadow: 0 0 0 4px rgba(185, 150, 91, .16);
+    box-shadow: 0 0 0 3px rgba(185, 150, 91, .16);
 }
 
 .admin-field input::placeholder {
@@ -159,19 +174,20 @@ a {
 
 .admin-submit {
     width: 100%;
-    min-height: 50px;
+    min-height: 44px;
     margin-top: 8px;
     border-radius: 999px;
     color: var(--primary);
+    font-size: var(--fs-button);
     background: linear-gradient(135deg, var(--accent-hover), var(--accent));
     font-weight: 800;
-    box-shadow: 0 18px 35px rgba(185, 150, 91, .28);
+    box-shadow: 0 14px 28px rgba(185, 150, 91, .24);
     transition: var(--transition);
 }
 
 .admin-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 22px 42px rgba(185, 150, 91, .36);
+    transform: translateY(-1px);
+    box-shadow: 0 16px 32px rgba(185, 150, 91, .3);
 }
 
 .admin-submit:disabled {
@@ -181,9 +197,9 @@ a {
 }
 
 .admin-message {
-    min-height: 20px;
-    margin-top: 16px;
-    font-size: .84rem;
+    min-height: 18px;
+    margin-top: 14px;
+    font-size: 12.5px;
     font-weight: 700;
     text-align: center;
 }
@@ -207,14 +223,14 @@ a {
 
 .admin-shell {
     display: grid;
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 216px 1fr;
     min-height: 100vh;
 }
 
 .admin-sidebar {
     background: var(--dark);
     color: var(--white);
-    padding: 26px 18px;
+    padding: 18px 12px;
     display: flex;
     flex-direction: column;
 }
@@ -222,39 +238,40 @@ a {
 .admin-sidebar-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 0 10px 26px;
+    gap: 9px;
+    padding: 0 8px 18px;
     border-bottom: 1px solid rgba(255, 255, 255, .08);
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 
 .admin-sidebar-logo img {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     object-fit: contain;
 }
 
 .admin-sidebar-logo span {
     font-family: var(--title-font);
     font-weight: 800;
+    font-size: 13.5px;
     letter-spacing: .02em;
 }
 
 .admin-nav {
     display: grid;
-    gap: 4px;
+    gap: 2px;
     flex: 1;
 }
 
 .admin-nav a {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 14px;
+    gap: 10px;
+    padding: 9px 11px;
     border-radius: var(--radius-small);
     color: rgba(255, 255, 255, .68);
     font-weight: 700;
-    font-size: .9rem;
+    font-size: 13.5px;
     transition: var(--transition);
 }
 
@@ -269,26 +286,26 @@ a {
 }
 
 .admin-nav a .admin-nav-icon {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     flex: none;
 }
 
 .admin-sidebar-footer {
-    padding-top: 18px;
+    padding-top: 14px;
     border-top: 1px solid rgba(255, 255, 255, .08);
 }
 
 .admin-logout-btn {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 9px;
     width: 100%;
-    padding: 12px 14px;
+    padding: 9px 11px;
     border-radius: var(--radius-small);
     color: rgba(255, 255, 255, .68);
     font-weight: 700;
-    font-size: .9rem;
+    font-size: 13.5px;
     transition: var(--transition);
 }
 
@@ -307,39 +324,39 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 22px 32px;
+    padding: 14px 22px;
     background: var(--white);
     border-bottom: 1px solid var(--line);
 }
 
 .admin-topbar h1 {
     font-family: var(--title-font);
-    font-size: 1.3rem;
+    font-size: var(--fs-page-title);
     font-weight: 800;
 }
 
 .admin-topbar-user {
     color: var(--secondary);
-    font-size: .86rem;
+    font-size: 12.5px;
     font-weight: 700;
 }
 
 .admin-content {
     flex: 1;
-    padding: 32px;
+    padding: 22px;
 }
 
 /* ===== Dashboard ===== */
 
 .admin-stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 18px;
-    margin-bottom: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
 }
 
 .admin-stat-card {
-    padding: 22px;
+    padding: 16px;
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: var(--radius-medium);
@@ -349,21 +366,21 @@ a {
 .admin-stat-card span {
     display: block;
     color: var(--secondary);
-    font-size: .8rem;
+    font-size: 11.5px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .04em;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
 .admin-stat-card strong {
     font-family: var(--title-font);
-    font-size: 2rem;
+    font-size: 28px;
     font-weight: 800;
 }
 
 .admin-panel-card {
-    padding: 28px;
+    padding: 18px;
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: var(--radius-medium);
@@ -372,12 +389,13 @@ a {
 
 .admin-panel-card h2 {
     font-family: var(--title-font);
-    font-size: 1.1rem;
-    margin-bottom: 10px;
+    font-size: var(--fs-section-title);
+    margin-bottom: 8px;
 }
 
 .admin-panel-card p {
     color: var(--secondary);
+    font-size: 13.5px;
     line-height: 1.6;
 }
 
@@ -386,7 +404,7 @@ a {
 .admin-stub {
     display: grid;
     place-items: center;
-    min-height: 320px;
+    min-height: 260px;
     text-align: center;
     color: var(--secondary);
 }
@@ -394,9 +412,9 @@ a {
 .admin-stub strong {
     display: block;
     font-family: var(--title-font);
-    font-size: 1.2rem;
+    font-size: var(--fs-section-title);
     color: var(--primary);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 /* ===== Loading ===== */
@@ -415,21 +433,21 @@ a {
 .admin-btn-primary {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 22px;
+    gap: 6px;
+    padding: 9px 16px;
     border-radius: 999px;
     color: var(--primary);
     background: linear-gradient(135deg, var(--accent-hover), var(--accent));
     font-weight: 800;
-    font-size: .88rem;
+    font-size: var(--fs-button);
     white-space: nowrap;
-    box-shadow: 0 14px 28px rgba(185, 150, 91, .24);
+    box-shadow: 0 8px 18px rgba(185, 150, 91, .22);
     transition: var(--transition);
 }
 
 .admin-btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 18px 34px rgba(185, 150, 91, .32);
+    box-shadow: 0 10px 22px rgba(185, 150, 91, .28);
 }
 
 .admin-btn-primary:disabled {
@@ -441,14 +459,14 @@ a {
 .admin-btn-ghost {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 9px 16px;
+    gap: 5px;
+    padding: 7px 13px;
     border-radius: 999px;
     border: 1px solid var(--line);
     background: var(--white);
     color: var(--primary);
     font-weight: 700;
-    font-size: .82rem;
+    font-size: 13px;
     white-space: nowrap;
     transition: var(--transition);
 }
@@ -475,8 +493,8 @@ a {
 }
 
 .admin-btn-small {
-    padding: 6px 12px;
-    font-size: .76rem;
+    padding: 5px 10px;
+    font-size: 12px;
 }
 
 /* ===== Product list toolbar ===== */
@@ -485,29 +503,30 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
-    margin-bottom: 22px;
+    margin-bottom: 14px;
 }
 
 .admin-toolbar-actions {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
     align-items: center;
 }
 
 .admin-toolbar-filters {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
     flex: 1;
 }
 
 .admin-toolbar-filters input,
 .admin-toolbar-filters select {
-    min-height: 42px;
-    padding: 0 14px;
+    min-height: 34px;
+    padding: 0 11px;
+    font-size: var(--fs-input);
     border-radius: var(--radius-small);
     border: 1px solid var(--line);
     background: var(--white);
@@ -518,13 +537,13 @@ a {
 
 .admin-toolbar-filters input {
     flex: 1;
-    min-width: 200px;
+    min-width: 180px;
 }
 
 .admin-toolbar-filters input:focus,
 .admin-toolbar-filters select:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(185, 150, 91, .12);
+    box-shadow: 0 0 0 3px rgba(185, 150, 91, .12);
 }
 
 /* ===== Table ===== */
@@ -540,13 +559,13 @@ a {
 .admin-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 720px;
+    min-width: 680px;
 }
 
 .admin-table th {
     text-align: left;
-    padding: 14px 18px;
-    font-size: .76rem;
+    padding: 9px 12px;
+    font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .04em;
@@ -555,10 +574,10 @@ a {
 }
 
 .admin-table td {
-    padding: 14px 18px;
+    padding: 7px 12px;
     border-bottom: 1px solid var(--line);
     vertical-align: middle;
-    font-size: .9rem;
+    font-size: var(--fs-table);
 }
 
 .admin-table tr:last-child td {
@@ -567,8 +586,8 @@ a {
 
 .admin-cell-image img,
 .admin-image-placeholder {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     border-radius: var(--radius-small);
     object-fit: cover;
     background: var(--soft);
@@ -578,21 +597,21 @@ a {
 .admin-cell-sub {
     display: block;
     color: var(--secondary);
-    font-size: .76rem;
-    margin-top: 2px;
+    font-size: var(--fs-small);
+    margin-top: 1px;
 }
 
 .admin-cell-actions {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
 }
 
 .admin-badge {
     display: inline-block;
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 999px;
-    font-size: .74rem;
+    font-size: 11.5px;
     font-weight: 800;
 }
 
@@ -615,39 +634,48 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 14px;
+    gap: 12px;
     flex-wrap: wrap;
-    margin-top: 18px;
+    margin-top: 12px;
     color: var(--secondary);
-    font-size: .84rem;
+    font-size: 12.5px;
 }
 
 .admin-pagination-controls {
     display: flex;
-    gap: 10px;
+    gap: 8px;
 }
 
 .admin-empty-hint {
     color: var(--secondary);
-    font-size: .84rem;
-    padding: 10px 0;
+    font-size: 13px;
+    padding: 8px 0;
 }
 
 /* ===== Product editor ===== */
+
+.admin-editor-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--light);
+    padding-top: 2px;
+    margin-bottom: 14px;
+}
 
 .admin-editor-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 14px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .admin-editor-header-actions {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
 }
 
 .admin-editor-header-actions .admin-message {
@@ -657,16 +685,15 @@ a {
 
 .admin-tabs {
     display: flex;
-    gap: 4px;
+    gap: 2px;
     overflow-x: auto;
     border-bottom: 1px solid var(--line);
-    margin-bottom: 24px;
 }
 
 .admin-tab {
-    padding: 12px 18px;
+    padding: 9px 14px;
     font-weight: 700;
-    font-size: .86rem;
+    font-size: 13.5px;
     color: var(--secondary);
     white-space: nowrap;
     border-bottom: 2px solid transparent;
@@ -692,13 +719,13 @@ a {
 
 .admin-form-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px 16px;
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: var(--radius-medium);
     box-shadow: var(--shadow-small);
-    padding: 26px;
+    padding: 16px;
 }
 
 .admin-form-grid .admin-field {
@@ -713,7 +740,7 @@ a {
 .admin-form-grid .admin-field label,
 .admin-field-group label {
     color: var(--secondary);
-    font-size: .8rem;
+    font-size: var(--fs-label);
     font-weight: 700;
 }
 
@@ -723,8 +750,9 @@ a {
 .admin-row-fields input,
 .admin-row-fields select,
 .admin-chip input {
-    min-height: 44px;
-    padding: 0 14px;
+    min-height: 34px;
+    padding: 0 11px;
+    font-size: var(--fs-input);
     border-radius: var(--radius-small);
     border: 1px solid var(--line);
     background: var(--light);
@@ -735,8 +763,8 @@ a {
 }
 
 .admin-form-grid .admin-field textarea {
-    min-height: 90px;
-    padding: 12px 14px;
+    min-height: 76px;
+    padding: 9px 11px;
     resize: vertical;
 }
 
@@ -747,43 +775,62 @@ a {
 .admin-row-fields select:focus,
 .admin-chip input:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(185, 150, 91, .12);
+    box-shadow: 0 0 0 3px rgba(185, 150, 91, .12);
 }
 
 .admin-form-grid .admin-field small {
     display: block;
-    margin-top: 6px;
+    margin-top: 4px;
     color: var(--muted);
-    font-size: .76rem;
+    font-size: var(--fs-small);
 }
 
-.admin-field-inline label {
+.admin-checkbox-row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 22px;
+    flex-wrap: wrap;
+    padding-top: 2px;
+}
+
+label.admin-field-inline {
+    display: flex;
+    align-items: center;
+    gap: 7px;
     color: var(--primary);
     font-weight: 700;
-    font-size: .88rem;
+    font-size: 13.5px;
+    cursor: pointer;
 }
 
 .admin-inline-checkbox {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: .82rem;
+    gap: 6px;
+    font-size: 12.5px;
     color: var(--secondary);
     font-weight: 600;
     white-space: nowrap;
+    cursor: pointer;
+}
+
+label.admin-field-inline input[type="checkbox"],
+.admin-inline-checkbox input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    accent-color: var(--accent);
+    cursor: pointer;
 }
 
 .admin-field-group {
     display: grid;
-    gap: 8px;
+    gap: 6px;
 }
 
 .admin-inline-inputs {
     display: flex;
-    gap: 10px;
+    gap: 8px;
 }
 
 .admin-image-preview {
@@ -794,7 +841,7 @@ a {
 
 .admin-image-preview img {
     max-width: 100%;
-    max-height: 220px;
+    max-height: 150px;
     border-radius: var(--radius-medium);
     object-fit: cover;
     box-shadow: var(--shadow-small);
@@ -802,12 +849,12 @@ a {
 
 .admin-image-preview .admin-image-placeholder {
     width: 100%;
-    height: 160px;
+    height: 110px;
     display: grid;
     place-items: center;
     border-radius: var(--radius-medium);
     color: var(--muted);
-    font-size: .82rem;
+    font-size: 12.5px;
 }
 
 /* ===== Editor subsections (tags, sizes, materials, options) ===== */
@@ -817,56 +864,56 @@ a {
     border: 1px solid var(--line);
     border-radius: var(--radius-medium);
     box-shadow: var(--shadow-small);
-    padding: 24px;
-    margin-bottom: 20px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
 }
 
 .admin-subsection-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 16px;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .admin-subsection-header h3 {
     font-family: var(--title-font);
-    font-size: 1rem;
+    font-size: var(--fs-section-title);
     font-weight: 800;
 }
 
 .admin-chip-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
 }
 
 .admin-chip {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     background: var(--light);
     border: 1px solid var(--line);
     border-radius: 999px;
-    padding: 4px 6px 4px 14px;
+    padding: 3px 4px 3px 12px;
 }
 
 .admin-chip input {
     border: 0;
     background: none;
-    min-height: 32px;
+    min-height: 26px;
     padding: 0;
-    width: 140px;
+    width: 120px;
 }
 
 .admin-chip button {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     display: grid;
     place-items: center;
     color: var(--danger);
-    font-size: 1rem;
+    font-size: .9rem;
     line-height: 1;
 }
 
@@ -874,13 +921,32 @@ a {
     background: rgba(224, 80, 60, .12);
 }
 
+/* Flexbox rather than CSS Grid: this row is reused for filters (3 fields),
+   sizes/materials (5 fields), and supplement items (6 fields) - a fixed
+   grid-template-columns can't fit all of them, and repeat(auto-fit, ...)
+   cannot be combined with a trailing explicit track (invalid per spec,
+   silently ignored by the browser, which previously collapsed every field
+   onto its own full-width row instead of a compact row). Flex with a
+   wrapping basis fits any number of fields correctly. */
 .admin-row-fields {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) auto;
-    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
     align-items: center;
-    padding: 10px 0;
+    padding: 7px 0;
     border-bottom: 1px solid var(--line);
+}
+
+.admin-row-fields > input,
+.admin-row-fields > select {
+    flex: 1 1 110px;
+    min-width: 90px;
+    width: auto;
+}
+
+.admin-row-fields > label.admin-inline-checkbox,
+.admin-row-fields > button {
+    flex: 0 0 auto;
 }
 
 .admin-row-fields:last-child {
@@ -888,19 +954,19 @@ a {
 }
 
 .admin-row-fields-nested {
-    padding-left: 16px;
+    padding-left: 12px;
 }
 
 .admin-option-group {
     border: 1px solid var(--line);
     border-radius: var(--radius-small);
-    padding: 16px;
-    margin-bottom: 14px;
+    padding: 12px;
+    margin-bottom: 10px;
     background: var(--light);
 }
 
 .admin-supplements {
-    margin: 10px 0;
+    margin: 8px 0;
 }
 
 @media (max-width: 860px) {
@@ -912,7 +978,7 @@ a {
         flex-direction: row;
         align-items: center;
         overflow-x: auto;
-        padding: 14px;
+        padding: 12px;
     }
 
     .admin-sidebar-logo {
@@ -939,16 +1005,20 @@ a {
     }
 
     .admin-content {
-        padding: 20px;
+        padding: 16px;
     }
 
     .admin-topbar {
-        padding: 18px 20px;
+        padding: 14px 16px;
+    }
+
+    .admin-topbar h1 {
+        font-size: 21px;
     }
 
     .admin-form-grid {
         grid-template-columns: 1fr;
-        padding: 20px;
+        padding: 14px;
     }
 
     .admin-toolbar {
@@ -1001,24 +1071,24 @@ a {
     }
 
     .admin-table tr {
-        padding: 14px 16px;
+        padding: 12px 14px;
         border-bottom: 1px solid var(--line);
     }
 
     .admin-table td {
         border-bottom: 0;
-        padding: 6px 0;
+        padding: 5px 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        gap: 10px;
         text-align: right;
     }
 
     .admin-table td::before {
         content: attr(data-label);
         font-weight: 800;
-        font-size: .74rem;
+        font-size: 11px;
         text-transform: uppercase;
         letter-spacing: .03em;
         color: var(--secondary);

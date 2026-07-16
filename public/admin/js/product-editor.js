@@ -9,6 +9,15 @@ const AdminProductEditor = (function () {
             .replace(/"/g, "&quot;");
     }
 
+    // Product images are stored as root-relative paths (e.g. "assets/products/x.jpg").
+    // The admin app lives under /admin/, so without a leading slash the browser
+    // resolves them against /admin/ instead of the site root, breaking the preview.
+    function resolveImageUrl(path) {
+        if (!path) return "";
+        if (/^(https?:)?\/\//i.test(path) || path.startsWith("/")) return path;
+        return `/${path}`;
+    }
+
     function slugify(value) {
         return String(value || "")
             .toLowerCase()
@@ -87,21 +96,23 @@ const AdminProductEditor = (function () {
 
         contentEl.innerHTML = `
             <div class="admin-editor">
-                <div class="admin-editor-header">
-                    <button type="button" class="admin-btn-ghost" data-back>&larr; Inapoi la produse</button>
-                    <div class="admin-editor-header-actions">
-                        <span class="admin-message" data-editor-message></span>
-                        <button type="button" class="admin-btn-primary" data-save>${isCreateMode ? "Creeaza produsul" : "Salveaza modificarile"}</button>
+                <div class="admin-editor-sticky">
+                    <div class="admin-editor-header">
+                        <button type="button" class="admin-btn-ghost" data-back>&larr; Inapoi la produse</button>
+                        <div class="admin-editor-header-actions">
+                            <span class="admin-message" data-editor-message></span>
+                            <button type="button" class="admin-btn-primary" data-save>${isCreateMode ? "Creeaza produsul" : "Salveaza modificarile"}</button>
+                        </div>
                     </div>
-                </div>
-                <div class="admin-tabs" data-tabs>
-                    <button type="button" class="admin-tab active" data-tab="general">General</button>
-                    <button type="button" class="admin-tab" data-tab="pricing">Pret</button>
-                    <button type="button" class="admin-tab" data-tab="images">Imagini</button>
-                    <button type="button" class="admin-tab" data-tab="tags">Etichete si filtre</button>
-                    <button type="button" class="admin-tab" data-tab="sizes">Marimi</button>
-                    <button type="button" class="admin-tab" data-tab="materials">Materiale</button>
-                    <button type="button" class="admin-tab" data-tab="options">Optiuni si suplimente</button>
+                    <div class="admin-tabs" data-tabs>
+                        <button type="button" class="admin-tab active" data-tab="general">General</button>
+                        <button type="button" class="admin-tab" data-tab="pricing">Pret</button>
+                        <button type="button" class="admin-tab" data-tab="images">Imagini</button>
+                        <button type="button" class="admin-tab" data-tab="tags">Etichete si filtre</button>
+                        <button type="button" class="admin-tab" data-tab="sizes">Marimi</button>
+                        <button type="button" class="admin-tab" data-tab="materials">Materiale</button>
+                        <button type="button" class="admin-tab" data-tab="options">Optiuni si suplimente</button>
+                    </div>
                 </div>
                 <div class="admin-tab-panels">
                     <section class="admin-tab-panel active" data-panel="general"></section>
@@ -161,11 +172,9 @@ const AdminProductEditor = (function () {
                         <label>Forma</label>
                         <input type="text" data-f="shape" value="${escapeHtml(state.shape)}" placeholder="rotund, oval, dreptunghiular...">
                     </div>
-                    <div class="admin-field admin-field-inline">
-                        <label><input type="checkbox" data-f="inStock" ${state.inStock ? "checked" : ""}> In stoc</label>
-                    </div>
-                    <div class="admin-field admin-field-inline">
-                        <label><input type="checkbox" data-f="active" ${state.active ? "checked" : ""}> Activ (vizibil pe site)</label>
+                    <div class="admin-field admin-field-wide admin-checkbox-row">
+                        <label class="admin-field-inline"><input type="checkbox" data-f="inStock" ${state.inStock ? "checked" : ""}> In stoc</label>
+                        <label class="admin-field-inline"><input type="checkbox" data-f="active" ${state.active ? "checked" : ""}> Activ (vizibil pe site)</label>
                     </div>
                 </div>
             `;
@@ -260,7 +269,7 @@ const AdminProductEditor = (function () {
                         <small>Sistemul de incarcare a imaginilor va fi adaugat intr-o etapa urmatoare. Foloseste deocamdata un URL sau o cale existenta.</small>
                     </div>
                     <div class="admin-image-preview" data-image-preview>
-                        ${state.image ? `<img src="${escapeHtml(state.image)}" alt="">` : `<div class="admin-image-placeholder">Fara imagine</div>`}
+                        ${state.image ? `<img src="${escapeHtml(resolveImageUrl(state.image))}" alt="">` : `<div class="admin-image-placeholder">Fara imagine</div>`}
                     </div>
                 </div>
             `;
@@ -268,7 +277,7 @@ const AdminProductEditor = (function () {
                 state.image = e.target.value.trim();
                 markDirty();
                 const preview = panel.querySelector("[data-image-preview]");
-                preview.innerHTML = state.image ? `<img src="${escapeHtml(state.image)}" alt="">` : `<div class="admin-image-placeholder">Fara imagine</div>`;
+                preview.innerHTML = state.image ? `<img src="${escapeHtml(resolveImageUrl(state.image))}" alt="">` : `<div class="admin-image-placeholder">Fara imagine</div>`;
             });
         }
 

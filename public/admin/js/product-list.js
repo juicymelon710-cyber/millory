@@ -11,6 +11,15 @@ const AdminProductList = (function () {
         return `${Number(value || 0).toLocaleString("ro-RO")} MDL`;
     }
 
+    // Product images are stored as root-relative paths (e.g. "assets/products/x.jpg").
+    // The admin app lives under /admin/, so without a leading slash the browser
+    // resolves them against /admin/ instead of the site root, breaking every thumbnail.
+    function resolveImageUrl(path) {
+        if (!path) return "";
+        if (/^(https?:)?\/\//i.test(path) || path.startsWith("/")) return path;
+        return `/${path}`;
+    }
+
     function buildQuery(state) {
         const params = new URLSearchParams();
         if (state.search) params.set("search", state.search);
@@ -125,7 +134,7 @@ const AdminProductList = (function () {
             const rows = data.products.map((p) => `
                 <tr data-row="${escapeHtml(p.id)}">
                     <td data-label="Imagine" class="admin-cell-image">
-                        ${p.image ? `<img src="${escapeHtml(p.image)}" alt="">` : `<div class="admin-image-placeholder"></div>`}
+                        ${p.image ? `<img src="${escapeHtml(resolveImageUrl(p.image))}" alt="" loading="lazy">` : `<div class="admin-image-placeholder"></div>`}
                     </td>
                     <td data-label="Titlu">
                         <strong>${escapeHtml(p.title)}</strong>
